@@ -1,0 +1,279 @@
+%!TEX root = ../main.tex
+
+%
+% Nahezu alle Einstellungen koennen hier getaetigt werden
+%
+
+\RequirePackage[l2tabu, orthodox]{nag}	% weist in Commandozeile bzw. log auf veraltete LaTeX Syntax hin
+
+\documentclass[%
+    % final,
+	pdftex,
+	oneside,			% Einseitiger Druck (oneside) oder zweiseitig (twoside)
+	% headings=openright,	% Kapitelanfänge immer auf rechter Seite (bei zweiseitig)
+	cleardoublepage=empty,	% Leere Vakatseiten
+	12pt,				% Schriftgroesse
+	parskip=half,		% Halbe Zeile Abstand zwischen Absätzen (half).
+%	topmargin = 10pt,	% Abstand Seitenrand (Std:1in) zu Kopfzeile [laut log: unused]
+	headheight = 20pt,	% Höhe der Kopfzeile
+%	headsep = 30pt,	% Abstand zwischen Kopfzeile und Text Body  [laut log: unused]
+	headsepline,		% Linie nach Kopfzeile.
+	% footsepline,		% Linie vor Fusszeile.
+	footheight = 20pt,	% Höhe der Fusszeile
+	abstracton,		% Abstract Überschriften
+	DIV=calc,		% Satzspiegel berechnen
+	headinclude=false,	% Kopfzeile nicht in den Satzspiegel einbeziehen
+	footinclude=false,	% Fußzeile nicht in den Satzspiegel einbeziehen
+	listof=totoc,		% Abbildungs-/ Tabellenverzeichnis im Inhaltsverzeichnis darstellen
+	toc=bibliography,	% Literaturverzeichnis im Inhaltsverzeichnis darstellen
+	pointlessnumbers,
+	% chapterprefix=true,
+	% bibliography=openstyle
+]{scrreprt}	% Koma-Script report-Klasse (scrreprt), fuer laengere Bachelorarbeiten alternativ auch: scrbook
+
+\raggedbottom
+
+% Einstellungen laden
+\usepackage{xstring}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\newcommand{\einstellung}[1]{%
+  \expandafter\newcommand\csname #1\endcsname{}
+  \expandafter\newcommand\csname setze#1\endcsname[1]{\expandafter\renewcommand\csname#1\endcsname{##1}}
+}
+\newcommand{\langstr}[1]{\einstellung{lang#1}}
+
+\input{ads/einstellungen_liste} % verfügbare Einstellungen
+\input{einstellungen} % lese Einstellungen
+
+\input{lang/strings} % verfügbare Strings
+\input{lang/\sprache} % Übersetzung einlesen
+
+% Einstellung der Sprache des Paketes Babel und der Verzeichnisüberschriften
+\iflang{de}{\usepackage[english, ngerman]{babel}}
+\iflang{en}{\usepackage[ngerman, english]{babel}}
+
+%%%%%%% Package Includes %%%%%%%
+
+\usepackage[left=3cm,right=2cm,top=2.5cm,bottom=2.5cm,foot=1cm]{geometry}	% Seitenränder und Abstände
+\usepackage[activate]{microtype} %Zeilenumbruch und mehr
+\usepackage[onehalfspacing]{setspace}
+\usepackage{makeidx}
+\usepackage[autostyle=true,german=quotes]{csquotes}
+\usepackage{longtable}
+\usepackage{enumitem}	% mehr Optionen bei Aufzählungen
+\usepackage{graphicx}
+\usepackage{pdfpages}   % zum Einbinden von PDFs
+% \usepackage[table]{xcolor} 	% für HTML-Notation
+\usepackage{float}
+\usepackage{array}
+\usepackage{calc}		% zum Rechnen (Bildtabelle in Deckblatt)
+\usepackage[right]{eurosym}
+\DeclareUnicodeCharacter{20AC}{\euro}
+\usepackage{wrapfig}
+\usepackage{pgffor} % für automatische Kapiteldateieinbindung
+\usepackage[hang, multiple, stable]{footmisc} % Fussnoten; perpage für jede Seite
+\usepackage{chngcntr}
+\counterwithout{footnote}{chapter}
+\usepackage[printonlyused]{acronym} % falls gewünscht kann die Option footnote eingefügt werden, dann wird die Erklärung nicht inline sondern in einer Fußnote dargestellt
+\usepackage{listings}
+\usepackage{tabularx}
+% \usepackage{pdflscape}
+\usepackage{lscape}
+\usepackage{rotating}
+\usepackage[labelfont={bf},font={small},format={hang},singlelinecheck={false}]{caption} % Einstellungen für Bildunterschriften/Tabellenüberschriften
+\setcapwidth[c]{.9\textwidth}
+\usepackage{subcaption} 
+\usepackage{ltxtable}
+% \usepackage{filecontents}
+\setlength{\skip\footins}{10pt plus 6pt minus 0pt} % Abstand zwischen Fußnoten und Fließtext erhöhen. Latex-Standard: 10pt plus 4pt minus 2pt
+\usepackage{mathtools}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usepackage{pgf-pie} % https://www.namsu.de/Extra/pakete/Pie_Chart.html
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\usepackage{multirow}
+\usepackage[absolute]{textpos}
+\usepackage{tcolorbox}
+% \usepackage{minitoc}
+\usepackage{afterpage}
+% \usepackage[Glenn]{fncychap}
+% Sonny, Lenny, Glenn, Conny, Rejne, Bjarne, Bjornstrup
+
+% Notizen. Einsatz mit \todo{Notiz} oder \todo[inline]{Notiz}.
+\usepackage[obeyFinal,backgroundcolor=yellow,linecolor=black]{todonotes}
+% Alle Notizen ausblenden mit der Option "final" in \documentclass[...] oder durch das auskommentieren folgender Zeile
+% \usepackage[disable]{todonotes}
+
+% Kommentarumgebung. Einsatz mit \comment{}. Alle Kommentare ausblenden mit dem Auskommentieren der folgenden und dem aktivieren der nächsten Zeile.
+% \newcommand{\comment}[1]{\par {\bfseries \itshape \color{blue} #1 \par}} %Kommentar anzeigen
+%\newcommand{\comment}[1]{} %Kommentar ausblenden
+
+
+%%%%%% Configuration %%%%%
+
+%% Anwenden der Einstellungen
+
+\usepackage{\schriftart}
+% Überschriften auch in gesetzter Schriftart
+\setkomafont{disposition}{%
+	\normalfont\bfseries
+}
+\setkomafont{dictum}{\normalfont}
+% Verwendung der Schrift ohne Serifen
+% \renewcommand*{\familydefault}{\sfdefault}
+% \addtokomafont{disposition}{\sffamily}
+
+\ladefarben{}
+
+% Titel, Autor und Datum
+\title{\titel}
+\author{\autor}
+\date{\datum}
+
+% PDF Einstellungen
+\usepackage[%
+	pdftitle={\titel},
+	pdfauthor={\autor},
+	pdfsubject={\arbeit},
+	pdfcreator={pdflatex, LaTeX with KOMA-Script},
+	pdfpagemode=UseOutlines, 		% Beim Oeffnen Inhaltsverzeichnis anzeigen
+	pdfdisplaydoctitle=true, 		% Dokumenttitel statt Dateiname anzeigen.
+	pdflang={\sprache}, 			% Sprache des Dokuments.
+	%hidelinks,						% entfernt Umrandung von verlinkten Stellen, ohne Verlinkung zu löschen
+]{hyperref}
+
+% (Farb-)einstellungen für die Links im PDF
+\hypersetup{%
+	colorlinks=true, 		% Aktivieren von farbigen Links im Dokument
+	linkcolor=black, 	% Farbe festlegen
+	citecolor=black,
+	filecolor=black,
+	menucolor=black,
+	urlcolor=black,
+	linktocpage=true, 		% Nicht der Text sondern die Seitenzahlen in Verzeichnissen klickbar
+	bookmarksnumbered=true 	% Überschriftsnummerierung im PDF Inhalt anzeigen.
+}
+% Workaround um Fehler in Hyperref, muss hier stehen bleiben
+\usepackage{bookmark} %nur ein latex-Durchlauf für die Aktualisierung von Verzeichnissen nötig
+
+% Schriftart in Captions etwas kleiner
+\addtokomafont{caption}{\small}
+
+% Literaturverweise (sowohl deutsch als auch englisch)
+\iflang{de}{%
+\usepackage[
+	backend=biber,		% empfohlen. Falls biber Probleme macht: bibtex
+	bibwarn=true,
+	bibencoding=utf8,	% wenn .bib in utf8, sonst ascii
+	% sortlocale=de_DE,
+	sorting=none,		% Altenativen: https://tex.stackexchange.com/questions/51434/biblatex-citation-order
+	style=\zitierstil,
+]{biblatex}
+}
+\iflang{en}{%
+\usepackage[
+	backend=biber,		% empfohlen. Falls biber Probleme macht: bibtex
+	bibwarn=true,
+	bibencoding=utf8,	% wenn .bib in utf8, sonst ascii
+	% sortlocale=en_US,
+	sorting=none,
+	style=\zitierstil,
+]{biblatex}
+}
+
+\setcounter{biburlnumpenalty}{100}
+\setcounter{biburlucpenalty}{100}
+\setcounter{biburllcpenalty}{100}
+
+\ladeliteratur{}
+
+% Glossar
+\usepackage[nonumberlist,toc,automake]{glossaries}
+\addtokomafont{descriptionlabel}{\normalfont\bfseries}
+
+%Kopf- und Fußzeilen
+\usepackage[plainfootsepline=yes]{scrlayer-scrpage}
+
+%%%%%% Additional settings %%%%%%
+
+% Hurenkinder und Schusterjungen verhindern
+% http://projekte.dante.de/DanteFAQ/Silbentrennung
+\clubpenalty = 10000 % schließt Schusterjungen aus (Seitenumbruch nach der ersten Zeile eines neuen Absatzes)
+\widowpenalty = 10000 % schließt Hurenkinder aus (die letzte Zeile eines Absatzes steht auf einer neuen Seite)
+\displaywidowpenalty=10000
+
+% Bildpfad
+\graphicspath{{images/}}
+
+% Einige häufig verwendete Sprachen
+\lstloadlanguages{PHP,Python,Java,C,C++,bash}
+\listingsettings{}
+% Umbennung des Listings
+\renewcommand\lstlistingname{\langlistingname}
+\renewcommand\lstlistlistingname{\langlistlistingname}
+\def\lstlistingautorefname{\langlistingautorefname}
+
+% Abstände in Tabellen
+\setlength{\tabcolsep}{\spaltenabstand}
+\renewcommand{\arraystretch}{\zeilenabstand}
+
+% Anhangsverzeichnis
+\makeatletter% --> De-TeX-FAQ
+% Weitergabe des folgenden Codes oder Modifikationen davon nur unter Nennung
+% der Originalquelle: <http://www.komascript.de/comment/1073#comment-1073>,
+% gestattet.
+% Leistungsfähigere Lösung unter <https://komascript.de/comment/5578#comment-5578>.
+
+% Inhaltsverzeichnis für den Anhang erstellen 
+% \newcommand*{\maintoc}{% Hauptinhaltsverzeichnis
+%   \begingroup
+%     \@fileswfalse% kein neues Verzeichnis öffnen
+%     \renewcommand*{\appendixattoc}{% Trennanweisung im Inhaltsverzeichnis
+%       \value{tocdepth}=-10000 % lokal tocdepth auf sehr kleinen Wert setzen
+%     }%
+%     \tableofcontents% Verzeichnis ausgeben
+%   \endgroup
+% }
+% \newcommand*{\appendixtoc}{% Anhangsinhaltsverzeichnis
+%   \begingroup
+%     \edef\@alltocdepth{\the\value{tocdepth}}% tocdepth merken
+%     \setcounter{tocdepth}{-10000}% Keine Verzeichniseinträge
+%     \renewcommand*{\contentsname}{% Verzeichnisname ändern
+%       \langanhang}%
+%     \renewcommand*{\appendixattoc}{% Trennanweisung im Inhaltsverzeichnis
+%       \setcounter{tocdepth}{\@alltocdepth}% tocdepth wiederherstellen
+%     }%
+%     \tableofcontents% Verzeichnis ausgeben
+%     \setcounter{tocdepth}{\@alltocdepth}% tocdepth wiederherstellen
+%   \endgroup
+% }
+% \newcommand*{\appendixattoc}{% Trennanweisung im Inhaltsverzeichnis
+% }
+% \g@addto@macro\appendix{% \appendix erweitern
+%   \if@openright\cleardoublepage\else\clearpage\fi% Neue Seite
+%   \phantomsection
+%   \addcontentsline{toc}{chapter}{\appendixname}% Eintrag ins Hauptverzeichnis
+%   \addtocontents{toc}{\protect\appendixattoc}% Trennanweisung in die toc-Datei
+% }
+% \makeatother
+
+% Kreisdiagramme
+\def\printonlylargeenough#1#2{\unless\ifdim#2pt<#1pt\relax
+#2\printnumbertrue
+\else
+\printnumberfalse
+\fi}
+\newif\ifprintnumber
+
+\newcommand{\tab}{~~~~~}
+
+\clearpairofpagestyles
+\ohead[]{\textsc{\headmark}}				% Kopfzeile außen immer mit Headmark versehen
+\automark[section]{chapter}		% Headmark bestehend aus Kolumnentitel
+\ofoot[\pagemark]{\pagemark}	% Fußzeile mit Seitenzahl außen
+\renewcommand*\chapterpagestyle{plain.scrheadings}
+% \renewcommand*\partpagestyle{plain.scrheadings}		%Bei Verwendung von Parts als Überschriftenebene: Setzen des Pagestyles global
+

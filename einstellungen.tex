@@ -1,0 +1,185 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                                   Einstellungen
+%
+% Hier können alle relevanten Einstellungen für diese Arbeit gesetzt werden.
+% Dazu gehören Angaben u.a. über den Autor sowie Formatierungen.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Sprache %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Aktuell sind Deutsch und Englisch unterstützt.
+%% Es werden nicht nur alle vom Dokument erzeugten Texte in
+%% der entsprechenden Sprache angezeigt, sondern auch weitere
+%% Aspekte angepasst, wie z.B. die Anführungszeichen und
+%% Datumsformate.
+\setzesprache{de} % de oder en
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Angaben  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Die meisten der folgenden Daten werden auf dem
+%% Deckblatt angezeigt, einige auch im weiteren Verlauf
+%% des Dokuments.
+\setzematrikelnr{23176975}
+\setzekurs{TMB19 AM2}
+\setzetitel{Critical clearing time of synchronous generators}
+\setzedatumAbgabe{\today}
+\setzefirma{Schaeffler Technologies AG \& Co. KG}
+\setzefirmenort{Industriestraße 1-3, 91074 Herzogenaurach}
+\setzeabgabeort{Erlangen}
+\setzestudiengang{Energy Technology}
+\setzedhbw{Mannheim}
+\setzebetreuer{Dipl.-Phys. Philipp Hörning}
+\setzegutachter{Prof. Dr.-Ing. Simon Thiele}
+\setzezeitraum{27.06.2022\ -\ 19.09.2022}
+\setzearbeit{Seminararbeit}
+\setzeautor{Maximilian Köhler} 
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% Literaturverzeichnis %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Bei Fehlern während der Verarbeitung bitte in ads/header.tex bei der
+%% Einbindung des Pakets biblatex (ungefähr ab Zeile 110,
+%% einmal für jede Sprache), biber in bibtex ändern.
+\newcommand{\ladeliteratur}{%
+\addbibresource{literatur.bib}
+%\addbibresource{weitereDatei.bib}
+}
+%% Zitierstil
+%% siehe: http://ctan.mirrorcatalogs.com/macros/latex/contrib/biblatex/doc/biblatex.pdf (3.3.1 Citation Styles)
+%% mögliche Werte z.B numeric-comp, alphabetic, authoryear, numeric
+\setzezitierstil{ieee}
+%\setzezitierstil{alphabetic}
+%\setzezitierstil{authoryear}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Layout %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Verschiedene Schriftarten
+% laut nag Warnung: palatino obsolete, use mathpazo, helvet (option scaled=.95), courier instead
+\setzeschriftart{charter} % palatino oder goudysans, lmodern, libertine, mathptmx
+% palatino oder lmodern ganz nett
+
+%% Paket um Textteile drehen zu können
+%\usepackage{rotating}
+%% Paket um Seite im Querformat anzuzeigen
+%\usepackage{lscape}
+
+%% Seitenränder
+% \setzeseitenrand{2.5cm}
+
+%% Abstand vor Kapitelüberschriften zum oberen Seitenrand
+\setzekapitelabstand{0pt}
+
+%% Spaltenabstand
+\setzespaltenabstand{10pt}
+%%Zeilenabstand innerhalb einer Tabelle
+\setzezeilenabstand{1.5}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Verschiedenes  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Farben (Angabe in HTML-Notation mit großen Buchstaben)
+\newcommand{\ladefarben}{%
+	\definecolor{LinkColor}{HTML}{00007A}
+	\definecolor{ListingBackground}{HTML}{FCF7DE}
+}
+
+%%Mathematikpakete benutzen (Pakete aktivieren)
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+%% Programmiersprachen Highlighting (Listings)
+\newcommand{\listingsettings}{%
+	\lstset{%
+		language=Java,			% Standardsprache des Quellcodes
+		numbers=left,			% Zeilennummern links
+		stepnumber=1,			% Jede Zeile nummerieren.
+		numbersep=5pt,			% 5pt Abstand zum Quellcode
+		numberstyle=\tiny,		% Zeichengrösse 'tiny' für die Nummern.
+		breaklines=true,		% Zeilen umbrechen wenn notwendig.
+		breakautoindent=true,	% Nach dem Zeilenumbruch Zeile einrücken.
+		postbreak=\space,		% Bei Leerzeichen umbrechen.
+		tabsize=2,				% Tabulatorgrösse 2
+		basicstyle=\ttfamily\footnotesize, % Nichtproportionale Schrift, klein für den Quellcode
+		showspaces=false,		% Leerzeichen nicht anzeigen.
+		showstringspaces=false,	% Leerzeichen auch in Strings ('') nicht anzeigen.
+		extendedchars=true,		% Alle Zeichen vom Latin1 Zeichensatz anzeigen.
+		captionpos=b,			% sets the caption-position to bottom
+		backgroundcolor=\color{ListingBackground}, % Hintergrundfarbe des Quellcodes setzen.
+		xleftmargin=0pt,		% Rand links
+		xrightmargin=0pt,		% Rand rechts
+		frame=single,			% Rahmen an
+		frameround=ffff,
+		rulecolor=\color{darkgray},	% Rahmenfarbe
+		fillcolor=\color{ListingBackground},
+		keywordstyle=\color[rgb]{0.133,0.133,0.6},
+		commentstyle=\color[rgb]{0.133,0.545,0.133},
+		%stringstyle=\color[rgb]{0.627,0.126,0.941}
+		stringstyle=\color{red}
+	}
+}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Eigenes %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Hier können Ergänzungen zur Präambel vorgenommen werden (eigene Pakete, Einstellungen)
+
+%colorpackage
+% \usepackage{color}
+\usepackage[table,dvipsnames]{xcolor}
+
+
+%listing package for defining a new language
+\usepackage{listings}
+
+% starting footnotes at 1
+% \usepackage{perpage}
+% \MakePerPage[1]{footnote}
+
+%Functions
+\def\bsq#1{%both single quotes
+\lq{#1}\rq}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% selfmade language pakets
+% JavaScript language
+\definecolor{lightgray}{RGB}{227, 227, 227}
+\definecolor{darkgray}{RGB}{100, 100, 100}
+\definecolor{purple}{rgb}{0.65, 0.12, 0.82}
+\definecolor{schaeffler}{RGB}{0, 137, 61}
+\definecolor{dark-green}{RGB}{0, 110, 93}
+\definecolor{middle-green}{RGB}{115, 161, 149}
+\definecolor{light-green}{RGB}{199, 222, 160}
+
+\definecolor{pie1}{RGB}{115, 161, 149}
+\definecolor{pie2}{RGB}{192, 198, 191}
+\definecolor{pie3}{RGB}{135, 135, 135}
+\definecolor{pie4}{RGB}{29, 155, 178}
+\definecolor{pie5}{RGB}{182, 186, 194}
+\definecolor{pie6}{RGB}{161, 200, 97}
+\definecolor{pie7}{RGB}{67, 99, 91}
+\definecolor{pie8}{RGB}{112, 123, 110}
+\definecolor{pie9}{RGB}{113, 113, 113}
+
+\lstdefinelanguage{JS}{
+  keywords={break, case, catch, continue, debugger, default, delete, do, else, false, finally, for, function, if, in, instanceof, new, null, return, switch, this, throw, true, try, typeof, var, void, while, with},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  ndkeywords={class, export, boolean, throw, implements, import, this},
+  keywordstyle=\color{blue}\bfseries,
+  ndkeywordstyle=\color{darkgray}\bfseries,
+  identifierstyle=\color{black},
+  commentstyle=\color[rgb]{0.133,0.545,0.133},
+  %commentstyle=\color{purple}\ttfamily,
+  stringstyle=\color{red}\ttfamily,
+  sensitive=true
+}
