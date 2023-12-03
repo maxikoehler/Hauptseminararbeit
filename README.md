@@ -1,8 +1,8 @@
 # Hauptseminararbeit
 
 ## Betreuer und Rahmenbedingungen
-Hauptseminararbeit am Lehrstuhl für Elektrische Energiesysteme (EES) der FAU Erlangen-Nürnberg. Seminar Elektrische Energieversorgung.
-Betreuer: M.Sc. Ilya Burlakin
+Hauptseminararbeit am Lehrstuhl für Elektrische Energiesysteme (EES) der FAU Erlangen-Nürnberg. Seminar Elektrische Energieversorgung.<br>
+Betreuer: M.Sc. Ilya Burlakin<br>
 Seminarleiter: Dr. Gert Mehlmann
 
 ## Thema
