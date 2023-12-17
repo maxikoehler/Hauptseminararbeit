@@ -10,9 +10,11 @@
 
 \input{ads/header}
 
-\makeglossaries
+% \makeglossaries
 
 \begin{document}
+	\pagenumbering{Roman}
+
 	% Deckblatt
 	\begin{spacing}{1}
 		\input{ads/deckblatt}
@@ -24,8 +26,6 @@
 	% stellt Abstand vor Kapitelüberschriften ein
 	\RedeclareSectionCommand[beforeskip=\kapitelabstand         ]{chapter}
 	% \newgeometry{left=3cm,right=2cm,top=2.5cm,bottom=2.5cm}
-
-	\pagenumbering{Roman}
 
     \pagestyle{scrheadings}
 
@@ -49,8 +49,8 @@
 			%für die Anzeige von Unterkapiteln im Inhaltsverzeichnis
 			\setcounter{tocdepth}{2}
 
-			\tableofcontents
-			% \maintoc
+			% \tableofcontents
+			\maintoc
 			\clearpage
 		\endgroup
 	\end{spacing}
@@ -62,14 +62,15 @@
 	% \listoftodos
 
 	% Abbildungsverzeichnis
-	\clearpage
-	\listoffigures
+	% \clearpage
+	% \listoffigures
 
 	% Tabellenverzeichnis
-	\clearpage
-	\listoftables
+	% \clearpage
+	% \listoftables
 	
-	\cleardoublepage
+	% \cleardoublepage
+	\clearpage
 	\pagenumbering{arabic}
     
     \pagestyle{scrheadings}		% Kopf- und Fußzeile wie zuvor eingestellt
@@ -90,16 +91,16 @@
 	\clearpage
 	
 	\pagenumbering{Roman}
-    \setcounter{page}{21}
+    \setcounter{page}{7}
 
 	% Abkürzungsverzeichnis
 	\clearpage
 	\input{ads/acronyms}
 
 	% Glossar
-	\clearpage
-	\input{ads/glossary}
-	\printglossary[style=altlist,title=\langglossar]
+	% \clearpage
+	% \input{ads/glossary}
+	% \printglossary[style=altlist,title=\langglossar]
 
     % Literaturverzeichnis
 	% \clearpage
@@ -110,7 +111,8 @@
 	% Unterverzeichnisse siehe: https://texwelt.de/fragen/7532/wie-unterteile-ich-meine-biblatex-bibliografie
 
 	% sonstiger Anhang
-	\cleardoublepage
+	% \cleardoublepage
+	\clearpage
 	\pagenumbering{Alph}
 	
 	\appendix

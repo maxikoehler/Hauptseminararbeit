@@ -1,83 +1,24 @@
-\chapter{Hauptteil}
-\label{kap:hauptteil}
+%!TEX root = ../main.tex
 
-Hier ist das eigentliche Thema zu bearbeiten.
+\chapter{State of the art}
+\label{chap:sota}
 
-\section{Einbindung von Bildern}
-\label{kap:einbindungbilder}
-Abbildungen sind mit Hilfe des Pakets \textit{graphicx} einzufügen. Sie können im PDF-Format durch die Nutzung des folgenden Codes implementiert werden.
-\begin{verbatim}
-\begin{figure}[!htb]\centering
- \includegraphics*[width = \textwidth]{beispiel}
- \caption{Beispiel für die Einbindung eines Bildes}
- \label{abb:beispiel}
-\end{figure}
-\end{verbatim}
-Das Ergebnis ist die Anzeige des Bildes, mittig, wie der Text breit mit der angegebenen Unterschrift. Alternativ kann bei der Breite eine absolute Angabe in mm erfolgen. Über das label \textit{abb:beispiel} kann das Bild referenziert werden.
-\begin{figure}[!htb]\centering
- \includegraphics*[width = \textwidth]{beispiel}
- \caption{Beispiel für die Einbindung eines Bildes}
- \label{abb:beispiel}
-\end{figure}
-Um auf das Bild \ref{abb:beispiel} zu verweisen, bedient man sich der folgenden Funktion:
-\begin{verbatim}
-\ref{abb:beispiel}
-\end{verbatim}
-Die referenzierte Nummerierung erfolgt Kapitelweise. Will man weiterhin eine Quelle in der Bildunterschrift angeben, so ist darauf zu achten, dass die Einbindung der Bildunterschriften durch ein optionales Element (eingeschlossen in eckigen Klammern) erweitert wird, welches die Beschriftung für das Abbildungsverzeichnis enthält:
-\begin{verbatim}
- \caption[Beispiel...]{Beispiel... , aus \cite{schwab}}
-\end{verbatim}
-Diese Variante verhindert, dass LaTex die Quellen bereits im Abbildungsverzeichnis zu zählen anfängt.
+General sources in terms of standard literature: \autocite{oedingElektrischeKraftwerkeUnd2016,gloverPowerSystemAnalysis2017,kundurPowerSystemStability2022,machowskiPowerSystemDynamics2020}
 
-\section{Einbindung von Tabellen}
-\label{kap:einbindungtabellen}
-Die Tabellen sollen mit Hilfe des Pakets \textit{tabularx} eingebunden werden. Im Folgenden ist ein Beispiel für die Einbindung von Tabellen aufgeführt. Mit
-\begin{verbatim}
-\begin{table}[!htb]
-\centering
-\caption{Beispiel einer Tabelle}
-\label{tab:tabelle1}
-\begin{tabularx}{\textwidth}{|X|c|c|c|c|c|c|c|c|}
-\hline
-        & Spalte 1 & Spalte 2 & Spalte 3 & Spalte 4 & Spalte 5 \\
-\hline
-Zeile 1 &          &          &          &          &          \\
-\hline
-Zeile 2 &          &          &          &          &          \\
-\hline
-Zeile 3 &          &          &          &          &          \\
-\hline
-\end{tabularx}
-\end{table}
-\end{verbatim}
-ergibt sich die folgende Tabellenausgabe \ref{tab:tabelle1}.
-\begin{table}[!htb]
-\centering
-\caption{Beispiel einer Tabelle}
-\label{tab:tabelle1}
-\vspace{12pt}
-\begin{tabularx}{\textwidth}{|X|c|c|c|c|c|c|c|c|}
-\hline
- 				& Spalte 1 	& Spalte 2 	& Spalte 3 	& Spalte 4 	& Spalte 5 \\
-\hline
-Zeile 1 & 					& 					& 					& 					& \\
-\hline
-Zeile 2 & 					& 					& 					& 					& \\
-\hline
-Zeile 3 & 					& 					& 					& 					& \\
-\hline
-\end{tabularx}
-\end{table}
-Bei Angabe von Quellen in der Tabellenüberschrift ist ähnlich wie im Kapitel \ref{kap:einbindungbilder} zu verfahren.
+Relevant basics:
+\begin{itemize}
+        \item dynamic behavior synchronous generators
+        \item determination of \acs{CCT} (equal area criteria)
+        \item relevant faults, their modeling and effects
+        \item analytic ways to calculate the \acs{CCT}
+        \item numerical methods for solving differential equations
+\end{itemize}
 
-\section{Eingabe von Gleichungen}
-\label{kap:einbindunggleichungen}
+\chapter{Methods}
+\label{chap:methods}
 
+\chapter{Model simulation results}
+\label{chap:results}
 
-\section{Quellenangabe}
-\label{kap:quellenangabe}
-Die Angabe von Quellen ist mit folgendem Code als Beispiel möglich:
-\begin{verbatim}
-\cite{schwab}
-\end{verbatim}
-Die Ausgabe wird an der Stelle eingefügt, an der man es einsetzt. Zum Beispiel hier: \cite{schwab}. Die Zahlen werden nach dem Vorkommen im Text vergeben und durchnummeriert. D.h. die nächste Angabe erhält die Nummer zwei und zwar hier: \cite{oedingoswald}. Die Einträge in der Literaturdatenbank können manuell in der Datei \textit{literatur.bib} oder mit der Software \textit{JabRef} angepasst werden.
+\chapter{Discussion and evaluation}
+\label{chap:discussion}

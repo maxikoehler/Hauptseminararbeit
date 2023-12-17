@@ -9,7 +9,7 @@
 \documentclass[%
     % final,
 	pdftex,
-	oneside,			% Einseitiger Druck (oneside) oder zweiseitig (twoside)
+	twoside,			% Einseitiger Druck (oneside) oder zweiseitig (twoside)
 	% headings=openright,	% Kapitelanfänge immer auf rechter Seite (bei zweiseitig)
 	cleardoublepage=empty,	% Leere Vakatseiten
 	12pt,				% Schriftgroesse
@@ -191,8 +191,8 @@
 \ladeliteratur{}
 
 % Glossar
-\usepackage[nonumberlist,toc,automake]{glossaries}
-\addtokomafont{descriptionlabel}{\normalfont\bfseries}
+% \usepackage[nonumberlist,toc,automake]{glossaries}
+% \addtokomafont{descriptionlabel}{\normalfont\bfseries}
 
 %Kopf- und Fußzeilen
 \usepackage[plainfootsepline=yes]{scrlayer-scrpage}
@@ -226,40 +226,40 @@
 % der Originalquelle: <http://www.komascript.de/comment/1073#comment-1073>,
 % gestattet.
 % Leistungsfähigere Lösung unter <https://komascript.de/comment/5578#comment-5578>.
-
+% 
 % Inhaltsverzeichnis für den Anhang erstellen 
-% \newcommand*{\maintoc}{% Hauptinhaltsverzeichnis
-%   \begingroup
-%     \@fileswfalse% kein neues Verzeichnis öffnen
-%     \renewcommand*{\appendixattoc}{% Trennanweisung im Inhaltsverzeichnis
-%       \value{tocdepth}=-10000 % lokal tocdepth auf sehr kleinen Wert setzen
-%     }%
-%     \tableofcontents% Verzeichnis ausgeben
-%   \endgroup
-% }
-% \newcommand*{\appendixtoc}{% Anhangsinhaltsverzeichnis
-%   \begingroup
-%     \edef\@alltocdepth{\the\value{tocdepth}}% tocdepth merken
-%     \setcounter{tocdepth}{-10000}% Keine Verzeichniseinträge
-%     \renewcommand*{\contentsname}{% Verzeichnisname ändern
-%       \langanhang}%
-%     \renewcommand*{\appendixattoc}{% Trennanweisung im Inhaltsverzeichnis
-%       \setcounter{tocdepth}{\@alltocdepth}% tocdepth wiederherstellen
-%     }%
-%     \tableofcontents% Verzeichnis ausgeben
-%     \setcounter{tocdepth}{\@alltocdepth}% tocdepth wiederherstellen
-%   \endgroup
-% }
-% \newcommand*{\appendixattoc}{% Trennanweisung im Inhaltsverzeichnis
-% }
-% \g@addto@macro\appendix{% \appendix erweitern
-%   \if@openright\cleardoublepage\else\clearpage\fi% Neue Seite
-%   \phantomsection
-%   \addcontentsline{toc}{chapter}{\appendixname}% Eintrag ins Hauptverzeichnis
-%   \addtocontents{toc}{\protect\appendixattoc}% Trennanweisung in die toc-Datei
-% }
-% \makeatother
-
+\newcommand*{\maintoc}{% Hauptinhaltsverzeichnis
+  \begingroup
+    \@fileswfalse% kein neues Verzeichnis öffnen
+    \renewcommand*{\appendixattoc}{% Trennanweisung im Inhaltsverzeichnis
+      \value{tocdepth}=-10000 % lokal tocdepth auf sehr kleinen Wert setzen
+    }%
+    \tableofcontents% Verzeichnis ausgeben
+  \endgroup
+}
+\newcommand*{\appendixtoc}{% Anhangsinhaltsverzeichnis
+  \begingroup
+    \edef\@alltocdepth{\the\value{tocdepth}}% tocdepth merken
+    \setcounter{tocdepth}{-10000}% Keine Verzeichniseinträge
+    \renewcommand*{\contentsname}{% Verzeichnisname ändern
+      \langanhang}%
+    \renewcommand*{\appendixattoc}{% Trennanweisung im Inhaltsverzeichnis
+      \setcounter{tocdepth}{\@alltocdepth}% tocdepth wiederherstellen
+    }%
+    \tableofcontents% Verzeichnis ausgeben
+    \setcounter{tocdepth}{\@alltocdepth}% tocdepth wiederherstellen
+  \endgroup
+}
+\newcommand*{\appendixattoc}{% Trennanweisung im Inhaltsverzeichnis
+}
+\g@addto@macro\appendix{% \appendix erweitern
+  \if@openright\cleardoublepage\else\clearpage\fi% Neue Seite
+  \phantomsection
+  \addcontentsline{toc}{chapter}{\appendixname}% Eintrag ins Hauptverzeichnis
+  \addtocontents{toc}{\protect\appendixattoc}% Trennanweisung in die toc-Datei
+}
+\makeatother
+% 
 % Kreisdiagramme
 \def\printonlylargeenough#1#2{\unless\ifdim#2pt<#1pt\relax
 #2\printnumbertrue
