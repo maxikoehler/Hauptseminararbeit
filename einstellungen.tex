@@ -85,7 +85,7 @@
 %% Farben (Angabe in HTML-Notation mit großen Buchstaben)
 \newcommand{\ladefarben}{%
 	\definecolor{LinkColor}{HTML}{00007A}
-	\definecolor{ListingBackground}{HTML}{FCF7DE}
+	% \definecolor{ListingBackground}{HTML}{FCF7DE}
 }
 
 %%Mathematikpakete benutzen (Pakete aktivieren)
@@ -109,13 +109,15 @@
 		showstringspaces=false,	% Leerzeichen auch in Strings ('') nicht anzeigen.
 		extendedchars=true,		% Alle Zeichen vom Latin1 Zeichensatz anzeigen.
 		captionpos=b,			% sets the caption-position to bottom
-		backgroundcolor=\color{ListingBackground}, % Hintergrundfarbe des Quellcodes setzen.
+		% backgroundcolor=\color{ListingBackground}, % Hintergrundfarbe des Quellcodes setzen.
+    backgroundcolor=\color{dark-green!50},
 		xleftmargin=0pt,		% Rand links
 		xrightmargin=0pt,		% Rand rechts
 		frame=single,			% Rahmen an
 		frameround=ffff,
 		rulecolor=\color{darkgray},	% Rahmenfarbe
-		fillcolor=\color{ListingBackground},
+		% fillcolor=\color{ListingBackground},
+    fillcolor=\color{dark-green!50},
 		keywordstyle=\color[rgb]{0.133,0.133,0.6},
 		commentstyle=\color[rgb]{0.133,0.545,0.133},
 		%stringstyle=\color[rgb]{0.627,0.126,0.941}
@@ -181,4 +183,113 @@
   %commentstyle=\color{purple}\ttfamily,
   stringstyle=\color{red}\ttfamily,
   sensitive=true
+}
+
+% Einstellung für die Einbindung von Code - hier: Python-Code - nicht ändern!
+\lstdefinestyle{style-python}
+{
+  language=python,	% Programmiersorache einstellen, Latex erkennt dann automatisch code, kommentare, funktionen,...
+  basicstyle=\scriptsize\ttfamily,	% Schriftformatierung, ttfamily: text im Schreibmaschinen-Style
+  backgroundcolor=\color{white},		% Hintergrundfarbe
+  breaklines=true,	% automatischer Zeilenumbruch bei langen Zeilen, funktioniert nur bei bestimmen Zeichen, z.B. Umbruch nach Leerzeichen
+  keywordstyle=\bfseries\ttfamily\color{blue},	% Schlüsselwörter einstellen
+  stringstyle=\ttfamily\color{Peach},			% Textsrtrings
+  showstringspaces=false,	% Leerzeichen in Strings richtig darstellen
+  commentstyle=\color{ForestGreen}\ttfamily,	% Kommentare
+  flexiblecolumns=false,	% Spaltenbreite dynamisch/fest
+  numbers=left,		% Position der Zeilennummern
+  numberstyle=\tiny,	% Größe der Zeilennummern
+  numberblanklines=false,		% leere Zeilen werde mit ‚false‘ nicht durchnummeriert
+  stepnumber=1,		% Beginn der Nummerierung
+  numbersep=10pt,		% Abstand zwischen Zeilennummern und Quellcode
+  xleftmargin=20pt,	% Abstand zum linken Rand
+  xrightmargin=10pt,	% Abstand zum rechten Rand
+  extendedchars=true,	% Sonderzeichen korrekt darstellen
+  frame=trbl,			% Rahmen um gesamten Code: Top, right, bottom, left (Großbuchstaben ergeben Doppellinien)
+  frameround=ffff,	% Ecken des Rahmens anpassen, t: runde Ecken, f: default (eckig), es müssen 4 Buchstaben da stehen!
+  literate=		% ersetzen von Zeichen 1 durch Zeichen 2, hier: korrekte Einbindung der Sonderzeichen
+   {Ö}{{\"O}}1 
+   {Ä}{{\"A}}1 
+   {Ü}{{\"U}}1 
+   {ß}{{\ss}}1 
+   {ü}{{\"u}}1 
+   {ä}{{\"a}}1 
+   {ö}{{\"o}}1,
+  % mit ‚emph‘ und ‚emphstyle‘ können eigene Styles für Wörter angelegt werden
+  emph = [1]{clc, color},
+  emphstyle = [1]{\color{blue}},
+  emph = [2]{function, endfunction},
+  emphstyle = [2]{\color{BrickRed}},
+  emph = [3]{gcf},
+  emphstyle = [3]{\color{black}},
+}
+
+% Einstellung für die Einbindung von Code - hier: C-Code - nicht ändern!
+\lstdefinestyle{style-c}
+{
+  language=c,	% Programmiersorache einstellen, Latex erkennt dann automatisch code, kommentare, funktionen,...
+  basicstyle=\scriptsize\ttfamily,	% Schriftformatierung, ttfamily: text im Schreibmaschinen-Style
+  backgroundcolor=\color{white},		% Hintergrundfarbe
+  breaklines=true,	% automatischer Zeilenumbruch bei langen Zeilen, funktioniert nur bei bestimmen Zeichen, z.B. Umbruch nach Leerzeichen
+  keywordstyle=\bfseries\ttfamily\color{blue},	% Schlüsselwörter einstellen
+  stringstyle=\ttfamily\color{Peach},			% Textsrtrings
+  showstringspaces=false,	% Leerzeichen in Strings richtig darstellen
+  commentstyle=\color{ForestGreen}\ttfamily,	% Kommentare
+  flexiblecolumns=false,	% Spaltenbreite dynamisch/fest
+  numbers=left,		% Position der Zeilennummern
+  numberstyle=\tiny,	% Größe der Zeilennummern
+  numberblanklines=false,		% leere Zeilen werde mit ‚false‘ nicht durchnummeriert
+  stepnumber=1,		% Beginn der Nummerierung
+  numbersep=10pt,		% Abstand zwischen Zeilennummern und Quellcode
+  xleftmargin=20pt,	% Abstand zum linken Rand
+  xrightmargin=10pt,	% Abstand zum rechten Rand
+  extendedchars=true,	% Sonderzeichen korrekt darstellen
+  frame=trbl,			% Rahmen um gesamten Code: Top, right, bottom, left (Großbuchstaben ergeben Doppellinien)
+  frameround=ffff,	% Ecken des Rahmens anpassen, t: runde Ecken, f: default (eckig), es müssen 4 Buchstaben da stehen!
+  literate=		% ersetzen von Zeichen 1 durch Zeichen 2, hier: korrekte Einbindung der Sonderzeichen
+   {Ö}{{\"O}}1 
+   {Ä}{{\"A}}1 
+   {Ü}{{\"U}}1 
+   {ß}{{\ss}}1 
+   {ü}{{\"u}}1 
+   {ä}{{\"a}}1 
+   {ö}{{\"o}}1,
+  % mit ‚emph‘ und ‚emphstyle‘ können eigene Styles für Wörter angelegt werden
+  %emph = [1]{clc, color},
+  %emphstyle = [1]{\color{blue}},
+}
+
+% Einstellung für die Einbindung von Code - hier: C++-Code - nicht ändern!
+\lstdefinestyle{style-cpp}
+{
+  language=C++,	% Programmiersorache einstellen, Latex erkennt dann automatisch code, kommentare, funktionen,...
+  basicstyle=\scriptsize\ttfamily,	% Schriftformatierung, ttfamily: text im Schreibmaschinen-Style
+  backgroundcolor=\color{white},		% Hintergrundfarbe
+  breaklines=true,	% automatischer Zeilenumbruch bei langen Zeilen, funktioniert nur bei bestimmen Zeichen, z.B. Umbruch nach Leerzeichen
+  keywordstyle=\bfseries\ttfamily\color{blue},	% Schlüsselwörter einstellen
+  stringstyle=\ttfamily\color{Peach},			% Textsrtrings
+  showstringspaces=false,	% Leerzeichen in Strings richtig darstellen
+  commentstyle=\color{ForestGreen}\ttfamily,	% Kommentare
+  flexiblecolumns=false,	% Spaltenbreite dynamisch/fest
+  numbers=left,		% Position der Zeilennummern
+  numberstyle=\tiny,	% Größe der Zeilennummern
+  numberblanklines=false,		% leere Zeilen werde mit ‚false‘ nicht durchnummeriert
+  stepnumber=1,		% Beginn der Nummerierung
+  numbersep=10pt,		% Abstand zwischen Zeilennummern und Quellcode
+  xleftmargin=20pt,	% Abstand zum linken Rand
+  xrightmargin=10pt,	% Abstand zum rechten Rand
+  extendedchars=true,	% Sonderzeichen korrekt darstellen
+  frame=trbl,			% Rahmen um gesamten Code: Top, right, bottom, left (Großbuchstaben ergeben Doppellinien)
+  frameround=ffff,	% Ecken des Rahmens anpassen, t: runde Ecken, f: default (eckig), es müssen 4 Buchstaben da stehen!
+  literate=		% ersetzen von Zeichen 1 durch Zeichen 2, hier: korrekte Einbindung der Sonderzeichen
+   {Ö}{{\"O}}1 
+   {Ä}{{\"A}}1 
+   {Ü}{{\"U}}1 
+   {ß}{{\ss}}1 
+   {ü}{{\"u}}1 
+   {ä}{{\"a}}1 
+   {ö}{{\"o}}1,
+  % mit ‚emph‘ und ‚emphstyle‘ können eigene Styles für Wörter angelegt werden
+  %emph = [1]{clc, color},
+  %emphstyle = [1]{\color{blue}},
 }

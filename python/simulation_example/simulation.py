@@ -22,7 +22,7 @@ delta_ibb_init = np.deg2rad(-5.0)
 
 v_bb_gen_init = mag_and_angle_to_cmplx(1.0, np.deg2rad(36.172))
 
-def differential(omega, v_bb_gen, delta, E_fd_gen):
+def differential():
     # Calculate the electrical power extracted from the generator at its busbar.
     E_gen_cmplx = mag_and_angle_to_cmplx(E_fd_gen, delta)
     P_e_gen = (v_bb_gen * np.conj((E_gen_cmplx - v_bb_gen) / (1j * X_gen))).real
@@ -37,7 +37,7 @@ def differential(omega, v_bb_gen, delta, E_fd_gen):
     return domega_dt, ddelta_dt
 
 
-def algebraic(delta_gen, sc_on):
+def algebraic():
     # If the SC is on, the admittance matrix is different.
     # The SC on busbar 0 is expressed in the admittance matrix as a very large admittance (1000000) i.e. a very small impedance.
     if sc_on:
