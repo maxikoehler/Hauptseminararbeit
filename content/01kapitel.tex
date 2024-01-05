@@ -3,6 +3,58 @@
 \chapter{Introduction}
 \label{chap:intro}
 
-Dieses Kapitel dient zur Hinführung an das Thema. Hier ist herauszuarbeiten, warum das
-Thema von Interesse und Bedeutung ist. Des Weiteren ist kurz der Aufbau der Arbeit
-anzusprechen. Der Umfang des Kapitels sollte eine oder wenige Seiten betragen.
+Some fancy introduction.
+
+\begin{enumerate}\bfseries \singlespacing \small
+    \renewcommand{\labelenumi}{\theenumi}
+    \renewcommand{\theenumi}{\arabic{enumi}}
+    \renewcommand{\labelenumii}{\theenumii}
+    \renewcommand{\theenumii}{\theenumi.\arabic{enumii}}
+    \setlength{\leftmarginii}{5.4ex}
+    \item Introduction (1 page)
+    \item State-of-the-art ($\sim$ 4 pages)
+    \begin{enumerate} \mdseries
+        \item Basics synchronous generators \\
+        -> \textbf{swing-equations}
+        \item System stability esp. transient context \\
+        -> rotor angle stability, \textbf{derivation of EAC,} basic assessment models (single machine infinite bus, see \autocite{kundurPowerSystemStability2022})
+        \item Numerical methods for \acsp{TDS} and system modelling \\
+        -> \textbf{solving second order ODEs (explicit)}
+        \item Events harming the system stability \\
+        -> \textbf{faults,} load-changes, effects of electrical networks (esp. generator networks) vs. single machine systems
+    \end{enumerate}
+    \item Numerical modeling ($\sim$ 5 pages)
+    \begin{enumerate} \mdseries
+        {\itshape \item (Object relations and classes)}
+        \item Algorithm and functional structure
+        \item Implementation of functions and dependencies
+        \item Implementation of numerical solvers
+    \end{enumerate}
+    \item Results ($\sim$ 3 pages)
+    \begin{enumerate} \mdseries
+        \item Analytical results
+        \item Numerical results
+    \end{enumerate}
+    \item Discussion ($\sim$ 2 pages)
+    \begin{enumerate} \mdseries
+        \item Numerical vs. analytical
+        {\itshape \item (Single machine vs. network models)}
+        {\itshape \item ... (dependent on time and outcomes)}
+    \end{enumerate}
+    \item Summary and outlook (1 page)
+\end{enumerate}
+
+Total amount $\sim$ 16 pages (without appendix and supplementary pages)
+
+\newpage
+Bullet points for the thesis from Ilya:
+\begin{itemize}
+    \item Swing equation of synchronous generators
+    \item Solving the Swing equation with the help of Python -> Solving of second order ODEs
+    \item Equal-area criterion -> Derivation of the equations
+    \item Simulation of a fault -> applying the equal-area criteria with the help of Python.
+    \item Comparison between analytical and (numerical) simulation results
+\end{itemize}
+
+\commenting{Das ist ein Testkommentar.}
+\todo[inline]{Insert state-of-the-art.}

@@ -27,15 +27,25 @@
 	\RedeclareSectionCommand[beforeskip=\kapitelabstand         ]{chapter}
 	% \newgeometry{left=3cm,right=2cm,top=2.5cm,bottom=2.5cm}
 
+	% noch ausstehende ToDo's - Liste
+	\listoftodos
+	\thispagestyle{empty}
+	\newpage
+
     \pagestyle{scrheadings}
 
     \setcounter{page}{2}
-	% Sperrvermerk
-	% \input{ads/sperrvermerk}
-    % \newpage
 	
 	% Erklärung
+	\clearpage
  	\input{ads/erklaerung}
+
+	% Abstract
+	\clearpage
+	\input{ads/abstract.tex}
+
+	% Aufgabenstellung
+	\clearpage
 	\input{ads/aufgabe}
 
 	% Inhaltsverzeichnis
@@ -51,26 +61,27 @@
 
 			% \tableofcontents
 			\maintoc
-			\clearpage
+			\cleardoublepage
 		\endgroup
 	\end{spacing}
-	\newpage
+	% \newpage
     % \adjustmtc
     \pagestyle{scrheadings}
-	
-	% noch ausstehende ToDo's - Liste
-	% \listoftodos
 
-	% Abbildungsverzeichnis
+	% % Abbildungsverzeichnis
 	% \clearpage
 	% \listoffigures
 
-	% Tabellenverzeichnis
+	% % Tabellenverzeichnis
 	% \clearpage
 	% \listoftables
+
+	% % Quellcodeverzeichnis
+	% \clearpage
+	% \lstlistoflistings
 	
-	% \cleardoublepage
-	\clearpage
+	\cleardoublepage
+	% \clearpage
 	\pagenumbering{arabic}
     
     \pagestyle{scrheadings}		% Kopf- und Fußzeile wie zuvor eingestellt
@@ -89,12 +100,18 @@
 	}
 
 	\clearpage
-	
+
+	% Bei Bedarf auskommentieren, wenn Übergang zu römischer Seitennummerierung nicht korrekt dargestellt (links-rechts Unterscheidung; links: gerade Seiten, rechts: ungerade Seiten); Anpassen der Startseite nach Preface Seiten VOR dem Hauptteil (händisch)
+	\newpage 
+	\thispagestyle{empty}
+	\quad 
+	\newpage
+
 	\pagenumbering{Roman}
-    \setcounter{page}{7}
+    \setcounter{page}{8}
 
 	% Abkürzungsverzeichnis
-	\clearpage
+	% \clearpage
 	\input{ads/acronyms}
 
 	% Glossar
@@ -105,14 +122,10 @@
     % Literaturverzeichnis
 	% \clearpage
 	\printbibliography
-	% \printbibliography[notkeyword=intern, nottype=patent]
-	% \printbibliography[heading=subbibliography, keyword=intern, title={Interne Quellen}]
-	% \printbibliography[heading=subbibliography, type=patent, title={Patentschriften}]
 	% Unterverzeichnisse siehe: https://texwelt.de/fragen/7532/wie-unterteile-ich-meine-biblatex-bibliografie
 
 	% sonstiger Anhang
-	% \cleardoublepage
-	\clearpage
+	\cleardoublepage
 	\pagenumbering{Alph}
 	
 	\appendix
