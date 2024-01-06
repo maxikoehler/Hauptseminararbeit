@@ -1,40 +1,69 @@
 %!TEX root = ../main.tex
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Basics}
+\chapter{Fundamentals}
 % Evtl. lieber Basics nennen; Stand der Technik ist es ja nicht wirklich
 \label{chap:sota}
+\todo[inline]{Input of basic knowledge for system modelling; Maybe supplementary knowledge}
 
 General sources in terms of standard literature: \autocite{oedingElektrischeKraftwerkeUnd2016,gloverPowerSystemAnalysis2017,kundurPowerSystemStability2022,machowskiPowerSystemDynamics2020}
 
-Relevant basics:
-\begin{itemize}
-        \item dynamic behavior synchronous generators
-        \item determination of \acs{CCT} (equal area criteria)
-        \item relevant faults, their modeling and effects
-        \item analytic ways to calculate the \acs{CCT}
-        \item numerical methods for solving differential equations
-\end{itemize}
-
 \section{Basics synchronous generators}
+\commenting{
+        \begin{itemize}
+                \item \textbf{Swing equations}
+                \item Characteristics of a synchronous generator
+                \item types of SG's
+        \end{itemize}
+}
 
 \section{System stability esp. transient context}
+\commenting{
+        \begin{itemize}
+                \item What is to be analyzed? And why? -> different stability analysis
+                \item rotor angle stability,
+                \item \textbf{derivation of EAC,}
+                \item basic assessment models (single machine infinite bus, see \autocite{kundurPowerSystemStability2022})
+        \end{itemize}
+}
 
 \section{Numerical methods for TDSs and system modeling}
+\commenting{
+        \begin{itemize}
+                \item \textbf{solving second order ODEs (explicit)}
+        \end{itemize}
+}
 
 \section{Events harming the system stability}
+\commenting{
+        \begin{itemize}
+                \item \textbf{fault types,}
+                \item load-changes
+                \item effects of electrical networks (esp. generator networks) vs. single machine systems
+        \end{itemize}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Numerical modelling}
 \label{chap:methods}
 
-\section{Object relations and classes}
+% \section{Object relations and classes}
+% Describe the classes and objects an elecrtical network is consisting of. Thus building an representation model and simplyfying it to one equation system (smib- or imeac-model). This can then be solved with the help of the further described methods.
 
 \section{Algorithm and functional structure}
+\commenting{
+        Describing the basic functionality and compartements of the model.
+}
 
 \section{Implementation of functions and dependencies}
+\commenting{
+        Describing implementation into Python-code.
+}
 
 \section{Implementation of numerical solvers}
+\commenting{
+        Describing the functionality and structure of (excplicit) numerical methods. Starting from Euler (basic) to a more complex but more reliable method (Heun, predictor-corrector, ...). Main focus: Implementation into Python.
+}
 
 \subsection*{Euler's method}
 

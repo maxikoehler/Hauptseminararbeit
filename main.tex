@@ -19,13 +19,11 @@
 	\begin{spacing}{1}
 		\input{ads/deckblatt}
 	\end{spacing}
-	% \newpage
 	\newpage
 	% \cleardoublepage
 
 	% stellt Abstand vor Kapitelüberschriften ein
 	\RedeclareSectionCommand[beforeskip=\kapitelabstand         ]{chapter}
-	% \newgeometry{left=3cm,right=2cm,top=2.5cm,bottom=2.5cm}
 
 	% noch ausstehende ToDo's - Liste
 	\listoftodos
@@ -37,16 +35,16 @@
     \setcounter{page}{2}
 	
 	% Erklärung
-	\clearpage
- 	\input{ads/erklaerung}
+	% \clearpage
+ 	% \input{ads/erklaerung}
 
 	% Abstract
-	\clearpage
-	\input{ads/abstract.tex}
+	% \clearpage
+	% \input{ads/abstract.tex}
 
 	% Aufgabenstellung
-	\clearpage
-	\input{ads/aufgabe}
+	% \clearpage
+	% \input{ads/aufgabe}
 
 	% Inhaltsverzeichnis
 	\begin{spacing}{1.2}
@@ -102,10 +100,10 @@
 	\clearpage
 
 	% Bei Bedarf auskommentieren, wenn Übergang zu römischer Seitennummerierung nicht korrekt dargestellt (links-rechts Unterscheidung; links: gerade Seiten, rechts: ungerade Seiten); Anpassen der Startseite nach Preface Seiten VOR dem Hauptteil (händisch)
-	\newpage 
-	\thispagestyle{empty}
-	\quad 
-	\newpage
+	% \newpage 
+	% \thispagestyle{empty}
+	% \quad 
+	% \newpage
 
 	\pagenumbering{Roman}
     \setcounter{page}{8}

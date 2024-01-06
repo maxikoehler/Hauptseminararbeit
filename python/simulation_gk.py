@@ -37,7 +37,7 @@ def differential(omega, v_bb_gen, delta):
     domega_dt = 1 / (2 * H_gen) * (T_m_gen - P_e_gen)
     ddelta_dt = omega * 2 * np.pi * fn
 
-    return domega_dt, ddelta_dt
+    return domega_dt, ddelta_dt, P_e_gen
 
 
 def algebraic(delta_gen, sc_on):
@@ -64,34 +64,35 @@ def algebraic(delta_gen, sc_on):
     return v_bb_gen
 
 
-def do_sim():
+def do_sim(fault_start, fault_end, sim_end):
     # Initialize the variables
     omega_gen = omega_gen_init
     delta_gen = delta_gen_init
     v_bb_gen = v_bb_gen_init
 
     # Define time. Here, the time step is 0.005 s and the simulation is 5 s long
-    t = np.arange(0, 5, 0.005)
+    t = np.arange(0, sim_end, 0.005)
     res_omega = []
     res_delta = []
+    res_P_e = []
 
     for timestep in t:
 
         # Those lines cause a short circuit at t = 1 s until t = 1.05 s
-        if 1 <= timestep < 1.05:
+        if fault_start <= timestep < fault_end:
             sc_on = True
         else:
             sc_on = False
 
         # Calculate the initial guess for the next step by executing the differential equations at the current step
-        domega_dt_guess, ddelta_dt_guess = differential(omega_gen, v_bb_gen, delta_gen)
+        domega_dt_guess, ddelta_dt_guess, P_e_gen = differential(omega_gen, v_bb_gen, delta_gen)
         omega_guess = omega_gen + domega_dt_guess * (t[1] - t[0])
         delta_guess = delta_gen + ddelta_dt_guess * (t[1] - t[0])
 
         v_bb_gen = algebraic(delta_guess, sc_on)
 
         # Calculate the differential equations with the initial guess
-        domega_dt_guess2, ddelta_dt_guess2 = differential(omega_guess, v_bb_gen, delta_guess)
+        domega_dt_guess2, ddelta_dt_guess2, P_e_gen2 = differential(omega_guess, v_bb_gen, delta_guess)
 
         domega_dt = (domega_dt_guess + domega_dt_guess2) / 2
         ddelta_dt = (ddelta_dt_guess + ddelta_dt_guess2) / 2
@@ -105,29 +106,27 @@ def do_sim():
         # Save the results, so they can be plotted later
         res_omega.append(omega_gen)
         res_delta.append(delta_gen)
+        res_P_e.append(P_e_gen)
 
     # Convert the results to a numpy array
     res_omega = np.vstack(res_omega)
     res_delta = np.vstack(res_delta)
-    return t, res_omega, res_delta
+    P_e = np.vstack(res_P_e)
+    return t, res_omega, res_delta, P_e
 
-# self-added function for calculation with odeint
-def ode_gen(Y, t):
-    global P_e_gen_ode
-    global P_m_gen
-
-    T_m_gen = P_m_gen / (1 + Y[1])
-
-    return [Y[1], 1 / (2 * H_gen) * (T_m_gen - P_e_gen_ode[t])]
 
 if __name__ == '__main__':
 
     # Here the simulation is executed and the timesteps and corresponding results are returned.
     # In this example, the results are omega, delta, e_q_t, e_d_t, e_q_st, e_d_st of the generator and the IBB
-    t_sim, res = do_sim()
+    fault_start = 1
+    fault_end = 1.05
+    sim_end = 5
+
+    t_sim, res, res_delta, P_e = do_sim(fault_start, fault_end, sim_end)
 
     # load the results from powerfactory for comparison
-    delta_omega_pf = np.loadtxt('pictures/powerfactory_data.csv', skiprows=1, delimiter=',')
+    delta_omega_pf = np.loadtxt('simulation_example_gk/pictures/powerfactory_data.csv', skiprows=1, delimiter=',')
 
     # Plot the results
     plt.plot(t_sim, res[:, 0].real, label='delta_omega_gen_python')
@@ -135,8 +134,9 @@ if __name__ == '__main__':
     plt.legend()
     plt.title('Reaction of a generator to a short circuit')
 
-    plt.savefig('pictures/short_circuit_improved.png')
+    plt.savefig('simulation_example_gk/pictures/short_circuit_improved.png')
 
     plt.show()
 
-
+    plt.plot(t_sim, P_e, label='electrical power generator')
+    plt.show()
