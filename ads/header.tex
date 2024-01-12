@@ -101,9 +101,21 @@
 \usepackage{afterpage}
 % \usepackage[Glenn]{fncychap}
 % Sonny, Lenny, Glenn, Conny, Rejne, Bjarne, Bjornstrup
+\usepackage{circuitikzgit}
 
-% Notizen. Einsatz mit \todo{Notiz} oder \todo[inline]{Notiz}.
-\usepackage[obeyFinal,backgroundcolor=yellow,linecolor=black]{todonotes}
+% Notizen. Einsatz mit \todo{Notiz} oder \todo[inline]{Notiz}. Documentation: https://tug.ctan.org/macros/latex/contrib/todonotes/todonotes.pdf
+\usepackage[obeyFinal,backgroundcolor=yellow,linecolor=black, figwidth=.9\linewidth,figcolor=white,textwidth=2.5cm]{todonotes}
+\setlength{\marginparwidth}{2.5cm}
+\reversemarginpar
+\newcounter{mycomment}
+\newcommand{\mycomment}[2][]{%
+% initials of the author (optional) + note in the margin
+\refstepcounter{mycomment}%
+{%
+\setstretch{1}% spacing
+\todo[color={red!100!green!33},size=\footnotesize]{%
+\textbf{Comment [\uppercase{#1}\themycomment]:}~#2}%
+}}
 % Alle Notizen ausblenden mit der Option "final" in \documentclass[...] oder durch das auskommentieren folgender Zeile
 % \usepackage[disable]{todonotes}
 

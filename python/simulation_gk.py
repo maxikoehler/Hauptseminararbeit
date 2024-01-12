@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import scipy as sp
 
 
 def mag_and_angle_to_cmplx(mag, angle):
@@ -114,6 +115,29 @@ def do_sim(fault_start, fault_end, sim_end):
     P_e = np.vstack(res_P_e)
     return t, res_omega, res_delta, P_e
 
+def stability_eac(delta_0, delta_act, delta_max):
+    # Compare the acceleration area until the given delta and compare it to the braking area left until the dynamic stability point is passed
+    area_acc = sp.integrate.quad(P_t_deg, delta_0, delta_act)
+    area_dec = sp.integrate.quad(P_r_deg, delta_act, delta_max)
+
+    if area_acc < area_dec: # True: stable, False: NOT stable 
+        return True
+    else:
+        return False
+
+def determine_max_stab(delta_0, delta, delta_max):
+    # Save current time and delta at time point i; iterate through i to test any given time until stability can't be remained; delta_cc and t_cc is the angle and time at the last stable point
+    i = 0
+
+    t_cc = -1
+    delta_cc = -1
+
+    while stability_eac(delta_0, delta[i], delta_max):
+        t_cc = t_sim[i]
+        delta_cc = delta[i]
+        i = i + 1
+    
+    return t_cc, delta_cc
 
 if __name__ == '__main__':
 

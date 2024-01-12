@@ -59,3 +59,32 @@ Bullet points for the thesis from Ilya:
 \commenting{Das ist ein Testkommentar.}
 
 Introduction via \autocite{vdeverbandderelektrotechnikelektronikinformationstechnike.v.PerspektivenElektrischenEnergieubertragung2019} and other standard literature like \autocite{gloverPowerSystemAnalysis2017,kundurPowerSystemStability2022,machowskiPowerSystemDynamics2020,oedingElektrischeKraftwerkeUnd2016,schwabElektroenergiesystemeSmarteStromversorgung2022}. Need for understanding of Transient stability and therefore critical pole angle and fault clearing time assessment: Running and maintaining the electrical grid; Adding virtual inertia in FACTs and HVDC; Better and faster predicting, due to shorter (critical) fault clearing times; .
+
+% \missingfigure{Insert senseful schematic picture/graph}
+
+\begin{figure}[H]
+    \centering
+    \vspace{1cm}
+    \begin{circuitikz}[european, scale=1, smallR/.style={resistor,resistors/scale=.7}]
+        \ctikzset{grounds/scale=1.5}
+        \draw (0,0) node[oscillator, anchor=east, name=gen]{} --(.5,0)
+            to[L, name=X_g] ++(1,0)
+            % to[tmultiwire] ++(1,0)
+            to[oosourcetrans,prim=delta,sec=wye] ++(4,0)
+            % to[tmultiwire] ++(1,0)
+            to[L, name=X_l] ++(2,0) -- ++(2,0)
+            % to[tmultiwire] ++(1,0)
+            node[gridnode, anchor=left, name=ib]{};
+        \draw[line width=2pt] (2.25,1) -- (2.25,-1);
+        \draw[line width=2pt] (4.75,1) -- (4.75,-1);
+        \draw[line width=2pt] (8.25,1) -- (8.25,-1);
+        \node[above=6pt] at (X_g) {$X_\mathrm{g}'$};
+        \node[above=6pt] at (X_l) {$X_\mathrm{l}$};
+        \path[->] (-1.2,.5) edge [bend right] node[left=6pt]{$E_\mathrm{p}~\angle$} (-1.2,-.5);
+        \path[->] (10.8,.5) edge [bend left] node[right=6pt]{$E_\mathrm{ibb}~\angle~0^{\circ}$} (10.8,-.5);
+    \end{circuitikz}
+    \vspace{1cm}
+    \caption{Representative circuit of a \acf{SMIB} model with pole wheel voltage $E_\mathrm{p}~\angle$ and \acf{IBB} voltage $E_\mathrm{ibb}~\angle~0^{\circ}$}
+    \todo[inline]{SMIB model with double OHL; different faults: near generator (both lines vs. one line not working) and far away}
+    \label{fig:my_label}
+\end{figure}

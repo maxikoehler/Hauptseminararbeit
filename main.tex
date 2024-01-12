@@ -12,6 +12,12 @@
 
 % \makeglossaries
 
+\tikzset{bus/.style={fullgeneric, %
+        bipoles/fullgeneric/width=0.02, bipoles/fullgeneric/height=#1
+    },
+    bus/.default=3
+}
+
 \begin{document}
 	\pagenumbering{Roman}
 
