@@ -4,6 +4,7 @@
 % \appendix
 \addcontentsline{maintoc}{chapter}{Appendix}
 \ohead[]{\textsc{Appendix}}
+\label{app:appendix}
 
 % \renewcommand\thechapter{\roman{chapter}}
 % \setcounter{chapter}{0}
@@ -20,19 +21,19 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \chapter{Code}
+\label{app:code}
 
 \section{Model functions}
 
-\lstinputlisting[caption={Module containing all relevant functions of the SMIB model in Python},captionpos=b,style=style-python,label=lst:model-func]{python/smib_model.py}
+% \lstinputlisting[caption={Module containing all relevant functions of the SMIB model in Python},captionpos=b,style=style-python,label=lst:model-func]{python/smib_model.py}
 
 \section{Model of GK}
 
 \lstinputlisting[caption={GK's SMIB model with Heun's integration method},captionpos=b,style=style-python,label=lst:model-func-heun]{python/simulation_example_gk/simulation_even_better.py}
 
 
-% Hallo Welt!
+\chapter{Additional}
+\label{app:additional}
 
-% \chapter{Anhang B}
-% \section{Teil 1}
-
-% \section{Teil 2}
+\section{Jupyter notebook for development}
+\label{app:jupyter}

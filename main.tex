@@ -12,11 +12,7 @@
 
 % \makeglossaries
 
-\tikzset{bus/.style={fullgeneric, %
-        bipoles/fullgeneric/width=0.02, bipoles/fullgeneric/height=#1
-    },
-    bus/.default=3
-}
+\input{ads/tikz_styles}
 
 \begin{document}
 	\pagenumbering{Roman}
@@ -72,17 +68,17 @@
     % \adjustmtc
     \pagestyle{scrheadings}
 
-	% % Abbildungsverzeichnis
+	% Abbildungsverzeichnis
 	% \clearpage
 	% \listoffigures
 
-	% % Tabellenverzeichnis
+	% Tabellenverzeichnis
 	% \clearpage
 	% \listoftables
 
-	% % Quellcodeverzeichnis
+	% Quellcodeverzeichnis
 	% \clearpage
-	% \lstlistoflistings
+	% \lstlistoflistings \mycomment[MK]{Warum hat das einen anderen Zeilenabstand als alle anderen Verzeichnisse?}
 	
 	\cleardoublepage
 	% \clearpage

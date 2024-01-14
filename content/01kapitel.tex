@@ -3,50 +3,6 @@
 \chapter{Introduction}
 \label{chap:intro}
 
-\todo[inline]{Insert some fancy introduction}
-
-\begin{enumerate}\bfseries \singlespacing \small
-    \renewcommand{\labelenumi}{\theenumi}
-    \renewcommand{\theenumi}{\arabic{enumi}}
-    \renewcommand{\labelenumii}{\theenumii}
-    \renewcommand{\theenumii}{\theenumi.\arabic{enumii}}
-    \setlength{\leftmarginii}{5.4ex}
-    \item Introduction (1 page)
-    \item State-of-the-art ($\sim$ 4 pages)
-    \begin{enumerate} \mdseries
-        \item Basics synchronous generators \\
-        -> \textbf{swing-equations}
-        \item System stability esp. transient context \\
-        -> rotor angle stability, \textbf{derivation of EAC,} basic assessment models (single machine infinite bus, see \autocite{kundurPowerSystemStability2022})
-        \item Numerical methods for \acsp{TDS} and system modelling \\
-        -> \textbf{solving second order ODEs (explicit)}
-        \item Events harming the system stability \\
-        -> \textbf{faults,} load-changes, effects of electrical networks (esp. generator networks) vs. single machine systems
-    \end{enumerate}
-    \item Numerical modeling ($\sim$ 5 pages)
-    \begin{enumerate} \mdseries
-        {\itshape \item (Object relations and classes)}
-        \item Algorithm and functional structure
-        \item Implementation of functions and dependencies
-        \item Implementation of numerical solvers
-    \end{enumerate}
-    \item Results ($\sim$ 3 pages)
-    \begin{enumerate} \mdseries
-        \item Analytical results
-        \item Numerical results
-    \end{enumerate}
-    \item Discussion ($\sim$ 2 pages)
-    \begin{enumerate} \mdseries
-        \item Numerical vs. analytical
-        {\itshape \item (Single machine vs. network models)}
-        {\itshape \item ... (dependent on time and outcomes)}
-    \end{enumerate}
-    \item Summary and outlook (1 page)
-\end{enumerate}
-
-Total amount $\sim$ 16 pages (without appendix and supplementary pages)
-
-\newpage
 Bullet points for the thesis from Ilya:
 \begin{itemize}
     \item Swing equation of synchronous generators
@@ -56,35 +12,9 @@ Bullet points for the thesis from Ilya:
     \item Comparison between analytical and (numerical) simulation results
 \end{itemize}
 
-\commenting{Das ist ein Testkommentar.}
+Introduction via \autocite{vdeverbandderelektrotechnikelektronikinformationstechnike.v.PerspektivenElektrischenEnergieubertragung2019} and other standard literature like \autocite{gloverPowerSystemAnalysis2017,kundurPowerSystemStability2022,machowskiPowerSystemDynamics2020,oedingElektrischeKraftwerkeUnd2016,schwabElektroenergiesystemeSmarteStromversorgung2022}. Need for understanding of Transient stability and therefore critical pole angle and fault clearing time assessment: Running and maintaining the electrical grid; Adding virtual inertia in FACTs and HVDC; Better and faster predicting, due to shorter (critical) fault clearing times; . \mycomment[MK]{Write Introduction}
 
-Introduction via \autocite{vdeverbandderelektrotechnikelektronikinformationstechnike.v.PerspektivenElektrischenEnergieubertragung2019} and other standard literature like \autocite{gloverPowerSystemAnalysis2017,kundurPowerSystemStability2022,machowskiPowerSystemDynamics2020,oedingElektrischeKraftwerkeUnd2016,schwabElektroenergiesystemeSmarteStromversorgung2022}. Need for understanding of Transient stability and therefore critical pole angle and fault clearing time assessment: Running and maintaining the electrical grid; Adding virtual inertia in FACTs and HVDC; Better and faster predicting, due to shorter (critical) fault clearing times; .
+\missingfigure{Insert senseful schematic picture/graph}
 
-% \missingfigure{Insert senseful schematic picture/graph}
+The goal of this Student Research Paper is the implementation of a \ac{CCT} determing Python algorithm for a \ac{SMIB} model. Therefore a handful of faults or fault scenarios shall be simulated with the program. In combination with a few visualizations the concepts of transient stability assessment, and therefore determing the \ac{CCT} and the critical power angle, is illustrated.
 
-\begin{figure}[H]
-    \centering
-    \vspace{1cm}
-    \begin{circuitikz}[european, scale=1, smallR/.style={resistor,resistors/scale=.7}]
-        \ctikzset{grounds/scale=1.5}
-        \draw (0,0) node[oscillator, anchor=east, name=gen]{} --(.5,0)
-            to[L, name=X_g] ++(1,0)
-            % to[tmultiwire] ++(1,0)
-            to[oosourcetrans,prim=delta,sec=wye] ++(4,0)
-            % to[tmultiwire] ++(1,0)
-            to[L, name=X_l] ++(2,0) -- ++(2,0)
-            % to[tmultiwire] ++(1,0)
-            node[gridnode, anchor=left, name=ib]{};
-        \draw[line width=2pt] (2.25,1) -- (2.25,-1);
-        \draw[line width=2pt] (4.75,1) -- (4.75,-1);
-        \draw[line width=2pt] (8.25,1) -- (8.25,-1);
-        \node[above=6pt] at (X_g) {$X_\mathrm{g}'$};
-        \node[above=6pt] at (X_l) {$X_\mathrm{l}$};
-        \path[->] (-1.2,.5) edge [bend right] node[left=6pt]{$E_\mathrm{p}~\angle$} (-1.2,-.5);
-        \path[->] (10.8,.5) edge [bend left] node[right=6pt]{$E_\mathrm{ibb}~\angle~0^{\circ}$} (10.8,-.5);
-    \end{circuitikz}
-    \vspace{1cm}
-    \caption{Representative circuit of a \acf{SMIB} model with pole wheel voltage $E_\mathrm{p}~\angle$ and \acf{IBB} voltage $E_\mathrm{ibb}~\angle~0^{\circ}$}
-    \todo[inline]{SMIB model with double OHL; different faults: near generator (both lines vs. one line not working) and far away}
-    \label{fig:my_label}
-\end{figure}

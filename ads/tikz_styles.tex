@@ -1,0 +1,114 @@
+%!TEX root = ../main.tex
+
+\usetikzlibrary{positioning,calc,shapes,arrows,shapes.multipart}
+
+% circuitikz: creating a bus
+\tikzset{bus/.style={fullgeneric, %
+        bipoles/fullgeneric/width=0.02, bipoles/fullgeneric/height=#1
+    },
+    bus/.default=3
+}
+\newcommand{\bushere}[3]{% length, text above, text below
+    % optional arguments do not work in paths
+    %
+    % starting point; draw an edge and then two nodes
+    % save the position
+    coordinate(tmp)
+    % go up and do an edge down
+    ++(0,#1) node[anchor=base]{#2} edge[ultra thick] ++(0,{-2*#1})
+    % edges do not move the current point, go down to position the node
+    ++(0,{-2*#1}) node[below]{#3}
+    % go back to where we started
+    (tmp)
+}
+
+% program plan
+\tikzset{
+   papDecision/.style = {
+         diamond,
+         draw, 
+         text width = 20 mm, 
+         align = center, 
+         text badly centered,
+         inner sep = 1 pt,
+         font=\ttfamily\footnotesize,
+         %line width = 1,
+         minimum width = 30mm,
+         minimum height = 7mm,
+      },
+   papStart/.style = {
+         rectangle,
+         draw, 
+         align = center, 
+         text width = 3cm, 
+         text badly centered,
+         inner sep = 4 pt,
+         rounded corners=10pt,
+         font=\ttfamily\footnotesize,
+         %line width = 1,
+         minimum width = 30mm,
+         minimum height = 7mm,
+      },
+   papEnd/.style = {
+         rectangle,
+         draw, 
+         align = center, 
+         text width = 3cm, 
+         text badly centered,
+         inner sep = 4 pt,
+         rounded corners=10pt,
+         font=\ttfamily\footnotesize,
+         %line width = 1,
+         minimum width = 30mm,
+         minimum height = 7mm,
+      },
+   papData/.style = {
+         trapezium,
+         draw, 
+         align = center, 
+         text width = 20 mm, 
+         text badly centered,
+         inner sep = 4 pt,
+         trapezium left angle=70,
+         trapezium right angle=110,
+         font=\ttfamily\footnotesize,
+         %line width = 1,
+         minimum width = 30mm,
+         minimum height = 7mm,
+      },
+   papPredProc/.style = {
+         draw,
+         rectangle split,
+         rectangle split horizontal,
+         rectangle split parts = 3,
+         rectangle split empty part width=-8pt,
+         align = center, 
+ %       text width = 4.5 em, 
+         text badly centered,
+ %        inner sep = 4 pt,
+         font=\ttfamily\footnotesize,
+         %line width = 1,
+         minimum width = 30mm,
+         minimum height = 7mm,
+      },
+   papProcess/.style = {
+         rectangle,
+         draw,
+         align = center, 
+         text width = 3cm, 
+         text badly centered,
+         %inner sep = 2 pt,
+         font=\ttfamily\footnotesize,
+         %line width = 1,
+         minimum width = 30mm,
+         minimum height = 7mm,
+      },
+   papLine/.style = {
+         draw,
+         -stealth,
+         font=\ttfamily\footnotesize,
+         %line width = 1,
+      },
+}
+\newcommand{\papYes}{ja}
+\newcommand{\papNo}{nein}
