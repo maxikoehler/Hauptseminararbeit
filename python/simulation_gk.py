@@ -144,7 +144,7 @@ if __name__ == '__main__':
     # Here the simulation is executed and the timesteps and corresponding results are returned.
     # In this example, the results are omega, delta, e_q_t, e_d_t, e_q_st, e_d_st of the generator and the IBB
     fault_start = 1
-    fault_end = 1.05
+    fault_end = 1.3
     sim_end = 5
 
     t_sim, res, res_delta, P_e = do_sim(fault_start, fault_end, sim_end)
@@ -156,11 +156,13 @@ if __name__ == '__main__':
     plt.plot(t_sim, res[:, 0].real, label='delta_omega_gen_python')
     plt.plot(delta_omega_pf[:, 0], delta_omega_pf[:, 1] - 1, label='delta_omega_gen_powerfactory')
     plt.legend()
+    plt.grid()
     plt.title('Reaction of a generator to a short circuit')
 
-    plt.savefig('simulation_example_gk/pictures/short_circuit_improved.png')
+    # plt.savefig('simulation_example_gk/pictures/short_circuit_improved.png')
 
     plt.show()
 
     plt.plot(t_sim, P_e, label='electrical power generator')
+    plt.grid()
     plt.show()

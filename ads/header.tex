@@ -19,7 +19,7 @@
 %	headsep = 30pt,	% Abstand zwischen Kopfzeile und Text Body  [laut log: unused]
 	headsepline,		% Linie nach Kopfzeile.
 	% footsepline,		% Linie vor Fusszeile.
-	footheight = 20pt,	% Höhe der Fusszeile
+	footheight = 10pt,	% Höhe der Fusszeile
 	abstracton,		% Abstract Überschriften
 	DIV=calc,		% Satzspiegel berechnen
 	headinclude=false,	% Kopfzeile nicht in den Satzspiegel einbeziehen
@@ -56,7 +56,7 @@
 
 %%%%%%% Package Includes %%%%%%%
 
-\usepackage[left=3cm,right=2cm,top=2.5cm,bottom=2.5cm,foot=1cm]{geometry}	% Seitenränder und Abstände
+\usepackage[left=3cm,right=2cm,top=2.5cm,bottom=2.5cm,foot=.5cm]{geometry}	% Seitenränder und Abstände
 \usepackage[activate]{microtype} %Zeilenumbruch und mehr
 \usepackage[onehalfspacing]{setspace}
 \usepackage{makeidx}
@@ -102,6 +102,12 @@
 % \usepackage[Glenn]{fncychap}
 % Sonny, Lenny, Glenn, Conny, Rejne, Bjarne, Bjornstrup
 \usepackage{circuitikzgit}
+\usepackage{scrtime}
+\usepackage{prelim2e}
+% \newcommand{\myVersion}{version 4.2\xspace}
+% \renewcommand{\PrelimWords}{\relax}
+\renewcommand{\PrelimText}{\textcolor{red}{\textbf{\footnotesize[\today\ at \thistime\ -- preliminary version \version]}}}
+
 
 % Notizen. Einsatz mit \todo{Notiz} oder \todo[inline]{Notiz}. Documentation: https://tug.ctan.org/macros/latex/contrib/todonotes/todonotes.pdf
 \usepackage[obeyFinal,backgroundcolor=yellow,linecolor=black, figwidth=.9\linewidth,figcolor=white,textwidth=2.5cm]{todonotes}

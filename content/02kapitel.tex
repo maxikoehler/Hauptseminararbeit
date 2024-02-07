@@ -4,7 +4,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Fundamentals}
 % Evtl. lieber Basics nennen; Stand der Technik ist es ja nicht wirklich
-\label{chap:sota}
+\label{chap:fundamentals}
 
 \commenting{Input of basic knowledge for system modelling; Maybe supplementary knowledge} \mycomment[MK]{Write Chap Fundamentals}
 
@@ -26,16 +26,16 @@ The final swing equation system can be derived to following two equations, which
         \frac{d\delta}{dt}&=\Delta\omega \label{eq:swing1} \\[12pt]
         \frac{d\Delta\omega}{dt}&=\frac{1}{2 \cdot H_\mathrm{gen}} \cdot (P_\mathrm{m} - P_\mathrm{e}) \label{eq:swing2}
 \end{align}
-where
+% where
 
-\begin{tabularx}{\textwidth}[H]{ll}
-        $\delta$                & power angle \\
-        $\Delta\omega$          & change of rotor angular speed \\
-        $H_\mathrm{gen}$        & inertia constant of the \acs{SG} \\
-        $P_\mathrm{m}$          & mechanical power of the turbine \\
-        $P_\mathrm{e}$          & electrical power demanded transferred out of the \acs{SG}
-\end{tabularx}
-\vspace{12pt}
+% \begin{tabularx}{\textwidth}[H]{ll}
+%         $\delta$                & power angle \\
+%         $\Delta\omega$          & change of rotor angular speed \\
+%         $H_\mathrm{gen}$        & inertia constant of the \acs{SG} \\
+%         $P_\mathrm{m}$          & mechanical power of the turbine \\
+%         $P_\mathrm{e}$          & electrical power demanded transferred out of the \acs{SG}
+% \end{tabularx}
+% \vspace{12pt}
 
 The generation of a \ac{TDS} for this equation system takes place in \autoref{sec:tds}.
 
@@ -49,6 +49,18 @@ The generation of a \ac{TDS} for this equation system takes place in \autoref{se
                 \item basic assessment models (single machine infinite bus, see \autocite{kundurPowerSystemStability2022})
         \end{itemize}
 }
+
+With respect to the limitations, that
+\begin{enumerate}
+        \item the machine is operating under balanced three-phase positive-sequence conditions,
+        \item the machine excitation is constant, 
+        \item the machine losses, saturation, and saliency are neglected,
+\end{enumerate}
+a simplified \acf{SMIB} model can be considered for transient stability assessment (see \autoref{fig:smib-model}).  The \ac{IBB} is working with a constant voltage $E_\mathrm{ibb}$ and angle $\delta_\mathrm{ibb}$, typically set to $0^\circ$. The real power flowing from the \ac{SG} to the \ac{IBB} is then expressed within the \autoref{eq:p_e} and only dependent on the power angle $\delta$. The reactance $X_\mathrm{res}$ is expressing the simplified reactance from the respective circuit.
+\begin{align}
+        P_\mathrm{e}=\frac{E_\mathrm{p} \cdot E_\mathrm{ibb}}{X_\mathrm{res}} \cdot sin(\delta) \label{eq:p_e}
+\end{align}
+The mechanical power of the turbine is assumed constant, due to the short occurance of transient stability problems.
 
 \begin{figure}[H]
         \centering
@@ -82,17 +94,17 @@ The generation of a \ac{TDS} for this equation system takes place in \autoref{se
         \caption[Representative circuit of a \acf{SMIB} model]{Representative circuit of a \acf{SMIB} model with pole wheel voltage $E_\mathrm{p}~\angle~\delta$ and \acf{IBB} voltage $E_\mathrm{ibb}~\angle~0^{\circ}$; positions of considered faults 1 to 3 are marked with red lightning arrows}
         \label{fig:smib-model}        
 \end{figure}
-where
+% where
 
-\begin{tabularx}{\textwidth}[H]{lX}
-        $\delta$                        & power angle \\
-        $E_\mathrm{p}$                  & pole potential of the \acf{SG} \\
-        $\underline{E}_\mathrm{T}'$     & complex potential on the primary side of the transformer \\
-        $\underline{E}_\mathrm{T}''$    & complex potential on the secondary side of the transformer \\
-        $\underline{E}_\mathrm{ibb}$    & complex pole potential of the \acf{IBB} \\
-        $X_\mathrm{g}'$                 & reactance of the \acf{SG} \\
-        $X_\mathrm{l}$                  & reactance of a single line \\
-\end{tabularx}
+% \begin{tabularx}{\textwidth}[H]{lX}
+%         $\delta$                        & power angle \\
+%         $E_\mathrm{p}$                  & pole potential of the \acf{SG} \\
+%         $\underline{E}_\mathrm{T}'$     & complex potential on the primary side of the transformer \\
+%         $\underline{E}_\mathrm{T}''$    & complex potential on the secondary side of the transformer \\
+%         $\underline{E}_\mathrm{ibb}$    & complex pole potential of the \acf{IBB} \\
+%         $X_\mathrm{g}'$                 & reactance of the \acf{SG} \\
+%         $X_\mathrm{l}$                  & reactance of a single line \\
+% \end{tabularx}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Events harming the system stability}
@@ -103,6 +115,26 @@ where
                 \item effects of electrical networks (esp. generator networks) vs. single machine systems -> paper \autocite{batchuComparativeStudyEqual2022}: IBB not that extremely fixed, group of critical and non-critical machines; but more of an outlook and targeting real-time calculation (for system operation)
         \end{itemize}
 }
+
+The electrical energy system or network is a balance of power input (generation) and output (use). Changes and dynamics of this balance lead to system answers, which can result in a remaining stable system, or unlikely an unstable system. When specifically the generator is moving into an unstable operation, and can not stay in synchronous and stable speed with the rest of the system, it has to be disconnected from the power grid.
+
+\begin{figure}[h]
+        \centering
+        \vspace{12pt}
+        \begin{tikzpicture}[sibling distance=30mm, every node/.style={rectangle, draw, align = center, rounded corners=5pt, minimum height=24pt, font=\footnotesize}], %line width = 1, minimum width = 30mm, minimum height = 7mm,}]
+                \node {Stability harming events}
+                child {node {short circuit}
+                        child {node {three-phase}
+                                child {node {complete}}
+                                child {node {partial}}}
+                        child {node {single-phase}}}
+                child {node {load change}};
+        \end{tikzpicture}
+        \caption{Overview of events harming the system stability of a power grid}
+        \label{fig:stability-events}
+\end{figure}
+
+Events that can harm the system stability are sketched in \autoref{fig:stability-events}. This \arbeit~is interested in a three-phase short circuit, in the variants near a generator, far away of a generator and with a partial loss of a connecting overhead line.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Numerical methods for TDSs and system modeling}
@@ -149,7 +181,7 @@ Following chapter will describe the implementation of Python Code for solving th
 
 \begin{figure}[H]
         \centering
-        \begin{tikzpicture}[node distance = 2cm, auto]
+        \begin{tikzpicture}[node distance = 1.5cm, auto]
                 % Place nodes
                 \node [papStart] (Start1){Start};
                 \node [papProcess, below of = Start1,label={[shift={(2.7,-0.6)}]\footnotesize\textit{label 1}}] (pro1){Prozess};
@@ -171,7 +203,7 @@ Following chapter will describe the implementation of Python Code for solving th
                 \path [papLine] (predproc1) -- (pro3);
                 \path [papLine] (pro3) |- (join1);
         \end{tikzpicture}
-        \caption{Program plan for determing the \acf{CCT}}
+        \caption{Program plan for determining the \acf{CCT}}
         \label{fig:program-plan}
 \end{figure}
 
@@ -184,7 +216,16 @@ Following chapter will describe the implementation of Python Code for solving th
         \end{itemize}
 }
 
+\subsection{Electric networks}
 \missingfigure{Simplified networks, which are in interest and shall be simulated with the algorithm; ideally solved with subfigures}
+
+\subsection{Initial value calculation}
+\commenting{
+        \begin{itemize}
+                \item Load flow analysis
+                \item Calculation of $E_\mathrm{i}$, $I_\mathrm{i}$, $P_\mathrm{i}$, $\delta_\mathrm{i}$, ..., as well for IBB
+        \end{itemize}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Implementation of the time domain solution}
@@ -211,8 +252,7 @@ Following chapter will describe the implementation of Python Code for solving th
 \section{Numerical results}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Discussion}
-\label{chap:discussion}
+\section{Discussion}
+\label{sec:discussion}
 
-\mycomment[MK]{Write Chap Discussion}
+\mycomment[MK]{Write Sec Discussion}
