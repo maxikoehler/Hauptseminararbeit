@@ -18,6 +18,7 @@ General sources in terms of standard literature: \autocite{oedingElektrischeKraf
                 \item characteristics of a synchronous generator; structure and types of SG's
                 \item mathematical background and description of the behavior -> dynamic modelling
                 \item \textbf{Swing equations}
+                \item Damping: not interesiting for us
         \end{itemize}
 }
 
@@ -107,34 +108,38 @@ The mechanical power of the turbine is assumed constant, due to the short occura
 % \end{tabularx}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Events harming the system stability}
-\commenting{
-        \begin{itemize}
-                \item \textbf{fault types,}
-                \item load-changes
-                \item effects of electrical networks (esp. generator networks) vs. single machine systems -> paper \autocite{batchuComparativeStudyEqual2022}: IBB not that extremely fixed, group of critical and non-critical machines; but more of an outlook and targeting real-time calculation (for system operation)
-        \end{itemize}
-}
+% \section{Events harming the system stability}
+% \commenting{
+%         \begin{itemize}
+%                 \item \textbf{fault types,}
+%                 \item load-changes
+%                 \item effects of electrical networks (esp. generator networks) vs. single machine systems -> paper \autocite{batchuComparativeStudyEqual2022}: IBB not that extremely fixed, group of critical and non-critical machines; but more of an outlook and targeting real-time calculation (for system operation)
+%         \end{itemize}
+% }
 
-The electrical energy system or network is a balance of power input (generation) and output (use). Changes and dynamics of this balance lead to system answers, which can result in a remaining stable system, or unlikely an unstable system. When specifically the generator is moving into an unstable operation, and can not stay in synchronous and stable speed with the rest of the system, it has to be disconnected from the power grid.
+% The electrical energy system or network is a balance of power input (generation) and output (use). Changes and dynamics of this balance lead to system answers, which can result in a remaining stable system, or unlikely an unstable system. When specifically the generator is moving into an unstable operation, and can not stay in synchronous and stable speed with the rest of the system, it has to be disconnected from the power grid.
 
-\begin{figure}[h]
-        \centering
-        \vspace{12pt}
-        \begin{tikzpicture}[sibling distance=30mm, every node/.style={rectangle, draw, align = center, rounded corners=5pt, minimum height=24pt, font=\footnotesize}], %line width = 1, minimum width = 30mm, minimum height = 7mm,}]
-                \node {Stability harming events}
-                child {node {short circuit}
-                        child {node {three-phase}
-                                child {node {complete}}
-                                child {node {partial}}}
-                        child {node {single-phase}}}
-                child {node {load change}};
-        \end{tikzpicture}
-        \caption{Overview of events harming the system stability of a power grid}
-        \label{fig:stability-events}
-\end{figure}
+% \begin{figure}[h]
+%         \centering
+%         \vspace{12pt}
+%         \begin{tikzpicture}[sibling distance=30mm, every node/.style={rectangle, draw, align = center, rounded corners=5pt, minimum height=24pt, font=\footnotesize}], %line width = 1, minimum width = 30mm, minimum height = 7mm,}]
+%                 \node {Stability harming events}
+%                 child {node {short circuit}
+%                         child {node {three-phase}
+%                                 child {node {complete}}
+%                                 child {node {partial}}}
+%                         child {node {single-phase}}}
+%                 child {node {load change}};
+%         \end{tikzpicture}
+%         \caption{Overview of events harming the system stability of a power grid}
+%         \label{fig:stability-events}
+% \end{figure}
 
-Events that can harm the system stability are sketched in \autoref{fig:stability-events}. This \arbeit~is interested in a three-phase short circuit, in the variants near a generator, far away of a generator and with a partial loss of a connecting overhead line.
+% Events that can harm the system stability are sketched in \autoref{fig:stability-events}. This \arbeit~is interested in a three-phase short circuit, in the variants near a generator, far away of a generator and with a partial loss of a connecting overhead line.
+
+\section{Analytical calculation of the critical clearing time}
+
+\commenting{Deviation through ODE's and its parameters. Swing equation vs. algebraic equations. Considering transformator (symmetrical components) resistance, current injection from the grid-node (Norton equivalent), impedances from the line.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Numerical methods for TDSs and system modeling}
@@ -145,7 +150,7 @@ Events that can harm the system stability are sketched in \autoref{fig:stability
         \end{itemize}
 }
 
-System dynamics is a method for describing, understand, and discuss complex problems in the context of system theory \textbf{[SOURCE]}. They often can be described through a set of coupled \acfp{ODE}, most resoluted in time dimension. \commenting{How to bridge towards different boundary types, explicit and implicit methods, ...; Different solving methods, ...} 
+System dynamics is a method for describing, understand, and discuss complex problems in the context of system theory \textbf{[SOURCE]}. They often can be described through a set of coupled \acfp{ODE}, most resoluted in time dimension. \commenting{How to bridge towards different boundary types, explicit and implicit methods, ...; Different solving methods, ..., Dirichlet-boundaries, von-Neumann-boundaries, ...} 
 
 \acsp{ODE} can be solved through numerical integration with different methods. An easy and less complex method is Euler's method. It uses a linear extrapolation to calculate the functions value at the next timestep, so following the iterable function
 \begin{align}
@@ -209,6 +214,7 @@ Following chapter will describe the implementation of Python Code for solving th
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Electrical simplifications and scenario setting}
+\label{sec:scenario}
 \commenting{
         \begin{itemize}
                 \item Simplification of all the components in SMIB network to a simple network
@@ -231,11 +237,22 @@ Following chapter will describe the implementation of Python Code for solving th
 \section{Implementation of the time domain solution}
 \label{sec:tds}
 
+\commenting{
+        \begin{itemize}
+                \item Different levels of TDS; With/without solving of algebraic equations at each timestep; With/without calculation of turbine momentum at each timestep (dependent on omega)
+                \item Utilization as a function: calculation with clearing and without clearing: for determination of CCT needed
+        \end{itemize}
+}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Implementation of the equal area criterion}
 
-
-\section{Implementation of helping functions}
+\commenting{
+        \begin{itemize}
+                \item Iterative process needed? Due to omega and delta dependencies of $P_e$ and $P_m$
+                \item Different methods of CCT calculation: P-$\delta$-curve; P-t-curves
+        \end{itemize}
+}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -251,8 +268,68 @@ Following chapter will describe the implementation of Python Code for solving th
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Numerical results}
 
+\autoref{tab:numerical-solutions} is summarizing the results for the \acs{CCT}-calculation of the different set scenarios in \autoref{sec:scenario}. The single scenarios are further described in the following.
+
+\begin{table}[!htb]
+        \small
+        \centering
+        \caption[Numerical results for \acs{CCT}-calculations]{Results ($CCT$ and $\delta_\mathrm{cc}$) for numerical solving the faults 1, 2, and 3}
+        \label{tab:numerical-solutions}
+        \vspace{12pt}
+        \begin{tabular}{|l|r|r|}
+                \hline
+                \rowcolor{lightgray} Scenario & \acs{CCT} & $\delta_\mathrm{cc}$ \\ \hline \hline
+                Fault 1 & & \\ \hline
+                Fault 2 & & \\ \hline
+                Fault 3 & & \\ \hline         
+        \end{tabular}
+\end{table}
+
+\subsection{Simulated faults}
+
+\begin{figure}[H]
+        \centering
+        % \begin{subfigure}[b]{0.4\textwidth}
+                % \centering
+                \input{python/plots/fault1_stable.pgf}
+        % \end{subfigure}
+        % \begin{subfigure}[b]{0.4\textwidth}
+                % \centering
+                % \input{python/plots/fault1_unstable.pgf}
+        % \end{subfigure}
+        \caption[Fault 1]{Fault 1}
+        \label{fig:fault1}
+\end{figure}
+
+\subsection{Using algebraic calculations vs. non-algebraic}
+
+\subsection{Solving the \acs{CCT} without \acsp{TDS}}
+
+\subsection{Parameter influence analysis}
+
+The influence of the parameters $H_\mathrm{gen}$ and $\Delta P$ has been carried out with the described code of [...]. The results are shown in \autoref{fig:parameter-comp}.
+
+\begin{figure}[H]
+        \centering
+        % \input{python/plots/parameter_comparison.tex}
+        \input{python/plots/parameter_comparison.pgf}
+        \caption[Parameter comparison]{Parameter comparison}
+        \label{fig:parameter-comp}
+\end{figure}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Discussion}
 \label{sec:discussion}
 
-\mycomment[MK]{Write Sec Discussion}
+
+
+\section{Limitations}
+
+\commenting{
+        \begin{itemize}
+                \item Just stable or unstable, not metastable (first swing ok, after that unstable development)
+                \item No damping
+                \item Simplified generator model, only one generator. No machine interaction considered
+                \item 
+        \end{itemize}
+}

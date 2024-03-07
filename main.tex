@@ -22,19 +22,25 @@
 		\input{ads/deckblatt}
 	\end{spacing}
 	\newpage
+
 	% \cleardoublepage
 
 	% stellt Abstand vor Kapitelüberschriften ein
 	\RedeclareSectionCommand[beforeskip=\kapitelabstand         ]{chapter}
 
 	% noch ausstehende ToDo's - Liste
-	\listoftodos
-	\thispagestyle{empty}
-	\newpage
+	% \listoftodos
+	% \thispagestyle{empty}
+	% \newpage
 
     \pagestyle{scrheadings}
 
     \setcounter{page}{2}
+
+	% \newpage 
+	% \thispagestyle{empty}
+	% \quad 
+	% \newpage
 	
 	% Erklärung
 	% \clearpage
@@ -126,7 +132,7 @@
 
 	% sonstiger Anhang
 	\cleardoublepage
-	\pagenumbering{Alph}
+	% \pagenumbering{Alph}
 	
 	\appendix
 	\input{ads/appendix}
