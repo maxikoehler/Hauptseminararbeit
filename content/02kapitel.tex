@@ -24,8 +24,8 @@ General sources in terms of standard literature: \autocite{oedingElektrischeKraf
 
 The final swing equation system can be derived to following two equations, which have to be solved in every time step to determine the pole angle $\delta$ and the rotor speed $\omega$, respectively the rotor speed change from its base value $\Delta\omega$:
 \begin{align}
-        \frac{d\delta}{dt}&=\Delta\omega \label{eq:swing1} \\[12pt]
-        \frac{d\Delta\omega}{dt}&=\frac{1}{2 \cdot H_\mathrm{gen}} \cdot (P_\mathrm{m} - P_\mathrm{e}) \label{eq:swing2}
+        \frac{d\delta}{dt}       & =\Delta\omega \label{eq:swing1}                                                         \\[12pt]
+        \frac{d\Delta\omega}{dt} & =\frac{1}{2 \cdot H_\mathrm{gen}} \cdot (P_\mathrm{m} - P_\mathrm{e}) \label{eq:swing2}
 \end{align}
 % where
 
@@ -54,7 +54,7 @@ The generation of a \ac{TDS} for this equation system takes place in \autoref{se
 With respect to the limitations, that
 \begin{enumerate}
         \item the machine is operating under balanced three-phase positive-sequence conditions,
-        \item the machine excitation is constant, 
+        \item the machine excitation is constant,
         \item the machine losses, saturation, and saliency are neglected,
 \end{enumerate}
 a simplified \acf{SMIB} model can be considered for transient stability assessment (see \autoref{fig:smib-model}).  The \ac{IBB} is working with a constant voltage $E_\mathrm{ibb}$ and angle $\delta_\mathrm{ibb}$, typically set to $0^\circ$. The real power flowing from the \ac{SG} to the \ac{IBB} is then expressed within the \autoref{eq:p_e} and only dependent on the power angle $\delta$. The reactance $X_\mathrm{res}$ is expressing the simplified reactance from the respective circuit.
@@ -67,7 +67,7 @@ The mechanical power of the turbine is assumed constant, due to the short occura
         \centering
         \vspace{1cm}
         \begin{circuitikz}[european, scale=.9, smallR/.style={resistor,resistors/scale=.7}]
-            \draw (0,0) node[oscillator, anchor=east, name=gen]{} --(.5,0)
+                \draw (0,0) node[oscillator, anchor=east, name=gen]{} --(.5,0)
                 to[L, name=X_g] ++(2,0) coordinate(f1)
                 \bushere{1}{$\underline{E}_\mathrm{T}'$}{}
                 to[oosourcetrans,prim=delta,sec=wye] ++(2,0)
@@ -75,25 +75,25 @@ The mechanical power of the turbine is assumed constant, due to the short occura
                 to[L, name=X_l2] ++(1,0) -- ++(1.5,0) ++(0,.5)
                 \bushere{1.25}{$\underline{E}_\mathrm{ibb}$}{} ++(0,.5) coordinate(b2) ++(0,-.5) -- coordinate(f3) ++(1,0)
                 node[gridnode, anchor=left, name=ib]{};
-            \draw (b1) ++(0,.5) to[L, name=X_l1] (b2);
-            % \draw[line width=2pt] (2.25,1) -- (2.25,-1);
-            % \draw[line width=2pt] (4.75,1) -- (4.75,-1);
-            % \draw[line width=2pt] (8.25,1) -- (8.25,-1);
-            \node[above=6pt] at (X_g) {$X_\mathrm{g}'$};
-            \node[above=6pt] at (X_l1) {$X_\mathrm{l}$};
-            \node[below=6pt] at (X_l2) {$X_\mathrm{l}$};
-            \path[->] (-1.2,.5) edge [bend right] node[left=6pt]{$E_\mathrm{p}~\angle~\delta$} (-1.2,-.5);
-            \path[->] (ib) ++(.8,.5) edge [bend left] node[right=6pt]{$E_\mathrm{ibb}~\angle~0^{\circ}$} ++(0,-1);
-            \draw[-Stealth, very thick, red] (f1) ++(0,-.5) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f1_text);
-            \node[below, red] at (f1_text) {\scriptsize fault 1};
-            \draw[-Stealth, very thick, red] (f2) ++(0,.3) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f2_text);
-            \node[below, red] at (f2_text) {\scriptsize fault 2};
-            \draw[-Stealth, very thick, red] (f3) ++(0,.3) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f3_text);
-            \node[below, red] at (f3_text) {\scriptsize fault 3};
+                \draw (b1) ++(0,.5) to[L, name=X_l1] (b2);
+                % \draw[line width=2pt] (2.25,1) -- (2.25,-1);
+                % \draw[line width=2pt] (4.75,1) -- (4.75,-1);
+                % \draw[line width=2pt] (8.25,1) -- (8.25,-1);
+                \node[above=6pt] at (X_g) {$X_\mathrm{g}'$};
+                \node[above=6pt] at (X_l1) {$X_\mathrm{l}$};
+                \node[below=6pt] at (X_l2) {$X_\mathrm{l}$};
+                \path[->] (-1.2,.5) edge [bend right] node[left=6pt]{$E_\mathrm{p}~\angle~\delta$} (-1.2,-.5);
+                \path[->] (ib) ++(.8,.5) edge [bend left] node[right=6pt]{$E_\mathrm{ibb}~\angle~0^{\circ}$} ++(0,-1);
+                \draw[-Stealth, very thick, red] (f1) ++(0,-.5) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f1_text);
+                \node[below, red] at (f1_text) {\scriptsize fault 1};
+                \draw[-Stealth, very thick, red] (f2) ++(0,.3) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f2_text);
+                \node[below, red] at (f2_text) {\scriptsize fault 2};
+                \draw[-Stealth, very thick, red] (f3) ++(0,.3) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f3_text);
+                \node[below, red] at (f3_text) {\scriptsize fault 3};
         \end{circuitikz}
         \vspace{.5cm}
         \caption[Representative circuit of a \acf{SMIB} model]{Representative circuit of a \acf{SMIB} model with pole wheel voltage $E_\mathrm{p}~\angle~\delta$ and \acf{IBB} voltage $E_\mathrm{ibb}~\angle~0^{\circ}$; positions of considered faults 1 to 3 are marked with red lightning arrows}
-        \label{fig:smib-model}        
+        \label{fig:smib-model}
 \end{figure}
 % where
 
@@ -138,6 +138,7 @@ The mechanical power of the turbine is assumed constant, due to the short occura
 % Events that can harm the system stability are sketched in \autoref{fig:stability-events}. This \arbeit~is interested in a three-phase short circuit, in the variants near a generator, far away of a generator and with a partial loss of a connecting overhead line.
 \newpage
 \section{Analytical calculation of the critical clearing time}
+\label{sec:analytical-method}
 
 \mycomment[MK]{make text in image bigger}
 \begin{wrapfigure}{r}{.6\textwidth}
@@ -147,7 +148,7 @@ The mechanical power of the turbine is assumed constant, due to the short occura
         \caption{Illustrated \acf{EAC} in the P-$\delta$-curve}
         \label{fig:eac}
 \end{wrapfigure}
-For the analytical solution of the swing equation and following the \acs{CCT}, there is the need to find the critical power angle $\delta_\mathrm{cc}$ first. For this the most common approach is the \acf{EAC}, with considering that the amount of stored energy through acceleration (during the short or failure) is equal to the released energy (decellerating the rotor) when synchronizing again. These both energys can be calculated through the area under the curve of the power difference $\Delta P=P_\mathrm{m}-P_\mathrm{e}$, while the accelerating area is between the first stable operating angle $\delta_\mathrm{0}$ and the clearing angle $\delta_\mathrm{c}$, the decellerating area between $\delta_\mathrm{c}$ and the maximum dynamically stable angle $\delta_\mathrm{max}$. \autoref{fig:eac} is illustrating this approach. Following on this approach a generalized expression is formed to
+For the analytical solution of the swing equation and following the \acs{CCT}, there is the need to find the critical power angle $\delta_\mathrm{cc}$ first. For this, the most common approach is the \acf{EAC}, considering that the amount of stored energy through acceleration (during the short or failure) is equal to the released energy (decelerating the rotor) when synchronizing again. These both energys can be calculated through the area under the curve of the power difference $\Delta P=P_\mathrm{m}-P_\mathrm{e}$, while the accelerating area is between the first stable operating angle $\delta_\mathrm{0}$ and the clearing angle $\delta_\mathrm{c}$, the decelerating area between $\delta_\mathrm{c}$ and the maximum dynamically stable angle $\delta_\mathrm{max}$. \autoref{fig:eac} is illustrating this approach. Following this approach a generalized expression is formed to
 \begin{align}
         \int_{\delta_\mathrm{0}}^{\delta_\mathrm{1}}\Delta P~d\delta = 0 \label{eq:gen-eac},
 \end{align}
@@ -179,13 +180,13 @@ Rearranging this gives an expression for calculating the critical clearing time 
         \end{itemize}
 }
 
-System dynamics is a method for describing, understand, and discuss complex problems in the context of system theory \textbf{[SOURCE]}. They often can be described through a set of coupled \acfp{ODE}, most resoluted in time dimension. \commenting{How to bridge towards different boundary types, explicit and implicit methods, ...; Different solving methods, ..., Dirichlet-boundaries, von-Neumann-boundaries, ...} 
+System dynamics is a method for describing, understand, and discuss complex problems in the context of system theory \textbf{[SOURCE]}. They often can be described through a set of coupled \acfp{ODE}, most resoluted in time dimension. \commenting{How to bridge towards different boundary types, explicit and implicit methods, ...; Different solving methods, ..., Dirichlet-boundaries, von-Neumann-boundaries, ...}
 
 \acsp{ODE} can be solved through numerical integration with different methods. An easy and less complex method is Euler's method. It uses a linear extrapolation to calculate the functions value at the next timestep, so following the iterable function
 \begin{align}
         f_\mathrm{t+1}=f_\mathrm{t}+\left(\frac{df}{dt}\right)_\mathrm{t} \cdot \Delta t \label{eq:euler},
 \end{align}
-with $t$ being the time and $f$ an on $t$ dependent function. Generally a system of second order \acsp{ODE} can be rewritten as two first order equations. This often simplifies the calculation or the use of numerical methods. The presented swing equation of a \acs{SG} in \autoref{eq:swing1} and \autoref{eq:swing2} has been split up by that principle.  
+with $t$ being the time and $f$ an on $t$ dependent function. Generally a system of second order \acsp{ODE} can be rewritten as two first order equations. This often simplifies the calculation or the use of numerical methods. The presented swing equation of a \acs{SG} in \autoref{eq:swing1} and \autoref{eq:swing2} has been split up by that principle.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -200,16 +201,16 @@ Following chapter will describe the implementation of Python Code for solving th
         Program plan for determination / algorithm structure, containing:
         \begin{itemize}
                 \item Pre questions:
-                \begin{enumerate}
-                        \item What do I want to know from the algorithm?
-                        \item What do I want to see?
-                \end{enumerate}
+                      \begin{enumerate}
+                              \item What do I want to know from the algorithm?
+                              \item What do I want to see?
+                      \end{enumerate}
                 \item Answers / Hints for the algorithm:
-                \begin{enumerate}
-                        \item What are needed inputs?
-                        \item What are needed functions?
-                        \item How do partial results interact with each other / puzzle together to the superior question?
-                \end{enumerate}
+                      \begin{enumerate}
+                              \item What are needed inputs?
+                              \item What are needed functions?
+                              \item How do partial results interact with each other / puzzle together to the superior question?
+                      \end{enumerate}
         \end{itemize}
 }
 
@@ -224,10 +225,10 @@ Following chapter will describe the implementation of Python Code for solving th
                 \node [papPredProc,  right of = dec1, xshift=25mm](predproc1){\nodepart{two}\shortstack{vordefinierter\\Prozess}};
                 \node [papProcess, below of = predproc1,label={[shift={(2.3,-0.6)}]\footnotesize\textit{label 3}}](pro3){Prozess};
                 \node [papEnd, below of = dec1, yshift= -20mm] (End) {Ende};
-                
+
                 % Place joins
                 \coordinate [below of = dec1, yshift= -10mm] (join1);
-                
+
                 % Draw edges
                 \path [papLine] (Start1) -- (pro1);
                 \path [papLine] (pro1) -- (pro2);
@@ -253,6 +254,19 @@ Following chapter will describe the implementation of Python Code for solving th
 
 \subsection{Electric networks}
 \missingfigure{Simplified networks, which are in interest and shall be simulated with the algorithm; ideally solved with subfigures}
+
+\subsection{Simulation cases and boundaries}
+\label{sec:sim-boundaries}
+
+The boundaries of the single cases, which are simulated, are given with a Python dictionary. Therefore the values of the variables have to be predefined and documented. Considering fault cases, there are three differences in the interest:
+\begin{enumerate}
+        \item A full line fault, meaning the complete electrical power is disconnected. The \acs{CCT} of the fault has to be determined, a \acs{TDS} with fault clearing shortly before and after the critical clearing is carried out and displayed as {\itshape stable} and {\itshape unstable};
+        \item A partial line fault, meaning just a defined percentage of the electrical power is disconnected. The further evaluation is carried out like in scenario 1.;
+        \item A partial line fault, meaning just a defined percentage of the electrical power is disconnected. But with consideration, that the fault condition is stable at a new operation point. This point is calculated in the time domain.
+\end{enumerate}
+Further of interest is a parameter variation of both influences $H_\mathrm{gen}$ and $\Delta P$. This last parameter is not meant to describe the absolute power difference, which is inserted into the swing equation, but more the power difference relative to the maximum electrical power output of the generator. Due to the relation between the maximum power output and the disconnected electrical power in the acceleration and deceleration of the rotor, it seems more significant to use this as a relative parameter. The \acs{CCT} in dependency of these two influences shall be elaborated.
+
+Lastly, a comparison between calculating with the algebraic equation system of the network and the calculation solely with the power flowing dependent on both (fixed) bus voltages, the reactance and the power angle takes place.
 
 \subsection{Initial value calculation}
 \commenting{
@@ -293,6 +307,22 @@ Following chapter will describe the implementation of Python Code for solving th
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Analytical results}
+\label{sec:analytical-results}
+
+The analytical calculation follows the equations from \autoref{sec:analytical-method}. Therefore the base values for the three input scenarios are used. The results of this calculation are shown in \autoref{tab:res-analytical}.
+
+\begin{table}[H]
+        \small
+        \centering
+        \caption[Analytical results for the three fault-scenarios]{Analytical results for the three fault-scenarios; considering $\delta_\mathrm{cc}$ and $t_\mathrm{cc}$}
+        \label{tab:res-analytical}
+        \vspace{12pt}
+        \begin{tabular}{|l|r|r|}
+                \hline
+                \rowcolor{lightgray} & $\delta_\mathrm{cc}$ in $\mathrm{deg}$ & $t_\mathrm{cc}$ in $\mathrm{s}$ \\ \hline \hline
+                Fault 1              &                                        &                                 \\ \hline
+        \end{tabular}
+\end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Numerical results}
@@ -308,9 +338,9 @@ Following chapter will describe the implementation of Python Code for solving th
         \begin{tabular}{|l|r|r|}
                 \hline
                 \rowcolor{lightgray} Scenario & \acs{CCT} & $\delta_\mathrm{cc}$ \\ \hline \hline
-                Fault 1 & & \\ \hline
-                Fault 2 & & \\ \hline
-                Fault 3 & & \\ \hline         
+                Fault 1                       &           &                      \\ \hline
+                Fault 2                       &           &                      \\ \hline
+                Fault 3                       &           &                      \\ \hline
         \end{tabular}
 \end{table}
 
@@ -319,12 +349,12 @@ Following chapter will describe the implementation of Python Code for solving th
 \begin{figure}[H]
         \centering
         % \begin{subfigure}[b]{0.4\textwidth}
-                % \centering
-                \input{python/plots/fault1_stable.pgf}
+        % \centering
+        \input{python/plots/fault1_stable.pgf}
         % \end{subfigure}
         % \begin{subfigure}[b]{0.4\textwidth}
-                % \centering
-                % \input{python/plots/fault1_unstable.pgf}
+        % \centering
+        % \input{python/plots/fault1_unstable.pgf}
         % \end{subfigure}
         \caption[Fault 1]{Fault 1}
         \label{fig:fault1}
@@ -359,6 +389,6 @@ The influence of the parameters $H_\mathrm{gen}$ and $\Delta P$ has been carried
                 \item Just stable or unstable, not metastable (first swing ok, after that unstable development)
                 \item No damping
                 \item Simplified generator model, only one generator. No machine interaction considered
-                \item 
+                \item
         \end{itemize}
 }
