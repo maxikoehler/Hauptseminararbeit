@@ -17,7 +17,7 @@ plt.rcParams.update({
     "text.usetex": True,
     "font.family": "serif",
     "font.serif": ["Charter"],
-    "font.size": 12
+    "font.size": 10
 })
 
 # # update savefig options for latex export
@@ -59,19 +59,20 @@ def init(gen_parameters, sim_parameters):
 if __name__ == "__main__":
     # setup simulation inputs
     gen_parameters = {
-        "fn":       60,
-        "H_gen":    3.5,
+        "fn":       50,
+        "H_gen":    3.3,
         "X_gen":    0.2,
+        "X_trans":  0.2,
         "X_ibb":    0.1,
         "X_line":   0.65,
-        "X_fault":  0.001,
+        "X_fault":  0.0001,
 
-        "E_fd_gen": 1.075,
-        "E_fd_ibb": 1.033,
-        "P_m_gen":  1998/2200,
+        "E_fd_gen": 1.14,
+        "E_fd_ibb": 1.0,
+        "P_m_gen":  0.6,
 
         "omega_gen_init": 0,
-        "delta_gen_init": np.deg2rad(50.9),
+        "delta_gen_init": np.deg2rad(30),
         "delta_ibb_init": np.deg2rad(0)
     }
 
@@ -125,6 +126,6 @@ if __name__ == "__main__":
     plt.grid()
     # figure = plt.gcf() # get current figure
     # figure.set_size_inches(8, 6)
-    # plt.savefig('plots/parameter_comparison.pgf', dpi=300)
-    plt.show()
-    # plt.close()
+    plt.savefig('plots/parameter_comparison.pgf', dpi=300)
+    # plt.show()
+    plt.close()

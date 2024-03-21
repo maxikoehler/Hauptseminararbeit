@@ -20,10 +20,53 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\chapter{Graphics and tables}
+
+\section{Initial values}
+\label{app:initials}
+
+\begin{table}[H]
+    \small
+    \centering
+    \caption[short]{title}
+    \vspace{12pt}
+    \begin{tabularx}{\textwidth}{|X|X|}
+        \hline
+        \rowcolor{lightgray} a & b \\ \hline \hline
+        & \\ \hline
+    \end{tabularx}
+\end{table}
+
+\section{Fault 1}
+\label{app:fault1}
+
+\input{python/plots/fault1_stable.pgf}
+
+\input{python/plots/fault1_unstable.pgf}
+
+\input{python/plots/delta-P_fault1.pgf}
+
+\section{Fault 2}
+\label{app:fault2}
+
+\input{python/plots/fault2_stable.pgf}
+
+\input{python/plots/fault2_unstable.pgf}
+
+\input{python/plots/delta-P_fault2.pgf}
+
+\section{Fault 3}
+\label{app:fault3}
+
+\input{python/plots/fault3.pgf}
+
+\input{python/plots/delta-P_fault3.pgf}
+
 \chapter{Code}
 \label{app:code}
 
-\section{Model functions}
+\section{Fault scenario parameters}
+\label{app:fault-scenarios}
 
 % \lstinputlisting[caption={Module containing all relevant functions of the SMIB model in Python},captionpos=b,style=style-python,label=lst:model-func]{python/smib_model.py}
 
@@ -33,23 +76,23 @@
 
 \section{Main model}
 
-\lstinputlisting{python/smib_model.py}
+\lstinputlisting[style=style-python]{python/smib_model.py}
 
-\section{Fault models}
+% \section{Fault models}
 
 % \subsection*{Fault 1}
 % \lstinputlisting{python/fault_1.py}
 
-\subsection*{Fault 2}
-\lstinputlisting{python/fault_2.py}
+% \subsection*{Fault 2}
+% \lstinputlisting{python/fault_2.py}
 
 % \subsection*{Fault 3}
 % \lstinputlisting{python/fault_3.py}
 
-\section{Additional comparison}
+% \section{Additional comparison}
 
-\subsection*{Generator parameter}
-\lstinputlisting{python/parameter_comparison.py}
+% \subsection*{Generator parameter}
+% \lstinputlisting{python/parameter_comparison.py}
 
 % \subsection*{Algebraic vs. non-algebraic}
 % \lstinputlisting{python/comparison_alg-vs-nonalg.py}
@@ -57,5 +100,5 @@
 \chapter{Additional}
 \label{app:additional}
 
-\section{Jupyter notebook for development}
-\label{app:jupyter}
+\section{Parameter variation}
+\label{app:parameters}

@@ -29,9 +29,9 @@
 	\RedeclareSectionCommand[beforeskip=\kapitelabstand         ]{chapter}
 
 	% noch ausstehende ToDo's - Liste
-	% \listoftodos
-	% \thispagestyle{empty}
-	% \newpage
+	\listoftodos
+	\thispagestyle{empty}
+	\newpage
 
     \pagestyle{scrheadings}
 
@@ -42,13 +42,13 @@
 	% \quad 
 	% \newpage
 	
-	% % Erklärung
-	% \clearpage
- 	% \input{ads/erklaerung}
+	% Erklärung
+	\clearpage
+ 	\input{ads/erklaerung}
 
-	% % Abstract
-	% \clearpage
-	% \input{ads/abstract.tex}
+	% Abstract
+	\clearpage
+	\input{ads/abstract.tex}
 
 	% % Aufgabenstellung
 	% \clearpage
@@ -74,17 +74,17 @@
     % \adjustmtc
     \pagestyle{scrheadings}
 
-	% % Abbildungsverzeichnis
-	% \clearpage
-	% \listoffigures
+	% Abbildungsverzeichnis
+	\clearpage
+	\listoffigures
 
-	% % Tabellenverzeichnis
-	% \clearpage
-	% \listoftables
+	% Tabellenverzeichnis
+	\clearpage
+	\listoftables
 
-	% % Quellcodeverzeichnis
-	% \clearpage
-	% \lstlistoflistings \mycomment[MK]{Warum hat das einen anderen Zeilenabstand als alle anderen Verzeichnisse?}
+	% Quellcodeverzeichnis
+	\clearpage
+	\lstlistoflistings \mycomment[MK]{Warum hat das einen anderen Zeilenabstand als alle anderen Verzeichnisse?}
 	
 	\cleardoublepage
 	% \clearpage
@@ -132,7 +132,9 @@
 
 	% sonstiger Anhang
 	\cleardoublepage
-	% \pagenumbering{Alph}
+
+	\pagenumbering{arabic}
+	\setcounter{page}{23}
 	
 	\appendix
 	\input{ads/appendix}

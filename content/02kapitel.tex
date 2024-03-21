@@ -6,7 +6,7 @@
 % Evtl. lieber Basics nennen; Stand der Technik ist es ja nicht wirklich
 \label{chap:fundamentals}
 
-\commenting{Input of basic knowledge for system modelling; Maybe supplementary knowledge} \mycomment[MK]{Write Chap Fundamentals}
+\commenting{Input of basic knowledge for system modelling; Maybe supplementary knowledge}
 
 General sources in terms of standard literature: \autocite{oedingElektrischeKraftwerkeUnd2016,gloverPowerSystemAnalysis2017,kundurPowerSystemStability2022,machowskiPowerSystemDynamics2020}
 
@@ -69,32 +69,44 @@ The mechanical power of the turbine is assumed constant, due to the short occura
         \begin{circuitikz}[european, scale=.9, smallR/.style={resistor,resistors/scale=.7}]
                 \draw (0,0) node[oscillator, anchor=east, name=gen]{} --(.5,0)
                 to[L, name=X_g] ++(2,0) coordinate(f1)
-                \bushere{1}{$\underline{E}_\mathrm{T}'$}{}
-                to[oosourcetrans,prim=delta,sec=wye] ++(2,0)
-                \bushere{1.25}{$\underline{E}_\mathrm{T}''$}{} coordinate(b1) ++(0,-.5) -- coordinate(f2) ++(1.5,0)
-                to[L, name=X_l2] ++(1,0) -- ++(1.5,0) ++(0,.5)
-                \bushere{1.25}{$\underline{E}_\mathrm{ibb}$}{} ++(0,.5) coordinate(b2) ++(0,-.5) -- coordinate(f3) ++(1,0)
+                % \bushere{1}{$\underline{E}_\mathrm{T}'$}{}
+                % to[oosourcetrans,prim=delta,sec=wye] ++(2,0)
+                \bushere{1.75}{}{} coordinate(b1) ++(0,-1) -- ++(.25,0) -- coordinate(f2) ++(1.75,0)
+                to[L, name=X_l3] ++(1,0) -- ++(1.5,0) ++(0,1)
+                \bushere{1.75}{}{} ++(0,1) coordinate(b2) ++(0,-1) coordinate(b3) -- ++(.75,0) coordinate(f3) -- ++(.75,0) to[L, name=X_ibb] ++(1,0) -- ++(1,0)
                 node[gridnode, anchor=left, name=ib]{};
-                \draw (b1) ++(0,.5) to[L, name=X_l1] (b2);
+
+                % draw other resistances
+                \draw (b1) ++(0,1) -- ++(.5,0) to[L, name=X_l1] (b2);
+                \draw (b1) -- ++(.5,0) to[L, name=X_l2] (b3);
                 % \draw[line width=2pt] (2.25,1) -- (2.25,-1);
                 % \draw[line width=2pt] (4.75,1) -- (4.75,-1);
                 % \draw[line width=2pt] (8.25,1) -- (8.25,-1);
+
+                % labels for the resistors
                 \node[above=6pt] at (X_g) {$X_\mathrm{g}'$};
-                \node[above=6pt] at (X_l1) {$X_\mathrm{l}$};
-                \node[below=6pt] at (X_l2) {$X_\mathrm{l}$};
+                \node[above=6pt] at (X_ibb) {$X_\mathrm{ibb}'$};
+                \node[above=6pt] at (X_l1) {$3 \cdot X_\mathrm{l}$};
+                % \node[below=6pt] at (X_l2) {$X_\mathrm{l}$};
+                % \node[below=6pt] at (X_l3) {$X_\mathrm{l}$};
+
+                % pole voltages and angles
                 \path[->] (-1.2,.5) edge [bend right] node[left=6pt]{$E_\mathrm{p}~\angle~\delta$} (-1.2,-.5);
                 \path[->] (ib) ++(.8,.5) edge [bend left] node[right=6pt]{$E_\mathrm{ibb}~\angle~0^{\circ}$} ++(0,-1);
-                \draw[-Stealth, very thick, red] (f1) ++(0,-.5) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f1_text);
-                \node[below, red] at (f1_text) {\scriptsize fault 1};
+
+                % faults
+                % \draw[-Stealth, very thick, red] (f1) ++(0,-.5) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f1_text);
+                % \node[below, red] at (f1_text) {\scriptsize fault 1};
                 \draw[-Stealth, very thick, red] (f2) ++(0,.3) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f2_text);
-                \node[below, red] at (f2_text) {\scriptsize fault 2};
+                \node[below, red, align=center] at (f2_text) {\scriptsize fault 2/3};
                 \draw[-Stealth, very thick, red] (f3) ++(0,.3) -- ++(-.15,-.45) -- ++(.3,.2) -- ++(-.2,-.6) coordinate(f3_text);
-                \node[below, red] at (f3_text) {\scriptsize fault 3};
+                \node[below, red] at (f3_text) {\scriptsize fault 1};
         \end{circuitikz}
         \vspace{.5cm}
         \caption[Representative circuit of a \acf{SMIB} model]{Representative circuit of a \acf{SMIB} model with pole wheel voltage $E_\mathrm{p}~\angle~\delta$ and \acf{IBB} voltage $E_\mathrm{ibb}~\angle~0^{\circ}$; positions of considered faults 1 to 3 are marked with red lightning arrows}
         \label{fig:smib-model}
 \end{figure}
+\mycomment[MK]{Update and correct SMIB model graphic}
 % where
 
 % \begin{tabularx}{\textwidth}[H]{lX}
@@ -107,35 +119,6 @@ The mechanical power of the turbine is assumed constant, due to the short occura
 %         $X_\mathrm{l}$                  & reactance of a single line \\
 % \end{tabularx}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \section{Events harming the system stability}
-% \commenting{
-%         \begin{itemize}
-%                 \item \textbf{fault types,}
-%                 \item load-changes
-%                 \item effects of electrical networks (esp. generator networks) vs. single machine systems -> paper \autocite{batchuComparativeStudyEqual2022}: IBB not that extremely fixed, group of critical and non-critical machines; but more of an outlook and targeting real-time calculation (for system operation)
-%         \end{itemize}
-% }
-
-% The electrical energy system or network is a balance of power input (generation) and output (use). Changes and dynamics of this balance lead to system answers, which can result in a remaining stable system, or unlikely an unstable system. When specifically the generator is moving into an unstable operation, and can not stay in synchronous and stable speed with the rest of the system, it has to be disconnected from the power grid.
-
-% \begin{figure}[h]
-%         \centering
-%         \vspace{12pt}
-%         \begin{tikzpicture}[sibling distance=30mm, every node/.style={rectangle, draw, align = center, rounded corners=5pt, minimum height=24pt, font=\footnotesize}], %line width = 1, minimum width = 30mm, minimum height = 7mm,}]
-%                 \node {Stability harming events}
-%                 child {node {short circuit}
-%                         child {node {three-phase}
-%                                 child {node {complete}}
-%                                 child {node {partial}}}
-%                         child {node {single-phase}}}
-%                 child {node {load change}};
-%         \end{tikzpicture}
-%         \caption{Overview of events harming the system stability of a power grid}
-%         \label{fig:stability-events}
-% \end{figure}
-
-% Events that can harm the system stability are sketched in \autoref{fig:stability-events}. This \arbeit~is interested in a three-phase short circuit, in the variants near a generator, far away of a generator and with a partial loss of a connecting overhead line.
 \newpage
 \section{Analytical calculation of the critical clearing time}
 \label{sec:analytical-method}
@@ -145,7 +128,7 @@ The mechanical power of the turbine is assumed constant, due to the short occura
         \centering
         % \missingfigure[figwidth=.4\textwidth]{Equal are criterion visualization}
         \includegraphics[width=.6\textwidth]{python/plots/eac.png}
-        \caption{Illustrated \acf{EAC} in the P-$\delta$-curve}
+        \caption{Illustrated \acf{EAC} in the P-$\delta$-curve where $A_\mathrm{acc}=A_\mathrm{dec}$}
         \label{fig:eac}
 \end{wrapfigure}
 For the analytical solution of the swing equation and following the \acs{CCT}, there is the need to find the critical power angle $\delta_\mathrm{cc}$ first. For this, the most common approach is the \acf{EAC}, considering that the amount of stored energy through acceleration (during the short or failure) is equal to the released energy (decelerating the rotor) when synchronizing again. These both energys can be calculated through the area under the curve of the power difference $\Delta P=P_\mathrm{m}-P_\mathrm{e}$, while the accelerating area is between the first stable operating angle $\delta_\mathrm{0}$ and the clearing angle $\delta_\mathrm{c}$, the decelerating area between $\delta_\mathrm{c}$ and the maximum dynamically stable angle $\delta_\mathrm{max}$. \autoref{fig:eac} is illustrating this approach. Following this approach a generalized expression is formed to
@@ -157,7 +140,7 @@ while the more expressive can be achieved through splitting up the integral bord
         % A_\mathrm{acc}=A_\mathrm{dec} \nonumber \\
         \int_{\delta_\mathrm{0}}^{\delta_\mathrm{c}}(P_\mathrm{m}-P_\mathrm{e})~d\delta = \int_{\delta_\mathrm{c}}^{\delta_\mathrm{max}}(P_\mathrm{e}-P_\mathrm{m})~d\delta \label{eq:big-eac}
 \end{align}
-With consideration of $\delta_\mathrm{max}=\pi-\delta_\mathrm{0}$ and $P_\mathrm{m}=P_\mathrm{max} \cdot sin(\delta_\mathrm{0})$, and some rearrangements, this leads to the final expression of the critical clearing angle:
+With consideration of $\delta_\mathrm{max}=\pi-\delta_\mathrm{0}$, $P_\mathrm{e,normal}=P_\mathrm{max} \cdot sin(\delta_\mathrm{0})$, $P_\mathrm{e,fault}=0$, and some rearrangements, this leads to the final expression of the critical clearing angle:
 \begin{align}
         \delta_\mathrm{cc}=arccos\big[~sin(\delta_\mathrm{0}) \cdot (\pi-2 \cdot \delta_\mathrm{0})-cos(\delta_\mathrm{0})~\big] \label{eq:delta-cc}
 \end{align}
@@ -168,8 +151,14 @@ The second step is the calculation of the \acs{CCT} dependent on the critical cl
 \end{align}
 Rearranging this gives an expression for calculating the critical clearing time $t_\mathrm{cc}$ (see \autoref{eq:tcc}).
 \begin{align}
-        t_\mathrm{cc}=\sqrt{\frac{4 H_\mathrm{gen} \cdot (\delta_\mathrm{c}-\delta_\mathrm{0})}{\omega \cdot \Delta P}} \label{eq:tcc}
+        t_\mathrm{cc}=\sqrt{\frac{4 H_\mathrm{gen} \cdot (\delta_\mathrm{cc}-\delta_\mathrm{0})}{\omega \cdot \Delta P}} \label{eq:tcc}
 \end{align}
+Both expressions \autoref{eq:delta-cc} and \autoref{eq:tcc} are only valid for clearing faults with an electric power drawing of $0~\mathrm{p.u.}$. For a partial line or power fault, the expressions tend to complicate more. One have to use $P_\mathrm{e}=P_\mathrm{max,~fault} \cdot sin(\delta)$ before both integrations of the area equations and the swing equation itself. Finally giving two expressions for the critical power angle $\delta_\mathrm{cc}$ and the \acs{CCT} $t_\mathrm{cc}$:
+\mycomment[MK]{Sinnvoll da den vollständigen Rechenweg in den Anhang mit aufzunehmen?}
+\begin{align}
+        \delta_\mathrm{cc}=&~arccos\Bigg[\frac{P_\mathrm{m}}{P_\mathrm{max}-P_\mathrm{max,~fault}} \cdot (\pi-2 \cdot \delta_\mathrm{0})-\frac{P_\mathrm{max,~fault}}{P_\mathrm{max}-P_\mathrm{max,~fault}} \cdot cos(\delta_\mathrm{0}) \nonumber \\& - \frac{P_\mathrm{max}}{P_\mathrm{max}-P_\mathrm{max,~fault}} \cdot cos(\delta_\mathrm{0})~\Bigg] \label{eq:delta-cc-adv} \\[12pt]
+        t_\mathrm{cc}=&\sqrt{\frac{4 H_\mathrm{gen} \cdot (\delta_\mathrm{cc}-\delta_\mathrm{0})}{\omega \cdot (P-P_\mathrm{max,~fault} \cdot sin(\delta_\mathrm{cc}))}} \label{eq:tcc-adv}
+\end{align}\mycomment[MK]{Für den zweiten Fall erscheint mir die Berechnung der CCT etwas hoch -> P\_e auch nicht von t abhängig... Muss ich da einfach statt $\delta_cc$ die zeitabhängige $\delta$-Gleichung einsetzen?}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Numerical methods for system modeling}
@@ -190,70 +179,100 @@ with $t$ being the time and $f$ an on $t$ dependent function. Generally a system
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Numerical modelling}
+\chapter{Numerical modeling}
 \label{chap:methods}
 
-Following chapter will describe the implementation of Python Code for solving the derived \acs{ODE} system (see \autoref{sec:basics-sg}). For this the Python version 3.9 was used, in combination with the packages scipy, numpy, and matplotlib.\footnote{documentation and manual can be found on \href{https://scipy.org/}{\itshape https://scipy.org/} \autocite{virtanenSciPyFundamentalAlgorithms2020}, similiar for \href{https://matplotlib.org/}{\itshape matplotlib}, and \href{https://numpy.org/}{\itshape numpy} packages} The complete code is included in the \autoref{app:code}. \mycomment[MK]{Write Chap Methods}
+Following chapter will describe the implementation of Python Code for solving the derived \acs{ODE} system (see \autoref{sec:basics-sg}). For this the Python version 3.9 was used, in combination with the packages scipy, numpy, and matplotlib.\footnote{documentation and manual can be found on \href{https://scipy.org/}{\itshape https://scipy.org/} \autocite{virtanenSciPyFundamentalAlgorithms2020}, similiar for \href{https://matplotlib.org/}{\itshape matplotlib}, and \href{https://numpy.org/}{\itshape numpy} packages} % The complete code is included in the \autoref{app:code}.
+The complete Code of the main model with an example fault, as well as the parameter sets of the three considered faults is included in \autoref{app:code}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Structure of the \acs{CCT} assessment}
-\commenting{
-        Program plan for determination / algorithm structure, containing:
-        \begin{itemize}
-                \item Pre questions:
-                      \begin{enumerate}
-                              \item What do I want to know from the algorithm?
-                              \item What do I want to see?
-                      \end{enumerate}
-                \item Answers / Hints for the algorithm:
-                      \begin{enumerate}
-                              \item What are needed inputs?
-                              \item What are needed functions?
-                              \item How do partial results interact with each other / puzzle together to the superior question?
-                      \end{enumerate}
-        \end{itemize}
-}
 
-\begin{figure}[H]
+The central interest in the algorithm is to determine the time, until a system failure has to be resolved, so that it can remain stable and synchronized. In general, an enough accurate and easy approach for a \acf{SMIB} system is the \acf{EAC}. For a more complex and coupled machine system, other approaches are more targeting \autocite{batchuComparativeStudyEqual2022}. Further interest is to determine the associated crictical clearing angle. This is the maximum possible power angle at the \acs{CCT}, with which the fault can just be cleared into a stable system. At last one is interested in the time domain solution, just shortly before and after the \acs{CCT}. This shall illustrate the convergent and divergent behavior of the power angle and therefore the rotor speed.
+
+\begin{figure}[h]
         \centering
         \begin{tikzpicture}[node distance = 1.5cm, auto]
                 % Place nodes
-                \node [papStart] (Start1){Start};
-                \node [papProcess, below of = Start1,label={[shift={(2.7,-0.6)}]\footnotesize\textit{label 1}}] (pro1){Prozess};
-                \node [papProcess, below of = pro1,label={[shift={(3,-0.6)}]\footnotesize\textit{label 2}}](pro2){Prozess};
-                \node [papDecision, below of = pro2, yshift= -9mm](dec1){Entscheidung};
-                \node [papPredProc,  right of = dec1, xshift=25mm](predproc1){\nodepart{two}\shortstack{vordefinierter\\Prozess}};
-                \node [papProcess, below of = predproc1,label={[shift={(2.3,-0.6)}]\footnotesize\textit{label 3}}](pro3){Prozess};
-                \node [papEnd, below of = dec1, yshift= -20mm] (End) {Ende};
+                \node [papStart] (start) {start};
+                \node [papProcess, below of = start, yshift= -2mm,label={[shift={(2.7,-0.6)}]\footnotesize\textit{init()}}] (pro1){initialize start and simulation parameters};
+                \node [papPredProc, below of = pro1, yshift= -5mm,label={[shift={(2.7,-0.6)}]\footnotesize\textit{odeint()}}] (pro2){\nodepart{two} \shortstack{do \acs{TDS} with\\constant fault}};
+                \node [papProcess, below of = pro2, yshift= -5mm,label={[shift={(2.7,-0.6)}]\footnotesize\textit{determine\_cct()}}] (pro3){determine \acs{CCT} and critical angle};
+                \node [papPredProc, below of = pro3, yshift= -7mm](pro4){\nodepart{two}\shortstack{solving \acs{TDS}\\stable and unstable}};
+                \node [papProcess, below of = pro4, yshift= -5mm,label={[shift={(2.3,-0.6)}]\footnotesize\textit{label 3}}](pro5){plot results};
+                \node [papEnd, below of = pro5, yshift= -2mm] (end) {end};
+
+                \node [right of = pro4, xshift=25mm] (iter) {\footnotesize\itshape{iterate 1x}};
 
                 % Place joins
-                \coordinate [below of = dec1, yshift= -10mm] (join1);
+                \coordinate [above = of pro4, yshift= -9mm] (join1);
+                \coordinate [below of = pro4, yshift= 5mm] (join2);
 
                 % Draw edges
-                \path [papLine] (Start1) -- (pro1);
+                \path [papLine] (start) -- (pro1);
                 \path [papLine] (pro1) -- (pro2);
-                \path [papLine] (pro2) -- (dec1);
-                \path [papLine] (dec1) -- node [right] {\papYes} (End);
-                \path [papLine] (dec1) -- node [above] {\papNo} (predproc1);
-                \path [papLine] (predproc1) -- (pro3);
-                \path [papLine] (pro3) |- (join1);
+                \path [papLine] (pro2) -- (pro3);
+                \path [papLine] (pro3) -- (pro4);
+                \path [papLine] (pro4) -- (pro5);
+                \path [papLine] (pro5) -- (end);
+                \path [papLine] (join2) -| (iter);
+                \path [papLine] (iter) |- (join1);
+                % \path [papLine] (dec1) -- node [above] {\papNo} (predproc1);
+                % \path [papLine] (predproc1) -- (pro3);
+                % \path [papLine] (pro3) |- (join1);
         \end{tikzpicture}
-        \caption{Program plan for determining the \acf{CCT}}
+        % \begin{tikzpicture}[node distance = 1.5cm, auto]
+        %         % Place nodes
+        %         \node [papStart] (Start1) {Start};
+        %         \node [papProcess, below of = Start1,label={[shift={(2.7,-0.6)}]\footnotesize\textit{label 1}}] (pro1){Prozess};
+        %         \node [papProcess, below of = pro1,label={[shift={(3,-0.6)}]\footnotesize\textit{label 2}}](pro2){Prozess};
+        %         \node [papDecision, below of = pro2, yshift= -9mm](dec1){Entscheidung};
+        %         \node [papPredProc,  right of = dec1, xshift=25mm](predproc1){\nodepart{two}\shortstack{vordefinierter\\Prozess}};
+        %         \node [papProcess, below of = predproc1,label={[shift={(2.3,-0.6)}]\footnotesize\textit{label 3}}](pro3){Prozess};
+        %         \node [papEnd, below of = dec1, yshift= -20mm] (End) {Ende};
+
+        %         % Place joins
+        %         \coordinate [below of = dec1, yshift= -10mm] (join1);
+
+        %         % Draw edges
+        %         \path [papLine] (Start1) -- (pro1);
+        %         \path [papLine] (pro1) -- (pro2);
+        %         \path [papLine] (pro2) -- (dec1);
+        %         \path [papLine] (dec1) -- node [right] {\papYes} (End);
+        %         \path [papLine] (dec1) -- node [above] {\papNo} (predproc1);
+        %         \path [papLine] (predproc1) -- (pro3);
+        %         \path [papLine] (pro3) |- (join1);
+        % \end{tikzpicture}
+        \caption[Program plan proposal for determining the \acf{CCT}]{Program plan proposal for determining the \acf{CCT} $t_\mathrm{cc}$, critical power angle $\delta_\mathrm{cc}$ and the \acf{TDS} of the \acf{SMIB}-model; including the associated main function name}
         \label{fig:program-plan}
 \end{figure}
+
+\autoref{fig:program-plan} illustrates the rough stucture of the numerical calculation. The single processes are further described in \autoref{sec:tds} for the time resoluted solving with {\itshape odeint()}, and \autoref{sec:eac} for the function {\itshape determine\_cct()}. The initiialziation and plotting are documented via the complete code in \autoref{app:code}. The iterative solving of stable and unstable regie solutions is, neglecting the fault start and ending as initial conditions, an identical procedure and using the same function set as the described \acs{TDS}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Electrical simplifications and scenario setting}
 \label{sec:scenario}
-\commenting{
-        \begin{itemize}
-                \item Simplification of all the components in SMIB network to a simple network
-                \item Transforming into symmetrical components (for determination of shorts -> e.g. transformer)
-        \end{itemize}
-}
 
 \subsection{Electric networks}
-\missingfigure{Simplified networks, which are in interest and shall be simulated with the algorithm; ideally solved with subfigures}
+\label{sec:el-networks}
+
+The \acs{SMIB}-model presented in \autoref{fig:smib-model} has to be devided into the two states {\itshape during fault} and {\itshape steady state}, and can further be simplified. This leads to a single replacement reactance and is more easy to use in the simulation.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=.7\textwidth]{images/electrical_networks.png}
+        \caption[Electrical networks for simulation]{Electrical networks for simulation}
+        \label{fig:el-networks}
+\end{figure}
+
+\autoref{fig:el-networks} shows the steady state circuit, the system during the fault and the possible network after and with no clearing of the fault. Normally the third state is not necessary. The networks in \autoref{fig:simplified-networks} are the represented ones in the simulation, the reactances thus have to be simplified for a targeted simulation.
+
+\begin{figure}[H]
+        \centering
+        \includegraphics[width=.7\textwidth]{images/electrical_networks.png}
+        \caption[Simplified electrical networks]{Simplified electrical networks}
+        \label{fig:simplified-networks}
+\end{figure}
 
 \subsection{Simulation cases and boundaries}
 \label{sec:sim-boundaries}
@@ -266,113 +285,155 @@ The boundaries of the single cases, which are simulated, are given with a Python
 \end{enumerate}
 Further of interest is a parameter variation of both influences $H_\mathrm{gen}$ and $\Delta P$. This last parameter is not meant to describe the absolute power difference, which is inserted into the swing equation, but more the power difference relative to the maximum electrical power output of the generator. Due to the relation between the maximum power output and the disconnected electrical power in the acceleration and deceleration of the rotor, it seems more significant to use this as a relative parameter. The \acs{CCT} in dependency of these two influences shall be elaborated.
 
-Lastly, a comparison between calculating with the algebraic equation system of the network and the calculation solely with the power flowing dependent on both (fixed) bus voltages, the reactance and the power angle takes place.
-
 \subsection{Initial value calculation}
-\commenting{
-        \begin{itemize}
-                \item Load flow analysis
-                \item Calculation of $E_\mathrm{i}$, $I_\mathrm{i}$, $P_\mathrm{i}$, $\delta_\mathrm{i}$, ..., as well for IBB
-        \end{itemize}
-}
+\label{sec:initials}
+
+For the setting of starting values, the per unit system is preferred. Because of the relative nature of this unit, it acts as generalization and can be applied to concrete examples with known nominal sizes. Generally speaking, $P_\mathrm{e,max}$, $P_\mathrm{e}=P_\mathrm{mech}$, $E_\mathrm{ibb}$, $E_\mathrm{gen}$, $\delta_\mathrm{ibb}$ and $\delta_\mathrm{gen}$ are needed to be predefined for the simulation. 
+
+As the point of interest in most calculations, the voltage at the at the \acs{IBB} is set to $1~\mathrm{p.u.}$. Most of the until now presented equations are referring to power angle differences. For a simplified calculation, it is handsome to set the power angle of the \acs{IBB} to $0^\circ$, thus all the power angle and angle developments dependent on the time are solely related to the absolute power angle of the generator. The maximum electrical power of the generator is arbitrarily set to $1.2~\mathrm{p.u.}$, the real power extracted from the generator into the grid node is set to $0.9~\mathrm{p.u.}$. With these predefinitions and both following equations we can calculate the remaining two values. \mycomment[MK]{Values nicht immer korrekt -> Fault 3!; Mit Transformator Reaktanz auch noch einmal anders}
+\begin{align}
+        E_\mathrm{gen}=&~\frac{P_\mathrm{e,max} \cdot X}{E_\mathrm{ibb} \cdot sin(90^\circ)} \approx 1.14~\mathrm{p.u.} \nonumber \\[6pt]
+        \delta_\mathrm{gen}=&~arcsin\Bigg(\frac{P_\mathrm{e} \cdot X}{E_\mathrm{ibb} \cdot E_\mathrm{gen}}\Bigg) \approx 48.6^\circ \nonumber
+\end{align}
+
+The reactances for the different fault scenarios can be derived from the electrical networks in \autoref{sec:el-networks}. Therefore the general reactance in operation mode is constituted with the reactance of the generator, the line, and the \acs{IBB}. For fault 1 the additional fault reactance is getting very high in addition to the generator, thus it can be neglected. Fault 2, considering just a partial line tripping, is increasing the contribution from the line to $\frac{3}{2}$\mycomment[MK]{Ja? Wie ist das wirklich?} of its initial value. The other contributions stay consistent. For fault scenario 3 the reactances are consistent whether the fault is present or not. The initial electrical power is reduced to  $0.6~\mathrm{p.u.}$ and thus the initial power angle of the generator is set to $30^\circ$\mycomment[MK]{delta berechnen}.
+
+A compromised overview of the initial values and the values in the fault cases is given in \autoref{app:initials}.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Implementation of the time domain solution}
 \label{sec:tds}
 
-\commenting{
-        \begin{itemize}
-                \item Different levels of TDS; With/without solving of algebraic equations at each timestep; With/without calculation of turbine momentum at each timestep (dependent on omega)
-                \item Utilization as a function: calculation with clearing and without clearing: for determination of CCT needed
-        \end{itemize}
-}
+The \acs{TDS} shall be solved with a python integrated solver, due to the fact that numerical solvin methods are not scope of this paper. The solver {\itshape odeint()} from the {\itshape scipy}-package is therefore used as preferred algorithm. This requires a time array with all the timesteps of interest and a differential function, which is solved through every time step. Due to the second order nature of the swing-equation and just the possibility to solve first order ones, the equation has to be split up into two first order equations and solved simultaneously. This can be realized via using a solution array instead of a variable. 
+
+Looking deeper into the swing equation, both the demanded electrical power from the grid or connected network and the mechanical power put into the roter from the steam turbine have to be calculated at each time step. While the mechnanical power is a bit easier with the dependency \mycomment[MK]{Include the equation for the mechanical power}
+\begin{align}
+        P_\mathrm{m}=P, \nonumber
+\end{align}
+the electrical power is a bit more complex. In order to get a good representation, the algebraic equations describing the connected network, have to be solved at every time step as well.
+
+\commenting{Describing the algebraic equation system and how to implement in python
+
+What does algebraic or non-algebraic mean?}
+
+% \lstinputlisting[caption={Main functions for the \acf{TDS} of the swing equation and \acf{SMIB} model\\}, captionpos=t, style=style-python, label=lst:eac]{python/paper/tds.py}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Implementation of the equal area criterion}
+\label{sec:eac}
 
-\commenting{
-        \begin{itemize}
-                \item Iterative process needed? Due to omega and delta dependencies of $P_e$ and $P_m$
-                \item Different methods of CCT calculation: P-$\delta$-curve; P-t-curves
-        \end{itemize}
-}
+% \commenting{
+%         \begin{itemize}
+%                 \item Iterative process needed? Due to omega and delta dependencies of $P_e$ and $P_m$
+%                 \item Different methods of CCT calculation: P-$\delta$-curve; P-t-curves
+%         \end{itemize}
+% }
 
+The \acf{EAC} is computed as the name states. It is comparing the accelerated area with the decelerable area, and therefore comparing the stored to the braking (or re-synchronizing) energy. The main function {\itshape deteming\_cct()} is differentiating between clearing and non-clearing mode. First one is taking the pre-fault status of the connected network also as post-fault condition, thus calculating the clearing time and angle the generatr and the network can remain in the fault state. The non-clearing mode is taking the fault condition as post-fault condition and is calculating a new stable power angle convergent.
+
+\lstinputlisting[caption={Main functions for the determination of the \acf{CCT} with the \acf{EAC}\\}, captionpos=t, style=style-python, label=lst:eac]{python/paper/eac.py}
+
+The main though is iterating through the \acs{TDS} at each time step, looking if enough braking reserve is left and saving the current time and angle as solution. If the loop continues, the solution is overwritten. As pre-set the solution is negative. This enables a quick understanding of simulation faults or a general unstable initial condition set.
+
+As a helping function {\itshape stability\_eac()} allows a simple check in the loop. It calculates the currently passed acceleration area, and the until the maximum dynamically stable power angle $\delta_\mathrm{max}=\pi-\delta_\mathrm{0}$ possible decelerating area, it can compare and state stability or instability at the current time point.
+
+\commenting{Further functions: Power calculation?}
+
+Another possible way would be to check the stability first under the $P-\delta$-curve, gathering the critical angle. After that a simple run through the \acs{TDS} can deliver the searched \acs{CCT}. Within this approach the angle spectrum has to be searched in addition to the \acs{TDS}. This doubled vector searching seemed as easy improvement in comparison to the previous method and was therefore neglected.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Results}
 \label{chap:results}
 
-\mycomment[MK]{Write Chap Results}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Analytical results}
 \label{sec:analytical-results}
 
-The analytical calculation follows the equations from \autoref{sec:analytical-method}. Therefore the base values for the three input scenarios are used. The results of this calculation are shown in \autoref{tab:res-analytical}.
-
-\begin{table}[H]
+\begin{wraptable}{r}{8cm}
+        \vspace{-12pt}
         \small
         \centering
-        \caption[Analytical results for the three fault-scenarios]{Analytical results for the three fault-scenarios; considering $\delta_\mathrm{cc}$ and $t_\mathrm{cc}$}
+        \caption[Analytical results for the two clearing fault-scenarios]{Analytical results for the two clearing fault-scenarios; considering $\delta_\mathrm{cc}$ and $t_\mathrm{cc}$}
         \label{tab:res-analytical}
         \vspace{12pt}
         \begin{tabular}{|l|r|r|}
                 \hline
-                \rowcolor{lightgray} & $\delta_\mathrm{cc}$ in $\mathrm{deg}$ & $t_\mathrm{cc}$ in $\mathrm{s}$ \\ \hline \hline
-                Fault 1              &                                        &                                 \\ \hline
+                \rowcolor{lightgray} & $\delta_\mathrm{cc}$ & $t_\mathrm{cc}$  \\ \hline \hline
+                fault 1              & 65.01$^\circ$        & 0.116 s                         \\ \hline
+                fault 2              & 93.99$^\circ$        & 0.595 s \\ \hline
         \end{tabular}
-\end{table}
+\end{wraptable}
+The analytical calculation follows the equations from \autoref{sec:analytical-method}. For fault 1 the simplified ones could be used, the more complex and advanced are needed for fault case 2. Therefore the base values for the first two input scenarios are used like in the numerical simulation. For the third one no \acs{CCT} is calculatable, due to the stable nature of the fault scenario. The results of this calculation are shown in \autoref{tab:res-analytical}.
+
+\mycomment[MK]{Was ist mit nicht vollständigen Fehlern? Gleichungen für analytical beschreiben nichts...}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Numerical results}
 
-\autoref{tab:numerical-solutions} is summarizing the results for the \acs{CCT}-calculation of the different set scenarios in \autoref{sec:scenario}. The single scenarios are further described in the following.
-
-\begin{table}[!htb]
+\begin{wraptable}{r}{8cm}
+        \vspace{-12pt}
         \small
         \centering
-        \caption[Numerical results for \acs{CCT}-calculations]{Results ($CCT$ and $\delta_\mathrm{cc}$) for numerical solving the faults 1, 2, and 3}
+        \caption[Numerical results for \acs{CCT}-calculations]{Results (\acs{CCT} and $\delta_\mathrm{cc}$) for numerical solving the faults 1, 2, and 3}
         \label{tab:numerical-solutions}
         \vspace{12pt}
         \begin{tabular}{|l|r|r|}
                 \hline
-                \rowcolor{lightgray} Scenario & \acs{CCT} & $\delta_\mathrm{cc}$ \\ \hline \hline
-                Fault 1                       &           &                      \\ \hline
-                Fault 2                       &           &                      \\ \hline
-                Fault 3                       &           &                      \\ \hline
+                \rowcolor{lightgray} Scenario & $\delta_\mathrm{cc}$ & $t_\mathrm{cc}$ \\ \hline \hline
+                fault 1                       & 65.9$^\circ$          & 0.119 s                     \\ \hline
+                fault 2                       & 95.9$^\circ$          & 0.394 s                     \\ \hline
         \end{tabular}
-\end{table}
+\end{wraptable}
+\autoref{tab:numerical-solutions} is summarizing the results for the \acs{CCT}-calculation of the different set scenarios in \autoref{sec:scenario}. Like in the anayltical results section before, the third fault can not be displayed in the context of the first two clearing ones. The maximum reached power angle for fault 3 is $69.3^\circ$, while the new stable power angle is around $48.6^\circ$. At first the system oszillates around this new angle, until the damping factor results in a new stable and steady operation point.
 
 \subsection{Simulated faults}
 
+Looking deeper into the numerical results is possible through plotting the development of the power angle over the time. In addition to that the used energies or respectively areas in the $P-\delta$-curves. \autoref{fig:fault3} is looking deeper into the non-clearing fault three. Because of spacial reasons, the complete plot sets for all faults are included in the \autoref{app:fault1}, \autoref{app:fault2} and \autoref{app:fault3}.
+
 \begin{figure}[H]
         \centering
-        % \begin{subfigure}[b]{0.4\textwidth}
-        % \centering
-        \input{python/plots/fault1_stable.pgf}
-        % \end{subfigure}
-        % \begin{subfigure}[b]{0.4\textwidth}
-        % \centering
-        % \input{python/plots/fault1_unstable.pgf}
-        % \end{subfigure}
-        \caption[Fault 1]{Fault 1}
-        \label{fig:fault1}
+        \input{python/plots/fault3.pgf}
+        \caption[Power angle plot of fault 3]{Power angle plot of fault 3 in time and power domain; grey areas illustrate the used area under the curve for storing and releasing kinetic energy in/out of the rotor}
+        \label{fig:fault3}
 \end{figure}
+
+Both partial sinus functions represent the electrical power demanded from the electrical connected network. During the fault, in this case post-fault as well, is lower in the peak and thus giving another intersection point with the straight horizontal mechanical power from the turbine. The new stable convergent is falling together with this intersection point. The used area is reaching from the starting power angle over the post-fault intersection point to the maximum swept power angle in the time resolution. In this case the fault is starting to occur at the time point $0~\mathrm{s}$.
+
+For fault one and two the whole area until the maximum dynamic stable operation point, the second intersection point with the pre-fault partial-sinoidal wave, is used. Therefore the critical angle is not at the intersection with the during fault electrical power curve. The unstable scenario, clearing the fault just a few time steps after the \acs{CCT} leads to a divergent power angle. Clearing just in time shows a stable, oszillating behavior, while resulting in a maximum overswing in the region of the maximum dynamic stable power angle. This behavior can be seen in fault one as well as in fault two, while in fault one the static stable angle cannot be reached, in fault two it is even overstepped.
+
+\begin{figure}[H]
+        \centering
+        \input{python/plots/delta-P_fault2.pgf}
+        \caption[Power difference behavior over time for fault 2]{Power difference behavior over time for fault 2}
+        \label{fig:pd-fault2}
+\end{figure}
+
+
 
 \subsection{Using algebraic calculations vs. non-algebraic}
 
-\subsection{Solving the \acs{CCT} without \acsp{TDS}}
+Using the non-algebraic approach in calculating, the \acs{TDS} seems to have a similar result. Differences can be spotted in the swings of the power difference $\Delta P$ and the duration of a swing period of the power angle and rotor angle speed.
+
+\commenting{Graphics and further look inside needed!
+
+Problem: Completely the same result...}
+
+% \subsection{Solving the \acs{CCT} without \acsp{TDS}}
 
 \subsection{Parameter influence analysis}
 
-The influence of the parameters $H_\mathrm{gen}$ and $\Delta P$ has been carried out with the described code of [...]. The results are shown in \autoref{fig:parameter-comp}.
+Other variables changing the \acs{CCT} of a generator are the power difference $\Delta P$ and $H_\mathrm{gen}$ (see \autoref{eq:swing2}). The resulting \acs{CCT} while variing this parameters in the ranges
+\begin{align}
+        H_\mathrm{gen}=&~[0,~12]~\mathrm{s},~\mathrm{and} \nonumber \\
+        \Delta P=&~[25,~91.7]~\% \nonumber
+\end{align}
+is shown in \autoref{fig:parameter-comp}.
 
 \begin{figure}[H]
         \centering
-        % \input{python/plots/parameter_comparison.tex}
         \input{python/plots/parameter_comparison.pgf}
-        \caption[Parameter comparison]{Parameter comparison}
+        \caption[Influence of parameter variation on the \acs{CCT}]{Influence of variing the parameters power difference $\Delta P$ and $H_\mathrm{gen}$ on the \acf{CCT}}
         \label{fig:parameter-comp}
 \end{figure}
 
@@ -387,8 +448,8 @@ The influence of the parameters $H_\mathrm{gen}$ and $\Delta P$ has been carried
 \commenting{
         \begin{itemize}
                 \item Just stable or unstable, not metastable (first swing ok, after that unstable development)
-                \item No damping
-                \item Simplified generator model, only one generator. No machine interaction considered
-                \item
+                \item No damping -> new stable point with low oszillation amplitude in fault 3 is not reached within a few seconds 
+                \item Simplified generator model, only one generator. No machine interaction considered. -> Other algorithms
+                \item Differences: Calculation via TDS and area, via area under the curve solely, stability criteria in the TDS (function $P(\delta)$ -> find extreme points and compare them with the maximum power angles; Paper from Ilya: \autocite{batchuComparativeStudyEqual2022})
         \end{itemize}
 }

@@ -18,11 +18,11 @@ plt.rcParams.update({
     "text.usetex": True,
     "font.family": "serif",
     "font.serif": ["Charter"],
-    "font.size": 12
+    "font.size": 10
 })
 
 # uncomment for updating savefig options for latex export
-# mpl.use("pgf")
+mpl.use("pgf")
 
 def init(gen_parameters, sim_parameters):
     global fn, H_gen, X_gen, X_ibb, X_line, X_fault, E_fd_gen, E_fd_ibb, P_m_gen, omega_gen_init, delta_gen_init, delta_ibb_init, t_start, t_end, t_step, fault_start, fault_end
@@ -54,19 +54,20 @@ def init(gen_parameters, sim_parameters):
 if __name__ == "__main__":
     # setup simulation inputs
     gen_parameters = {
-        "fn":       60,
-        "H_gen":    3.5,
+        "fn":       50,
+        "H_gen":    3.3,
         "X_gen":    0.2,
+        "X_trans":  0.2,
         "X_ibb":    0.1,
         "X_line":   0.65,
         "X_fault":  0.0001,
 
-        "E_fd_gen": 1.075,
-        "E_fd_ibb": 1.033,
-        "P_m_gen":  1998/2200,
+        "E_fd_gen": 1.14,
+        "E_fd_ibb": 1.0,
+        "P_m_gen":  0.9,
 
         "omega_gen_init": 0,
-        "delta_gen_init": np.deg2rad(50.9),
+        "delta_gen_init": np.deg2rad(48.6),
         "delta_ibb_init": np.deg2rad(0)
     }
 
@@ -110,9 +111,9 @@ if __name__ == "__main__":
 
     plt.legend()
     plt.grid()
-    plt.show()
-    # plt.savefig("plots/comparison_alg-vs-nonalg.pgf")
-    # plt.close()
+    # plt.show()
+    plt.savefig("plots/comparison_alg-vs-nonalg.pgf")
+    plt.close()
 
     ##############################
     # Different solutions: Plot of the different P_e's
@@ -137,6 +138,6 @@ if __name__ == "__main__":
     plt.plot(t_sim, P_e_alg, label="power algebraic")
     plt.legend()
     plt.grid()
-    plt.show()
-    # plt.savefig("plots/comparison_alg-vs-nonalg.pgf")
-    # plt.close()
+    # plt.show()
+    plt.savefig("plots/comparison_alg-vs-nonalg_power.pgf")
+    plt.close()

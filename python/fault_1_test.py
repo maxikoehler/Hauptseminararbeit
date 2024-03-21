@@ -1,8 +1,8 @@
 ############################
-# simulation of fault 2
+# simulation of fault 1
 # t_cc, delta_cc and some plots
 #
-# scerario: partly line fault (P_e = XX * P_e), clearing mode (around t_cc)
+# scerario: full line fault (P_e = 0), clearing mode (around t_cc)
 ############################
 
 import matplotlib.pyplot as plt
@@ -19,14 +19,14 @@ plt.rcParams.update({
     "text.usetex": True,
     "font.family": "serif",
     "font.serif": ["Charter"],
-    "font.size": 10
+    "font.size": 12
 })
 
 # uncomment for updating savefig options for latex export
-mpl.use("pgf")
+# mpl.use("pgf")
 
 def init(gen_parameters, sim_parameters):
-    global fn, H_gen, X_gen, X_ibb, X_line, X_trans, X_fault, E_fd_gen, E_fd_ibb, P_m_gen, omega_gen_init, delta_gen_init, delta_ibb_init, t_start, t_end, t_step, fault_start, fault_end, clearing
+    global fn, H_gen, X_gen, X_ibb, X_line, X_fault, E_fd_gen, E_fd_ibb, P_m_gen, omega_gen_init, delta_gen_init, delta_ibb_init, t_start, t_end, t_step, fault_start, fault_end, clearing
 
     fn = gen_parameters["fn"]
     H_gen = gen_parameters["H_gen"]
@@ -34,7 +34,6 @@ def init(gen_parameters, sim_parameters):
     X_ibb = gen_parameters["X_ibb"]
     X_line = gen_parameters["X_line"]
     X_fault = gen_parameters["X_fault"]
-    X_trans = gen_parameters["X_trans"]
 
     E_fd_gen = gen_parameters["E_fd_gen"]
     E_fd_ibb = gen_parameters["E_fd_ibb"]
@@ -60,13 +59,14 @@ if __name__ == "__main__":
         "fn":       50,
         "H_gen":    3.3,
         "X_gen":    0.2,
-        "X_trans":  0.2,
+        # "X_trans":  0.2,
         "X_ibb":    0.1,
         "X_line":   0.65,
         "X_fault":  0.0001,
 
         "E_fd_gen": 1.14,
         "E_fd_ibb": 1.0,
+        # "P_m_gen":  0.3,
         "P_m_gen":  0.9,
 
         "omega_gen_init": 0,
@@ -76,15 +76,16 @@ if __name__ == "__main__":
 
     sim_parameters = {
         "t_start":      -1,
-        "t_end":        2,
+        "t_end":        5,
         "t_step":       0.001,
         
         "fault_start":  0,
-        "fault_end":    1,
+        "fault_end":    0,
         "clearing":     True
     }
 
-    gen_parameters["X_fault"] = [(-1j / gen_parameters["X_gen"] - 1j*3 / gen_parameters["X_line"]), 1j / gen_parameters["X_line"]]
+    gen_parameters["X_fault"] = [(-1j / gen_parameters["X_gen"] - 1j / gen_parameters["X_line"]) + 1000000, 1j / gen_parameters["X_line"]]
+    # gen_parameters["delta_gen_init"] = sim.get_delta_0(gen_parameters, sim_parameters, True)
 
     init(gen_parameters, sim_parameters)
 
@@ -95,6 +96,7 @@ if __name__ == "__main__":
     # Evaluation of results
     print('t_cc:\t\t' + str(round(t_cc, 3)) + ' s')
     print('delta_cc:\t' + str(round(np.rad2deg(delta_cc), 1)) + ' deg')
+    print('delta_0:\t' + str(round(np.rad2deg(gen_parameters["delta_gen_init"]), 1)) + ' deg')
 
     delta_stable = solution_stable[:,1]
     delta_unstable = solution_unstable[:,1]
@@ -121,7 +123,7 @@ if __name__ == "__main__":
     # ax1
     ##############################
     axs[0].plot(x_deg, P_e_pre, '-', linewidth=2, label='$P_\mathrm{e}$ pre-fault')
-    axs[0].plot(x_deg, P_e_post, '-', linewidth=2, label='$P_\mathrm{e}$ post-fault')
+    # axs[0].plot(x_deg, P_e_post, '-', linewidth=2, label='$P_\mathrm{e}$ post-fault')
     axs[0].plot(x_deg, P_t, '-', linewidth=2, label='$P_\mathrm{T}$ of the turbine')
     axs[0].set_ylim(bottom=0)
     delta_0_deg = np.rad2deg(delta_0)
@@ -154,10 +156,10 @@ if __name__ == "__main__":
     plt.xlim(left=0, right=180)
     plt.xlabel('power angle $\delta$ in deg')
 
-    plt.suptitle('Stable scenario - fault 2')
-    # plt.show()
-    plt.savefig('plots/fault2_stable.pgf')
-    plt.close()
+    plt.suptitle('Stable scenario - fault 1')
+    # plt.savefig('plots/fault1_stable.pgf')
+    plt.show()
+    # plt.close()
 
     ##############################
     # Plot UNstable result
@@ -181,7 +183,7 @@ if __name__ == "__main__":
     # ax1
     ##############################
     axs[0].plot(x_deg, P_e_pre, '-', linewidth=2, label='$P_\mathrm{e}$ pre-fault')
-    axs[0].plot(x_deg, P_e_post, '-', linewidth=2, label='$P_\mathrm{e}$ post-fault')
+    # axs[0].plot(x_deg, P_e_post, '-', linewidth=2, label='$P_\mathrm{e}$ post-fault')
     axs[0].plot(x_deg, P_t, '-', linewidth=2, label='$P_\mathrm{T}$ of the turbine')
     axs[0].set_ylim(bottom=0)
     delta_0_deg = np.rad2deg(delta_0)
@@ -214,37 +216,7 @@ if __name__ == "__main__":
     plt.xlim(left=0, right=180)
     plt.xlabel('power angle $\delta$ in deg')
 
-    plt.suptitle('Unstable scenario - fault 2')
-    # plt.show()
-    plt.savefig('plots/fault2_unstable.pgf')
-    plt.close()
-
-    ##############################
-    # Plot of the different P_e
-    ##############################
-
-    P_e_stable = np.zeros(int((t_end-t_start)/t_step))
-    for i in range(np.size(t_sim)-1):
-        if fault_start <= t_sim[i] < t_cc:
-            fault = True
-        else:
-            fault = False
-        P_e_stable[i] = sim.P_e_alg(delta_stable[i], fault)
-    
-    P_e_unstable = np.zeros(int((t_end-t_start)/t_step))
-    for i in range(np.size(t_sim)-1):
-        if fault_start <= t_sim[i] < t_cc:
-            fault = True
-        else:
-            fault = False
-        P_e_unstable[i] = sim.P_e_alg(delta_unstable[i], fault)
-
-    plt.plot(t_sim, P_e_stable, label="$\Delta P$ - stable scenario")
-    plt.plot(t_sim, P_e_unstable, label="$\Delta P$ - unstable scenario")
-    plt.legend()
-    plt.xlim(right=1.9)
-    # plt.ylim(bottom=0)
-    plt.grid()
-    # plt.show()
-    plt.savefig("plots/delta-P_fault2.pgf")
-    plt.close()
+    plt.suptitle('Unstable scenario - fault 1')
+    # plt.savefig('plots/fault1_unstable.pgf')
+    plt.show()
+    # plt.close()
