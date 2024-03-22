@@ -28,10 +28,10 @@
 	% stellt Abstand vor Kapitelüberschriften ein
 	\RedeclareSectionCommand[beforeskip=\kapitelabstand         ]{chapter}
 
-	% noch ausstehende ToDo's - Liste
-	\listoftodos
-	\thispagestyle{empty}
-	\newpage
+	% % noch ausstehende ToDo's - Liste
+	% \listoftodos
+	% \thispagestyle{empty}
+	% \newpage
 
     \pagestyle{scrheadings}
 
@@ -76,16 +76,36 @@
 
 	% Abbildungsverzeichnis
 	\clearpage
-	\listoffigures
+	\addcontentsline{toc}{chapter}{List of figures}
+	\thispagestyle{plain}
+	\subsection*{List of figures}
+	\vspace*{-.5cm}
+	\rule{\textwidth}{.5pt}
+	\vspace*{-.8cm}
 
+	\listoffigures
+	\begingroup
+	\let\clearpage\relax
 	% Tabellenverzeichnis
-	\clearpage
+	% \clearpage
+	\addcontentsline{toc}{chapter}{List of tables}
+	\subsection*{List of tables}
+	\vspace*{-.5cm}
+	\rule{\textwidth}{.5pt}
+	\vspace*{-.8cm}
+
 	\listoftables
 
 	% Quellcodeverzeichnis
-	\clearpage
-	\lstlistoflistings \mycomment[MK]{Warum hat das einen anderen Zeilenabstand als alle anderen Verzeichnisse?}
-	
+	% \clearpage
+	% \subsection*{List of listings}
+	% \vspace*{-.5cm}
+	% \rule{\textwidth}{.5pt}
+	% \vspace*{-.8cm}
+
+	% \lstlistoflistings % \mycomment[MK]{Warum hat das einen anderen Zeilenabstand als alle anderen Verzeichnisse?}
+	\endgroup
+
 	\cleardoublepage
 	% \clearpage
 	\pagenumbering{arabic}

@@ -2133,12 +2133,6 @@
 \pgfsetfillcolor{textcolor}%
 \pgftext[x=3.017375in,y=2.540909in,left,base]{\color{textcolor}\rmfamily\fontsize{10.000000}{12.000000}\selectfont new stable convergent}%
 \end{pgfscope}%
-\begin{pgfscope}%
-\definecolor{textcolor}{rgb}{0.000000,0.000000,0.000000}%
-\pgfsetstrokecolor{textcolor}%
-\pgfsetfillcolor{textcolor}%
-\pgftext[x=2.500000in,y=5.880000in,,top]{\color{textcolor}\rmfamily\fontsize{12.000000}{14.400000}\selectfont Stable scenario - fault 3}%
-\end{pgfscope}%
 \end{pgfpicture}%
 \makeatother%
 \endgroup%

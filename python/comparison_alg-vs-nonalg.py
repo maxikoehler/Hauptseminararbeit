@@ -108,9 +108,12 @@ if __name__ == "__main__":
 
     plt.plot(t_sim, np.rad2deg(delta_alg), label="algebraic")
     plt.plot(t_sim, np.rad2deg(delta_non_alg), label="non-algebraic")
-
     plt.legend()
     plt.grid()
+    plt.ylabel('power angle $\delta$ in deg')
+    plt.xlabel('time in s')
+    plt.title("Power angle - comparison algebraic vs. non-algebraic")
+
     # plt.show()
     plt.savefig("plots/comparison_alg-vs-nonalg.pgf")
     plt.close()
@@ -138,6 +141,9 @@ if __name__ == "__main__":
     plt.plot(t_sim, P_e_alg, label="power algebraic")
     plt.legend()
     plt.grid()
+    plt.ylabel('electrical power in $\mathrm{p.u.}$')
+    plt.xlabel('time in s')
+    plt.title("Electrical power - comparison algebraic vs. non-algebraic")
     # plt.show()
     plt.savefig("plots/comparison_alg-vs-nonalg_power.pgf")
     plt.close()

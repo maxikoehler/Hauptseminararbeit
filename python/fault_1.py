@@ -241,8 +241,11 @@ if __name__ == "__main__":
 
     plt.plot(t_sim, P_e_stable, label="$\Delta P$ - stable scenario")
     plt.plot(t_sim, P_e_unstable, label="$\Delta P$ - unstable scenario")
+    plt.ylabel('electrical power in $\mathrm{p.u.}$')
+    plt.xlabel('time in s')
     plt.legend()
     plt.grid()
+    plt.title('Electrical power over time - fault 1')
     # plt.show()
     plt.savefig("plots/delta-P_fault1.pgf")
     plt.close()

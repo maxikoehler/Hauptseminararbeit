@@ -121,11 +121,11 @@ if __name__ == "__main__":
 
     plt.legend()
     plt.xlabel("$H_\mathrm{gen}$ in $\mathrm{s}$")
-    plt.ylabel("$CCT$ in $\mathrm{s}$")
+    plt.ylabel("CCT in $\mathrm{s}$")
     # plt.title("Influence from $H_\mathrm{gen}$ and $\Delta P$ on CCT")
     plt.grid()
     # figure = plt.gcf() # get current figure
     # figure.set_size_inches(8, 6)
-    plt.savefig('plots/parameter_comparison.pgf', dpi=300)
+    plt.savefig('plots/parameter_comparison_main.pgf', dpi=300)
     # plt.show()
     plt.close()

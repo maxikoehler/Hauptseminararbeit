@@ -2,7 +2,7 @@ def stability_eac(delta_0, delta_act, omega_act, delta_max, alg):
     area_acc = sp.integrate.quad(P_r_deg, delta_0, delta_act, args=(omega_act, True, alg))
     area_dec = sp.integrate.quad(P_r_deg, delta_act, delta_max, args=(omega_act, (not clearing), alg))
 
-    if abs(area_acc[0]) < abs(area_dec[0]): # True: stable, False: NOT stable 
+    if abs(area_acc[0]) < abs(area_dec[0]):
         return True
     else:
         return False

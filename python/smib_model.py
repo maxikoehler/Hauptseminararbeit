@@ -64,8 +64,8 @@ def P_e(delta, fault_on):
     global E_fd_ibb
 
     if fault_on:
-        X = 1
-        E_ibb = 0
+        X = X_gen + 2 * X_line + X_ibb
+        E_ibb = E_fd_ibb
     else:
         X = X_gen + X_line + X_ibb
         E_ibb = E_fd_ibb

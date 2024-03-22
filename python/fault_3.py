@@ -23,7 +23,7 @@ plt.rcParams.update({
 })
 
 # uncomment for updating savefig options for latex export
-mpl.use("pgf")
+# mpl.use("pgf")
 
 def init(gen_parameters, sim_parameters):
     global fn, H_gen, X_gen, X_ibb, X_line, X_trans, X_fault, E_fd_gen, E_fd_ibb, P_m_gen, omega_gen_init, delta_gen_init, delta_ibb_init, t_start, t_end, t_step, fault_start, fault_end, clearing
@@ -155,11 +155,12 @@ if __name__ == "__main__":
     plt.ylim(top=-.5)
     plt.xlim(left=0, right=180)
     plt.xlabel('power angle $\delta$ in deg')
+    plt.savefig('plots/fault3_main.pgf')
 
-    # plt.suptitle('Stable scenario - fault 3')
-    # plt.show()
-    plt.savefig('plots/fault3.pgf')
-    plt.close()
+    plt.suptitle('Stable scenario - fault 3')
+    plt.show()
+    # plt.savefig('plots/fault3.pgf')
+    # plt.close()
 
     ##############################
     # Plot of the different P_e
@@ -175,9 +176,12 @@ if __name__ == "__main__":
 
     plt.plot(t_sim, P_e_stable, label="power stable scenario")
     plt.legend()
+    plt.ylabel('electrical power in $\mathrm{p.u.}$')
+    plt.xlabel('time in s')
     plt.grid()
     plt.xlim(right=4.5)
     plt.ylim(bottom=0)
-    # plt.show()
-    plt.savefig("plots/delta-P_fault3.pgf")
-    plt.close()
+    plt.title('Electrical power over time - fault 3')
+    plt.show()
+    # plt.savefig("plots/delta-P_fault3.pgf")
+    # plt.close()

@@ -25,17 +25,16 @@
 \section{Initial values}
 \label{app:initials}
 
-\begin{table}[H]
+\begin{centering}
     \small
-    \centering
-    \caption[short]{title}
-    \vspace{12pt}
+    % \caption[short]{title}
+    % \vspace{12pt}
     \begin{tabularx}{\textwidth}{|X|X|}
         \hline
         \rowcolor{lightgray} a & b \\ \hline \hline
         & \\ \hline
     \end{tabularx}
-\end{table}
+\end{centering}
 
 \section{Fault 1}
 \label{app:fault1}
@@ -62,11 +61,18 @@
 
 \input{python/plots/delta-P_fault3.pgf}
 
-\chapter{Code}
-\label{app:code}
+% \section{Comparison algebraic vs. non-algebraic}
+% \label{app:alg-non-alg-comparison}
 
-\section{Fault scenario parameters}
-\label{app:fault-scenarios}
+% \input{python/plots/comparison_alg-vs-nonalg.pgf}
+
+% \input{python/plots/comparison_alg-vs-nonalg_power.pgf}
+
+% \chapter{Code}
+% \label{app:code}
+
+% \section{Fault scenario parameters}
+% \label{app:fault-scenarios}
 
 % \lstinputlisting[caption={Module containing all relevant functions of the SMIB model in Python},captionpos=b,style=style-python,label=lst:model-func]{python/smib_model.py}
 
@@ -74,9 +80,9 @@
 
 % \lstinputlisting[caption={GK's SMIB model with Heun's integration method},captionpos=b,style=style-python,label=lst:model-func-heun]{python/simulation_example_gk/simulation_even_better.py}
 
-\section{Main model}
+% \section{Main model}
 
-\lstinputlisting[style=style-python]{python/smib_model.py}
+% \lstinputlisting[caption={Main \acs{SMIB} model code\\}, captionpos=t, style=style-python]{python/smib_model.py}
 
 % \section{Fault models}
 
@@ -97,8 +103,6 @@
 % \subsection*{Algebraic vs. non-algebraic}
 % \lstinputlisting{python/comparison_alg-vs-nonalg.py}
 
-\chapter{Additional}
-\label{app:additional}
+% \chapter{Additional}
+% \label{app:additional}
 
-\section{Parameter variation}
-\label{app:parameters}

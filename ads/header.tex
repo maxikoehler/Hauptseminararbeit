@@ -167,11 +167,11 @@
 % (Farb-)einstellungen für die Links im PDF
 \hypersetup{%
 	colorlinks=true, 		% Aktivieren von farbigen Links im Dokument
-	linkcolor=black, 	% Farbe festlegen
-	citecolor=black,
-	filecolor=black,
-	menucolor=black,
-	urlcolor=black,
+	linkcolor=blue, 	% Farbe festlegen
+	citecolor=blue,
+	filecolor=blue,
+	menucolor=blue,
+	urlcolor=blue,
 	linktocpage=true, 		% Nicht der Text sondern die Seitenzahlen in Verzeichnissen klickbar
 	bookmarksnumbered=true 	% Überschriftsnummerierung im PDF Inhalt anzeigen.
 }
@@ -295,3 +295,19 @@
 \ofoot[\pagemark]{\pagemark}	% Fußzeile mit Seitenzahl außen
 \renewcommand*\chapterpagestyle{plain.scrheadings}
 % \renewcommand*\partpagestyle{plain.scrheadings}		%Bei Verwendung von Parts als Überschriftenebene: Setzen des Pagestyles global
+
+\makeatletter
+\renewcommand\listoffigures{%
+        \@starttoc{lof}%
+}
+\makeatother
+\makeatletter
+\renewcommand\listoftables{%
+    \@starttoc{lot}%
+}
+\makeatother
+\makeatletter
+\renewcommand\lstlistoflistings{%
+        \@starttoc{lol}%
+}
+\makeatother

@@ -23,7 +23,7 @@ plt.rcParams.update({
 })
 
 # uncomment for updating savefig options for latex export
-mpl.use("pgf")
+# mpl.use("pgf")
 
 def init(gen_parameters, sim_parameters):
     global fn, H_gen, X_gen, X_ibb, X_line, X_trans, X_fault, E_fd_gen, E_fd_ibb, P_m_gen, omega_gen_init, delta_gen_init, delta_ibb_init, t_start, t_end, t_step, fault_start, fault_end, clearing
@@ -155,9 +155,9 @@ if __name__ == "__main__":
     plt.xlabel('power angle $\delta$ in deg')
 
     plt.suptitle('Stable scenario - fault 2')
-    # plt.show()
-    plt.savefig('plots/fault2_stable.pgf')
-    plt.close()
+    plt.show()
+    # plt.savefig('plots/fault2_stable.pgf')
+    # plt.close()
 
     ##############################
     # Plot UNstable result
@@ -215,9 +215,9 @@ if __name__ == "__main__":
     plt.xlabel('power angle $\delta$ in deg')
 
     plt.suptitle('Unstable scenario - fault 2')
-    # plt.show()
-    plt.savefig('plots/fault2_unstable.pgf')
-    plt.close()
+    plt.show()
+    # plt.savefig('plots/fault2_unstable.pgf')
+    # plt.close()
 
     ##############################
     # Plot of the different P_e
@@ -245,6 +245,10 @@ if __name__ == "__main__":
     plt.xlim(right=1.9)
     # plt.ylim(bottom=0)
     plt.grid()
-    # plt.show()
-    plt.savefig("plots/delta-P_fault2.pgf")
-    plt.close()
+    plt.ylabel('electrical power in $\mathrm{p.u.}$')
+    plt.xlabel('time in s')
+    # plt.savefig("plots/delta-P_fault2_main.pgf")
+    plt.title('Electrical power over time - fault 2')
+    plt.show()
+    # plt.savefig("plots/delta-P_fault2.pgf")
+    # plt.close()
