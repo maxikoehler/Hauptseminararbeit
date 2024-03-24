@@ -1,22 +1,11 @@
 %!TEX root = ../main.tex
 
-\chapter{Introduction}
+\chapter{System stability in a changing grid}
 \label{chap:intro}
 
-Bullet points for the thesis from Ilya:
-\begin{itemize}
-    \item Swing equation of synchronous generators
-    \item Solving the Swing equation with the help of Python -> Solving of second order ODEs
-    \item Equal-area criterion -> Derivation of the equations
-    \item Simulation of a fault -> applying the equal-area criteria with the help of Python.
-    \item Comparison between analytical and (numerical) simulation results
-\end{itemize}
+Our electrical energy system is drastically changing due to the shift towards renewable energy sources. This is not only changing the way to think about the energy supply itself, but also the challenges and requirements targeting the electrical energy system, its components and safety features. One aspect of understanding these challenges and ensuring a safe and robust operation is system stability assessments. One such analysis is the so-called \acf{TSA}. \autocite{vdeverbandderelektrotechnikelektronikinformationstechnike.v.PerspektivenElektrischenEnergieubertragung2019}
 
-Introduction via \autocite{vdeverbandderelektrotechnikelektronikinformationstechnike.v.PerspektivenElektrischenEnergieubertragung2019} and other standard literature like \autocite{gloverPowerSystemAnalysis2017,kundurPowerSystemStability2022,machowskiPowerSystemDynamics2020,oedingElektrischeKraftwerkeUnd2016,schwabElektroenergiesystemeSmarteStromversorgung2022}. Need for understanding of Transient stability and therefore critical pole angle and fault clearing time assessment: Running and maintaining the electrical grid; Adding virtual inertia in FACTs and HVDC; Better and faster predicting, due to shorter (critical) fault clearing times; .
-
-\missingfigure{Insert senseful schematic picture/graph}
-
-The goal of this Student Research Paper is the implementation of a \ac{CCT} determing Python algorithm for a \ac{SMIB} model. Therefore a handful of faults or fault scenarios shall be simulated with the program. In combination with a few visualizations the concepts of transient stability assessment, and therefore determining the \ac{CCT} and the critical power angle, are illustrated.
+Within this analysis, there are several indicators, methods, and perspectives. They will help understand the influences of newer technologies such as virtual inertia, FACTs and HVDC devices, and power electronics. This seminar and its resulting paper want to focus on \acf{SG} and their key indicator in \acs{TSA}: the \acf{CCT}. \autocite{gloverPowerSystemAnalysis2017,kundurPowerSystemStability2022,machowskiPowerSystemDynamics2020,oedingElektrischeKraftwerkeUnd2016,schwabElektroenergiesystemeSmarteStromversorgung2022} The goal is the implementation of a \ac{CCT} determing Python algorithm for a \ac{SMIB} model. Therefore a handful of faults or interruption scenarios shall be simulated with the program. In combination with a few visualizations the concepts of transient stability assessment, and therefore determining the \ac{CCT} and the critical power angle, are illustrated.
 
 % \begin{figure}
 %     \input{python/gen_angle_trend.pgf}

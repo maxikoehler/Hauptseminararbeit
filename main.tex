@@ -72,39 +72,6 @@
 	\end{spacing}
 	% \newpage
     % \adjustmtc
-    \pagestyle{scrheadings}
-
-	% Abbildungsverzeichnis
-	\clearpage
-	\addcontentsline{toc}{chapter}{List of figures}
-	\thispagestyle{plain}
-	\subsection*{List of figures}
-	\vspace*{-.5cm}
-	\rule{\textwidth}{.5pt}
-	\vspace*{-.8cm}
-
-	\listoffigures
-	\begingroup
-	\let\clearpage\relax
-	% Tabellenverzeichnis
-	% \clearpage
-	\addcontentsline{toc}{chapter}{List of tables}
-	\subsection*{List of tables}
-	\vspace*{-.5cm}
-	\rule{\textwidth}{.5pt}
-	\vspace*{-.8cm}
-
-	\listoftables
-
-	% Quellcodeverzeichnis
-	% \clearpage
-	% \subsection*{List of listings}
-	% \vspace*{-.5cm}
-	% \rule{\textwidth}{.5pt}
-	% \vspace*{-.8cm}
-
-	% \lstlistoflistings % \mycomment[MK]{Warum hat das einen anderen Zeilenabstand als alle anderen Verzeichnisse?}
-	\endgroup
 
 	\cleardoublepage
 	% \clearpage
@@ -125,7 +92,7 @@
 			}
 	}
 
-	\clearpage
+	\cleardoublepage
 
 	% Bei Bedarf auskommentieren, wenn Übergang zu römischer Seitennummerierung nicht korrekt dargestellt (links-rechts Unterscheidung; links: gerade Seiten, rechts: ungerade Seiten); Anpassen der Startseite nach Preface Seiten VOR dem Hauptteil (händisch)
 	% \newpage 
@@ -134,11 +101,43 @@
 	% \newpage
 
 	\pagenumbering{Roman}
-    \setcounter{page}{8}
+    \setcounter{page}{9}
 
 	% Abkürzungsverzeichnis
 	% \clearpage
 	\input{ads/acronyms}
+
+	% Abbildungsverzeichnis
+	\clearpage
+	\addcontentsline{toc}{chapter}{List of figures}
+	\thispagestyle{plain}
+	\section*{List of figures}
+	% \vspace*{-.5cm}
+	% \rule{\textwidth}{.5pt}
+	% \vspace*{-.8cm}
+
+	\listoffigures
+	\begingroup
+	\let\clearpage\relax
+	% Tabellenverzeichnis
+	% \clearpage
+	\addcontentsline{toc}{chapter}{List of tables}
+	\section*{List of tables}
+	% \vspace*{-.5cm}
+	% \rule{\textwidth}{.5pt}
+	% \vspace*{-.8cm}
+
+	\listoftables
+
+	% Quellcodeverzeichnis
+	% \clearpage
+	% \subsection*{List of listings}
+	% \vspace*{-.5cm}
+	% \rule{\textwidth}{.5pt}
+	% \vspace*{-.8cm}
+
+	% \lstlistoflistings % \mycomment[MK]{Warum hat das einen anderen Zeilenabstand als alle anderen Verzeichnisse?}
+	\endgroup
 
 	% Glossar
 	% \clearpage
@@ -153,8 +152,8 @@
 	% sonstiger Anhang
 	\cleardoublepage
 
-	\pagenumbering{arabic}
-	\setcounter{page}{23}
+	\pagenumbering{alph}
+	% \setcounter{page}{1}
 	
 	\appendix
 	\input{ads/appendix}

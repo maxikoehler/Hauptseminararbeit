@@ -19,6 +19,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\centering
 
 \chapter{Graphics and tables}
 
@@ -29,12 +30,45 @@
     \small
     % \caption[short]{title}
     % \vspace{12pt}
-    \begin{tabularx}{\textwidth}{|X|X|}
-        \hline
-        \rowcolor{lightgray} a & b \\ \hline \hline
-        & \\ \hline
+    \begin{tabularx}{\textwidth}{l|X|l|l}
+        % \hline % \rowcolor{lightgray} 
+        & fault 1 & fault 2 & fault 3 \\ \hline \hline
+        $P_\mathrm{e,~max}$     & \multicolumn{3}{c}{1.2 p.u.} \\ \hline
+        $P_\mathrm{mech}$       & 0.9 p.u. & 1.0 p.u. & 0.7 p.u. \\ \hline
+        $E_\mathrm{ibb}$        & \multicolumn{3}{c}{1 p.u.} \\ \hline
+        $E_\mathrm{gen}$        & \multicolumn{3}{c}{1.14 p.u.} \\ \hline
+        $\delta_\mathrm{ibb}$   & 48.6 deg & 56.4 deg & 35.7 deg \\ \hline
+        $\delta_\mathrm{gen}$   & \multicolumn{3}{c}{0 deg} \\ \hline
+
+        $Y_\mathrm{bus,~init}$ & \multicolumn{3}{c}{$\begin{bmatrix} -\frac{1j}{X_\mathrm{gen}}-\frac{3j}{X_\mathrm{line}} & \frac{3j}{X_\mathrm{line}} \\ \frac{3j}{X_\mathrm{line}} & -\frac{3j}{X_\mathrm{line}}-\frac{1j}{X_\mathrm{ibb}}\end{bmatrix}$} \\ \hline
+
+        $Y_\mathrm{bus,~init}$ & $\begin{bmatrix} -\frac{1j}{X_\mathrm{gen}}-\frac{3j}{X_\mathrm{line}} + 10^6 & \frac{3j}{X_\mathrm{line}} \\ \frac{3j}{X_\mathrm{line}} & -\frac{3j}{X_\mathrm{line}}-\frac{1j}{X_\mathrm{ibb}}\end{bmatrix}$ 
+        & \multicolumn{2}{c}{$\begin{bmatrix} -\frac{1j}{X_\mathrm{gen}}-\frac{2j}{X_\mathrm{line}} & \frac{2j}{X_\mathrm{line}} \\ \frac{2j}{X_\mathrm{line}} & -\frac{2j}{X_\mathrm{line}}-\frac{1j}{X_\mathrm{ibb}}\end{bmatrix}$} \\ \hline \hline
+
+        $t_\mathrm{start}$      & \multicolumn{3}{c}{-1 s} \\ \hline
+        $t_\mathrm{end}$        & \multicolumn{2}{c|}{2 s} & 5 s \\ \hline
+        $t_\mathrm{step}$       & \multicolumn{3}{c}{0.001 s} \\ \hline
+        $t_\mathrm{fault,~start}$   & \multicolumn{3}{c}{0 s} \\
     \end{tabularx}
 \end{centering}
+
+\flushleft
+For the modules {\itshape parameter\_comparison.py} and {\itshape comparison\_alg-vs-nonalg.py} the initial values from fault one are used, besides the described variations. \\[24pt]
+
+\begin{minipage}[l]{.49\textwidth}
+    \begin{tabular}{l|r}
+        $X_\mathrm{line}$       & 1.95 p.u. \\ \hline
+        $X_\mathrm{gen}$        & 0.2 p.u. \\ \hline
+        $X_\mathrm{ibb}$        & 0.1 p.u. \\ 
+    \end{tabular}
+\end{minipage}
+\begin{minipage}[r]{.49\textwidth}
+    \begin{tabular}{l|r}
+        $H_\mathrm{gen}$        & 3.3 s \\ \hline
+        $f_\mathrm{n}$          & 50 $\mathrm{\frac{1}{s}}$ \\ \hline
+        $\omega$                & 0 \\ 
+    \end{tabular}
+\end{minipage}
 
 \section{Fault 1}
 \label{app:fault1}
@@ -61,12 +95,12 @@
 
 \input{python/plots/delta-P_fault3.pgf}
 
-% \section{Comparison algebraic vs. non-algebraic}
-% \label{app:alg-non-alg-comparison}
+\section{Comparison algebraic vs. non-algebraic}
+\label{app:alg-non-alg-comparison}
 
-% \input{python/plots/comparison_alg-vs-nonalg.pgf}
+\input{python/plots/comparison_alg-vs-nonalg.pgf}
 
-% \input{python/plots/comparison_alg-vs-nonalg_power.pgf}
+\input{python/plots/comparison_alg-vs-nonalg_power.pgf}
 
 % \chapter{Code}
 % \label{app:code}

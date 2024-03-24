@@ -36,11 +36,9 @@ def algebraic(delta_gen, fault_on):
     # If the SC is on, the admittance matrix is different.
     # The SC on busbar 0 is expressed in the admittance matrix as a very large admittance (1000000) i.e. a very small impedance.
     if fault_on:
-        y_adm = np.array([X_fault,
-                          [1j / X_line, -1j / X_line - 1j / X_ibb]])
+        y_adm = Y_fault
     else:
-        y_adm = np.array([[-1j / X_gen - 1j / X_line, 1j / X_line],
-                          [1j / X_line, -1j / X_line - 1j / X_ibb]])
+        y_adm = Y_stable
 
     # Calculate the inverse of the admittance matrix (Y^-1)
     y_inv = np.linalg.inv(y_adm)
@@ -65,9 +63,9 @@ def P_e(delta, fault_on):
 
     if fault_on:
         X = X_gen + 2 * X_line + X_ibb
-        E_ibb = E_fd_ibb
+        E_ibb = 0
     else:
-        X = X_gen + X_line + X_ibb
+        X = X_gen + X_line/3 + X_ibb
         E_ibb = E_fd_ibb
         
     P_e_gen = E_fd_gen * E_ibb / X * np.sin(delta)
@@ -239,15 +237,16 @@ def do_sim_simple(gen_parameters, sim_parameters, alg):
     return stability, t_cc, delta_cc, t_sim, solution
 
 def init(gen_parameters, sim_parameters):
-    global fn, H_gen, X_gen, X_ibb, X_line, X_trans, X_fault, E_fd_gen, E_fd_ibb, P_m_gen, omega_gen_init, delta_gen_init, delta_ibb_init, t_start, t_end, t_step, fault_start, fault_end, clearing
+    global fn, H_gen, Y_stable, Y_fault, E_fd_gen, E_fd_ibb, P_m_gen, omega_gen_init, delta_gen_init, delta_ibb_init, t_start, t_end, t_step, fault_start, fault_end, clearing
+    global X_gen, X_ibb, X_line
 
     fn = gen_parameters["fn"]
     H_gen = gen_parameters["H_gen"]
     X_gen = gen_parameters["X_gen"]
     X_ibb = gen_parameters["X_ibb"]
     X_line = gen_parameters["X_line"]
-    X_fault = gen_parameters["X_fault"]
-    X_trans = gen_parameters["X_trans"]
+    Y_stable = gen_parameters["Y_stable"]
+    Y_fault = gen_parameters["Y_fault"]
 
     E_fd_gen = gen_parameters["E_fd_gen"]
     E_fd_ibb = gen_parameters["E_fd_ibb"]
@@ -281,21 +280,25 @@ def init(gen_parameters, sim_parameters):
 
 if __name__ == "__main__":
     # setup simulation inputs
+    X_gen = 0.2
+    X_ibb = 0.1
+    X_line = 0.65
+
     gen_parameters = {
         "fn":       50,
         "H_gen":    3.3,
-        "X_gen":    0.2,
-        "X_trans":  0.1,
-        "X_ibb":    0.1,
-        "X_line":   0.65,
-        "X_fault":  0.0001,
+        "X_gen":    X_gen,
+        "X_ibb":    X_ibb,
+        "X_line":   X_line,
+        "Y_stable": np.array([[-1j / X_gen - 1j / X_line, 1j / X_line], [1j / X_line, -1j / X_line - 1j / X_ibb]]),
+        "Y_fault":  np.array([[-1j / X_gen - 1j / X_line + 1000000, 1j / X_line], [1j / X_line, -1j / X_line - 1j / X_ibb]]),
 
         "E_fd_gen": 1.14,
         "E_fd_ibb": 1.0,
         "P_m_gen":  0.9,
 
         "omega_gen_init": 0,
-        "delta_gen_init": np.deg2rad(48.59),
+        "delta_gen_init": np.deg2rad(48.6),
         "delta_ibb_init": np.deg2rad(0)
     }
 
@@ -308,8 +311,6 @@ if __name__ == "__main__":
         "fault_end":    5,
         "clearing":     True
     }
-
-    gen_parameters["X_fault"] = [(-1j / gen_parameters["X_gen"] - 1j / gen_parameters["X_line"]) + 1000000, 1j / gen_parameters["X_line"]]
 
     # Execution of simulation
     alg = True

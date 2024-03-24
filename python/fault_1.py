@@ -23,18 +23,19 @@ plt.rcParams.update({
 })
 
 # uncomment for updating savefig options for latex export
-mpl.use("pgf")
+# mpl.use("pgf")
 
 def init(gen_parameters, sim_parameters):
-    global fn, H_gen, X_gen, X_ibb, X_line, X_trans, X_fault, E_fd_gen, E_fd_ibb, P_m_gen, omega_gen_init, delta_gen_init, delta_ibb_init, t_start, t_end, t_step, fault_start, fault_end, clearing
+    global fn, H_gen, Y_stable, Y_fault, E_fd_gen, E_fd_ibb, P_m_gen, omega_gen_init, delta_gen_init, delta_ibb_init, t_start, t_end, t_step, fault_start, fault_end, clearing
+    global X_gen, X_ibb, X_line
 
     fn = gen_parameters["fn"]
     H_gen = gen_parameters["H_gen"]
     X_gen = gen_parameters["X_gen"]
     X_ibb = gen_parameters["X_ibb"]
     X_line = gen_parameters["X_line"]
-    X_fault = gen_parameters["X_fault"]
-    X_trans = gen_parameters["X_trans"]
+    Y_stable = gen_parameters["Y_stable"]
+    Y_fault = gen_parameters["Y_fault"]
 
     E_fd_gen = gen_parameters["E_fd_gen"]
     E_fd_ibb = gen_parameters["E_fd_ibb"]
@@ -56,14 +57,18 @@ def init(gen_parameters, sim_parameters):
 
 if __name__ == "__main__":
     # setup simulation inputs
+    X_gen = 0.2
+    X_ibb = 0.1
+    X_line = 1.95
+
     gen_parameters = {
         "fn":       50,
         "H_gen":    3.3,
-        "X_gen":    0.2,
-        "X_trans":  0.2,
-        "X_ibb":    0.1,
-        "X_line":   0.65,
-        "X_fault":  0.0001,
+        "X_gen":    X_gen,
+        "X_ibb":    X_ibb,
+        "X_line":   X_line,
+        "Y_stable": np.array([[-1j / X_gen - 1j*3 / X_line, 1j*3 / X_line], [1j*3 / X_line, -1j*3 / X_line - 1j / X_ibb]]),
+        "Y_fault":  np.array([[-1j / X_gen - 1j*3 / X_line + 1000000, 1j*3 / X_line], [1j*3 / X_line, -1j*3 / X_line - 1j / X_ibb]]),
 
         "E_fd_gen": 1.14,
         "E_fd_ibb": 1.0,
@@ -83,8 +88,6 @@ if __name__ == "__main__":
         "fault_end":    1,
         "clearing":     True
     }
-
-    gen_parameters["X_fault"] = [(-1j / gen_parameters["X_gen"] - 1j / gen_parameters["X_line"]) + 1000000, 1j / gen_parameters["X_line"]]
 
     init(gen_parameters, sim_parameters)
 
@@ -155,9 +158,9 @@ if __name__ == "__main__":
     plt.xlabel('power angle $\delta$ in deg')
 
     plt.suptitle('Stable scenario - fault 1')
-    # plt.show()
-    plt.savefig('plots/fault1_stable.pgf')
-    plt.close()
+    plt.show()
+    # plt.savefig('plots/fault1_stable.pgf')
+    # plt.close()
 
     ##############################
     # Plot UNstable result
@@ -215,9 +218,9 @@ if __name__ == "__main__":
     plt.xlabel('power angle $\delta$ in deg')
 
     plt.suptitle('Unstable scenario - fault 1')
-    # plt.show()
-    plt.savefig('plots/fault1_unstable.pgf')
-    plt.close()
+    plt.show()
+    # plt.savefig('plots/fault1_unstable.pgf')
+    # plt.close()
 
     ##############################
     # Plot of the different P_e
@@ -246,6 +249,6 @@ if __name__ == "__main__":
     plt.legend()
     plt.grid()
     plt.title('Electrical power over time - fault 1')
-    # plt.show()
-    plt.savefig("plots/delta-P_fault1.pgf")
-    plt.close()
+    plt.show()
+    # plt.savefig("plots/delta-P_fault1.pgf")
+    # plt.close()

@@ -17,10 +17,10 @@
 \cleardoublepage
 \addcontentsline{toc}{chapter}{Acronyms}
 \thispagestyle{plain}
-\subsection*{Acronyms}
-\vspace*{-.5cm}
-\rule{\textwidth}{.5pt}
-\vspace*{-.5cm}
+\section*{Acronyms}
+% \vspace*{-.5cm}
+% \rule{\textwidth}{.5pt}
+% \vspace*{-.5cm}
 
 % \addchap{\langabkverz}
 \begin{acronym}[mmmmmm] %hier längstes Acro
@@ -35,6 +35,7 @@
 \acro{SG}{synchronous generator}
 \acro{SMIB}{single machine infinite bus}
 \acro{TDS}{time domain solution}
+\acro{TSA}{Transient stability assessment}
 
 \end{acronym}
 
@@ -42,14 +43,24 @@
 \vspace{1cm}
 \addcontentsline{toc}{chapter}{Symbols}	
 \thispagestyle{plain}
-\subsection*{Symbols}
-\vspace*{-.5cm}
-\rule{\textwidth}{.5pt}
-\vspace*{-.8cm}
+\section*{Symbols}
+% \vspace*{-.5cm}
+% \rule{\textwidth}{.5pt}
+% \vspace*{-.8cm}
 
 % \addchap{Symbols}
 \begin{tabbing}
-    XXXXXXXXXXXXX \= XXXX \= XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \kill
-    $H_\mathrm{gen}$    \> s                \> inertia constant of a \acf{SG} \\
-    $P$                 \> W                \> Power; electrical or mechanical \\
+    XXXXXXXXX \= XXXXXXXX \= XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX \kill
+    $\delta$            \> $^\circ$ / deg                   \> power angle (or power angle difference) \\
+    $\Delta\omega$      \> $\mathrm{\frac{1}{s}}$           \> change of rotor angular speed \\
+    $A$                 \> -                                \> acceleration or deceleration area \\
+    $E$                 \> V                                \> voltage of \acs{SG} or \acs{IBB} \\
+    $H_\mathrm{gen}$    \> s                                \> inertia constant of a \acf{SG} \\
+    $I$                 \> A                                \> current \\
+    $P$                 \> W                                \> Power; electrical or mechanical \\
+    $V$                 \> V                                \> voltage \\
+    $X$                 \> $\mathrm{\Omega}$                \> reactance \\
+    $Y$                 \> $\mathrm{\frac{1}{\Omega}}$ / S  \> admittance \\
 \end{tabbing}
+
+In the simulations and calculations the per unit system is preferred, thus using all values as per reference unit ($\mathrm{p.u.}$). Where necessary indices are used to differentiate between similar symbols with different values.

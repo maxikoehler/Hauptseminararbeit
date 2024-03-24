@@ -92,3 +92,8 @@ delta_cc, t_cc = calc(0.808)
 print('fault 2:')
 print('t_cc:\t\t' + str(round(t_cc, 3)) + ' s')
 print('delta_cc:\t' + str(round(np.rad2deg(delta_cc), 2)) + ' deg')
+
+delta_cc, t_cc = calc(0)
+print('fault 2:')
+print('t_cc:\t\t' + str(round(t_cc, 3)) + ' s')
+print('delta_cc:\t' + str(round(np.rad2deg(delta_cc), 2)) + ' deg')

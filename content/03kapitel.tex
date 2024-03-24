@@ -3,14 +3,15 @@
 \chapter{Summary and outlook}
 \label{chap:summary}
 
-Short summary of the results.
+% \commenting{
+%     A brief look in the future and why this topic is in the interest, maybe for slightly other applications as well (see \autocite{gaoTransientStabilityAnalysis2024}).
+%     \begin{itemize}
+%         \item Usage of CCT assessment for different topics like: Grid coupling (stations); transient balancing processes (RoCoF?)
+%         \item Using of TDS assessment for TSA: controlling of regenerative energy sources like wind turbines; controlling of stability devices like phasor-shifting, grid-forming power electronics
+%         \item Support of reactive and real power flow controlling: Slower expansion of transient disturbances through grids for stabilization with (comparably slow) primary control
+%     \end{itemize}
+% }
 
-A brief look in the future and why this topic is in the interest, maybe for slightly other applications as well (see \autocite{gaoTransientStabilityAnalysis2024}).
+In conclusion a \acf{SMIB} model was implemented into Python, using the swing equation of a \acf{SG} and the algebraic equation set of the electric network. A function for determining the \acf{CCT} was delivering satisfying results in comparison to the analytical solution. Three faults or interrupting events were defined, implemented and simulated, especially regarding the \acs{CCT}. The simulation results were plotted in an overlay of P-$\delta$-curves with marked equal accelerating and decelerating areas, and the associated \acf{TDS}. This was done for just stable and just unstable clearing of the fault. In addition, the electrical injected power from the \acs{SG} into the \acf{IBB} for stable and non-stable fault cases was illustrated on a time scale basis.
 
-\commenting{
-    \begin{itemize}
-        \item Usage of CCT assessment for different topics like: Grid coupling (stations); transient balancing processes (RoCoF?)
-        \item Using of TDS assessment for TSA: controlling of regenerative energy sources like wind turbines; controlling of stability devices like phasor-shifting, grid-forming power electronics
-        \item Support of reactive and real power flow controlling: Slower expansion of transient disturbances through grids for stabilization with (comparably slow) primary control
-    \end{itemize}
-}
+This paper shows on one side the simple indicator \acs{CCT} for a transient stable operation of a \acs{SG}. On the other hand, with all the limitations and outlooks, the topic of determining stability and therefore the \acs{CCT} can become very complex when considering heavily interconnected electrical networks, machine interactions, or non-trivial interruption events. The importance of this analysis, especially for an electrical power system changing towards newer and faster-responding technologies meeting expectations and challenges of renewable energy sources (like \textcite{gaoTransientStabilityAnalysis2024}), cannot be denied.
