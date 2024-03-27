@@ -51,5 +51,5 @@ Firstly, the code is historically grown, and due to the short time frame not cle
 ## 2.4 `parameter_comparison.py` and `comparison_alg-vs-nonalg.py`
 
 ### 2.4.1 Purpose and structure
-
+****
 ### 2.4.2 Functions

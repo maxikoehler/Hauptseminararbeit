@@ -42,7 +42,7 @@
 
         $Y_\mathrm{bus,~init}$ & \multicolumn{3}{c}{$\begin{bmatrix} -\frac{1j}{X_\mathrm{gen}}-\frac{3j}{X_\mathrm{line}} & \frac{3j}{X_\mathrm{line}} \\ \frac{3j}{X_\mathrm{line}} & -\frac{3j}{X_\mathrm{line}}-\frac{1j}{X_\mathrm{ibb}}\end{bmatrix}$} \\ \hline
 
-        $Y_\mathrm{bus,~init}$ & $\begin{bmatrix} -\frac{1j}{X_\mathrm{gen}}-\frac{3j}{X_\mathrm{line}} + 10^6 & \frac{3j}{X_\mathrm{line}} \\ \frac{3j}{X_\mathrm{line}} & -\frac{3j}{X_\mathrm{line}}-\frac{1j}{X_\mathrm{ibb}}\end{bmatrix}$ 
+        $Y_\mathrm{bus,~fault}$ & $\begin{bmatrix} -\frac{1j}{X_\mathrm{gen}}-\frac{3j}{X_\mathrm{line}} + 10^6 & \frac{3j}{X_\mathrm{line}} \\ \frac{3j}{X_\mathrm{line}} & -\frac{3j}{X_\mathrm{line}}-\frac{1j}{X_\mathrm{ibb}}\end{bmatrix}$ 
         & \multicolumn{2}{c}{$\begin{bmatrix} -\frac{1j}{X_\mathrm{gen}}-\frac{2j}{X_\mathrm{line}} & \frac{2j}{X_\mathrm{line}} \\ \frac{2j}{X_\mathrm{line}} & -\frac{2j}{X_\mathrm{line}}-\frac{1j}{X_\mathrm{ibb}}\end{bmatrix}$} \\ \hline \hline
 
         $t_\mathrm{start}$      & \multicolumn{3}{c}{-1 s} \\ \hline
@@ -102,41 +102,29 @@ For the modules {\itshape parameter\_comparison.py} and {\itshape comparison\_al
 
 \input{python/plots/comparison_alg-vs-nonalg_power.pgf}
 
-% \chapter{Code}
-% \label{app:code}
+% \chapter{Derivations}
+% \label{app:derivation-analytical}
 
-% \section{Fault scenario parameters}
-% \label{app:fault-scenarios}
+% Analytical solution of the \acs{CCT} from \autoref{sec:analytical-method}.
 
-% \lstinputlisting[caption={Module containing all relevant functions of the SMIB model in Python},captionpos=b,style=style-python,label=lst:model-func]{python/smib_model.py}
+% \begin{align}
+%     \int_{\delta_\mathrm{0}}^{\delta_\mathrm{1}}\Delta P~d\delta = 0 \label{eq:gen-eac},
+% \end{align}
+% while the more expressive can be achieved through splitting up the integral borders and equalizing both areas:
+% \begin{align}
+%     % A_\mathrm{acc}=A_\mathrm{dec} \nonumber \\
+%     \int_{\delta_\mathrm{0}}^{\delta_\mathrm{c}}(P_\mathrm{m}-P_\mathrm{e})~d\delta = \int_{\delta_\mathrm{c}}^{\delta_\mathrm{max}}(P_\mathrm{e}-P_\mathrm{m})~d\delta \label{eq:big-eac}
+% \end{align}
+% With consideration of $\delta_\mathrm{max}=\pi-\delta_\mathrm{0}$, $P_\mathrm{e,normal}=P_\mathrm{max} \cdot sin(\delta_\mathrm{0})$, $P_\mathrm{e,fault}=0$, and some rearrangements, this leads to the final expression of the critical clearing angle:
+% \begin{align}
+%     \delta_\mathrm{cc}=arccos\big[~sin(\delta_\mathrm{0}) \cdot (\pi-2 \cdot \delta_\mathrm{0})-cos(\delta_\mathrm{0})~\big] \label{eq:delta-cc}
+% \end{align}
 
-% \section{Model of GK}
-
-% \lstinputlisting[caption={GK's SMIB model with Heun's integration method},captionpos=b,style=style-python,label=lst:model-func-heun]{python/simulation_example_gk/simulation_even_better.py}
-
-% \section{Main model}
-
-% \lstinputlisting[caption={Main \acs{SMIB} model code\\}, captionpos=t, style=style-python]{python/smib_model.py}
-
-% \section{Fault models}
-
-% \subsection*{Fault 1}
-% \lstinputlisting{python/fault_1.py}
-
-% \subsection*{Fault 2}
-% \lstinputlisting{python/fault_2.py}
-
-% \subsection*{Fault 3}
-% \lstinputlisting{python/fault_3.py}
-
-% \section{Additional comparison}
-
-% \subsection*{Generator parameter}
-% \lstinputlisting{python/parameter_comparison.py}
-
-% \subsection*{Algebraic vs. non-algebraic}
-% \lstinputlisting{python/comparison_alg-vs-nonalg.py}
-
-% \chapter{Additional}
-% \label{app:additional}
-
+% The second step is the calculation of the \acs{CCT} dependent on the critical clearing angle. Splitting the differentiated variables $d^2\delta$ and $dt$ in the combined swing equation and integrating twice, leads to the equation
+% \begin{align}
+%     \delta=\frac{\omega \cdot \Delta P}{4 H_\mathrm{gen}} \cdot t^2 + \delta_\mathrm{0}. \nonumber
+% \end{align}
+% Rearranging this gives an expression for calculating the critical clearing time $t_\mathrm{cc}$ (see \autoref{eq:tcc}; similar to \textcite{oedingElektrischeKraftwerkeUnd2016}) for a full line fault (meaning $P_\mathrm{e,fault}=0$) at the bus bar. The derivation of this formula is added in \autoref{app:derivation-analytical}.\mycomment[MK]{Vollständigen Rechenweg in den Anhang mit aufnehmen?}
+% \begin{align}
+%     t_\mathrm{cc}=\sqrt{\frac{4 H_\mathrm{gen} \cdot (\delta_\mathrm{cc}-\delta_\mathrm{0})}{\omega \cdot \Delta P}} \label{eq:tcc}
+% \end{align}
